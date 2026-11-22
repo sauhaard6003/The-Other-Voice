@@ -168,6 +168,173 @@ h3{font-family:"Special Elite","Courier New",monospace;font-weight:400;color:var
 @keyframes ghostb{0%{opacity:0;text-shadow:0 0 24px #7cc8ff}40%{opacity:1;text-shadow:0 0 14px #7cc8ffcc}100%{text-shadow:none}}
 @keyframes ghosto{0%{opacity:0;text-shadow:0 0 24px #ff7a45}40%{opacity:1;text-shadow:0 0 14px #ff7a45cc}100%{text-shadow:none}}
 .paras p.last{font-size:clamp(22px,2vw,34px);animation:in 2.2s ease both}
+.js{position:fixed;inset:0;z-index:60;background:#000;display:none;overflow:hidden}
+.js.on{display:block}
+.js .face{position:absolute;left:50%;top:50%;width:min(96vw,118vh);transform:translate(-50%,-50%) scale(.15)}
+.js .face svg{width:100%;height:auto;display:block}
+.js.on .face{animation:lunge .26s cubic-bezier(.12,1.5,.35,1) forwards,jit .05s steps(2) .26s 20}
+@keyframes lunge{0%{transform:translate(-50%,-50%) scale(.12);opacity:.2}100%{transform:translate(-50%,-57%) scale(1.04);opacity:1}}
+.js .face{filter:contrast(1.45) saturate(.5) brightness(.82)}
+.js .shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(#000e 0%,#0006 26%,transparent 42%,transparent 66%,#0007 86%,#000e 100%),radial-gradient(ellipse at 50% 55%,transparent 30%,#000 78%)}
+.js .grain{position:absolute;inset:-50%;z-index:2;pointer-events:none;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .18s steps(3) infinite}
+@keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-4%,3%)}66%{transform:translate(3%,-5%)}100%{transform:translate(-2%,2%)}}
+@keyframes jit{0%{transform:translate(-51.5%,-56%) scale(1.07)}50%{transform:translate(-48.5%,-58.5%) scale(1.02)}100%{transform:translate(-50%,-57%) scale(1.05)}}
+.js.on .face svg{animation:glitch .09s steps(2) 8}
+@keyframes glitch{0%{filter:drop-shadow(10px 0 #ff1f3d) drop-shadow(-10px 0 #1fe3ff)}100%{filter:drop-shadow(-6px 2px #ff1f3d) drop-shadow(6px -2px #1fe3ff)}}
+.js.on .jmouth{transform-box:fill-box;transform-origin:50% 0;animation:gape .5s ease-out .15s both}
+@keyframes gape{from{transform:scaleY(.35)}to{transform:scaleY(1.08)}}
+.js.on .jpu{transform-box:fill-box;transform-origin:center;animation:dart .35s steps(1) .3s 3}
+@keyframes dart{50%{transform:scale(1.6)}}
+.js .flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:2;pointer-events:none}
+.js.on .flash{animation:fl .45s ease-out}
+@keyframes fl{0%{opacity:.95}100%{opacity:0}}
+.js .red{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 50% 45%,transparent 35%,#7a0010 100%);opacity:0}
+.js.on .red{animation:redp .25s ease-in-out 6 alternate}
+@keyframes redp{to{opacity:.95}}
+.js .jline{position:absolute;left:0;right:0;bottom:6vh;z-index:3;text-align:center;font-family:"Special Elite","Courier New",monospace;font-size:clamp(38px,7vw,110px);line-height:1;letter-spacing:.02em;text-shadow:4px 0 #ff1f3d,-4px 0 #1fe3ff,0 0 30px currentColor;opacity:0}
+.js.on .jline{animation:jl 1.7s steps(12) .12s forwards}
+@keyframes jl{0%{opacity:0;transform:translateY(10px) scale(1.3)}10%{opacity:1;transform:none}60%{opacity:1;transform:translateX(3px)}100%{opacity:1}}
+.js.out{animation:jsout .6s ease-in forwards}
+@keyframes jsout{to{opacity:0}}
+body.shake .stage,body.shake .top{animation:shk .45s linear 2}
+@keyframes shk{10%{transform:translate(-10px,6px)}20%{transform:translate(9px,-8px)}30%{transform:translate(-7px,-5px)}40%{transform:translate(8px,7px)}50%{transform:translate(-6px,4px)}60%{transform:translate(5px,-6px)}80%{transform:translate(-3px,2px)}100%{transform:none}}
+/* ---- action animations ---- */
+.act *{transform-box:fill-box}
+.act [transform]{transform-box:view-box}
+.act .spr{transform-origin:50% 100%;animation-duration:1.3s;animation-fill-mode:both}
+svg.hide-slappy>.dm.slappy,svg.hide-wood>.dm.wood{opacity:0}
+.spr.rise{animation-name:rise;animation-duration:.9s;animation-timing-function:cubic-bezier(.2,1.3,.4,1)}
+@keyframes rise{0%{transform:translateY(240px) rotate(-20deg)}100%{transform:none}}
+.spr.tossdown{animation-name:tossdown;animation-delay:.2s;animation-timing-function:ease-in}
+@keyframes tossdown{0%{transform:none}25%{transform:translateY(-60px) rotate(-12deg)}100%{transform:translate(110px,90px) rotate(300deg) scale(.35);opacity:0}}
+.dumpst .lid{transform-origin:100% 100%;transform:rotate(-38deg);animation:lid .18s ease-in both}
+@keyframes lid{to{transform:none}}
+.spr.passR{animation-name:passR}
+@keyframes passR{0%{transform:translate(-115px,30px) rotate(-8deg)}50%{transform:translate(0,-70px) rotate(8deg)}100%{transform:translate(110px,30px) scale(.9)}}
+.spr.yankL{animation-name:yankL}
+@keyframes yankL{0%{transform:none}15%{transform:translateX(30px)}40%{transform:translate(-120px,25px) rotate(-14deg)}55%{transform:translate(-108px,25px) rotate(8deg)}72%{transform:translate(-118px,25px) rotate(-5deg)}100%{transform:translate(-114px,25px) rotate(-3deg)}}
+.spr.tangle{animation-name:tangle,var(--x);animation-duration:.12s,.6s;animation-iteration-count:6,1;animation-delay:0s,.8s;animation-fill-mode:none,forwards}
+.spr.apartL{--x:apartL}.spr.apartR{--x:apartR}
+.spr.apartL{animation-name:tangle,apartL}.spr.apartR{animation-name:tangle,apartR}
+@keyframes tangle{50%{transform:translate(3px,-2px) rotate(3deg)}}
+@keyframes apartL{to{transform:translate(-95px,8px) rotate(-16deg)}}
+@keyframes apartR{to{transform:translate(95px,8px) rotate(16deg)}}
+.spr.flatten{animation-name:flatten;animation-duration:.15s;animation-delay:.9s;transform-origin:50% 100%}
+@keyframes flatten{to{transform:scale(1.5,.07)}}
+.spr.drop{animation-name:drop;animation-delay:.7s;animation-duration:.6s;animation-timing-function:ease-in}
+@keyframes drop{0%{transform:translateY(-70px)}100%{transform:translateY(0) rotate(80deg)}}
+.spr.limp{animation-name:limpS;animation-duration:.6s;animation-timing-function:ease-out}
+@keyframes limpS{0%{transform:none}30%{transform:rotate(-6deg)}100%{transform:rotate(12deg) translateY(6px)}}
+.spr.still{animation:none}
+.roller{animation:roll 2s linear both}
+@keyframes roll{from{transform:translateX(420px)}to{transform:translateX(-480px)}}
+.bub{transform-origin:50% 100%;animation:bpop .35s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes bpop{0%{opacity:0;transform:scale(.3)}100%{opacity:1;transform:none}}
+.gl{filter:blur(16px);opacity:0;animation:glIn .5s var(--d,0s) ease-out both}
+@keyframes glIn{to{opacity:.6}}
+.gl.brighten{animation:glIn .4s var(--d,0s) both,glUp .6s calc(var(--d,0s) + .6s) both}
+@keyframes glUp{to{opacity:.95;transform:scale(1.25)}}
+.gl.fade{animation:glIn .3s var(--d,0s) both,glOut .6s calc(var(--d,0s) + .3s) forwards}
+@keyframes glOut{to{opacity:.08}}
+.gl.dim{animation:glDim .5s var(--d,0s) both}
+@keyframes glDim{to{opacity:.3}}
+.gl.shrink{animation:glIn .3s both,glShr .4s calc(var(--d,0s) + .1s) forwards}
+@keyframes glShr{to{opacity:.35;transform:scale(.7) translateX(20px)}}
+.gl.toC-l{animation:glIn .3s both,toCl 1s calc(var(--d,0s) + .1s) ease-in-out forwards}.gl.toC-r{animation:glIn .3s both,toCr 1s calc(var(--d,0s) + .1s) ease-in-out forwards}
+@keyframes toCl{to{opacity:.75;transform:translateX(120px)}}@keyframes toCr{to{opacity:.75;transform:translateX(-120px)}}
+.gl.merge{animation:glMerge 1s var(--d,0s) both}
+@keyframes glMerge{0%{opacity:0;transform:scale(.4)}50%{opacity:.9}100%{opacity:.5;transform:scale(1.2)}}
+.gl.lift{animation:glIn .3s both,lift 1.2s var(--d,0s) ease-in-out both}
+@keyframes lift{0%{opacity:.6}50%{transform:translateY(-26px)}75%{transform:translateY(-12px)}100%{opacity:.6;transform:translateY(-22px)}}
+.dk{opacity:0;animation:dk .6s both}
+@keyframes dk{to{opacity:var(--o)}}
+.fl{opacity:0;animation:fl2 .4s both}
+@keyframes fl2{0%{opacity:.85}100%{opacity:0}}
+.peek{transform-origin:50% 50%;animation:peek .35s both}
+@keyframes peek{0%{transform:scaleY(0)}100%{transform:none}}
+.hand.lunge{animation:lunge2 .28s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes lunge2{0%{transform:translateX(260px)}70%{transform:translateX(-100px)}100%{transform:translateX(-80px) scaleX(.92)}}
+.bolt{stroke-dasharray:400;stroke-dashoffset:400;animation:draw .35s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.door{transform-origin:100% 50%;animation:door .35s .8s cubic-bezier(.6,0,.9,.4) both}
+.tvin{transform-box:view-box;transform:translate(70px,40px) scale(.65)}
+@keyframes door{from{transform:scaleX(.02)}to{transform:none}}
+.str{opacity:0;filter:drop-shadow(0 0 4px #9fe8ff);animation:glIn2 .6s both}
+@keyframes glIn2{to{opacity:.9}}
+.mag.sweep{animation:sweep 1.6s ease-in-out both}
+@keyframes sweep{0%{transform:translate(-190px,40px)}45%{transform:translate(-10px,-10px)}60%{transform:translate(-10px,-10px)}100%{transform:translate(70px,-50px)}}
+.mag.toSl{animation:toSl 1s ease-out both}
+@keyframes toSl{from{transform:translate(-200px,120px)}to{transform:translate(0,-32px)}}
+.cold{opacity:0;mix-blend-mode:multiply;animation:cold .6s both}
+@keyframes cold{to{opacity:.45}}
+.print{opacity:0;transform-origin:center;animation:print 1.6s both}
+@keyframes print{0%{opacity:0;transform:scale(1.6)}10%{opacity:.85;transform:none}100%{opacity:.35}}
+.q{opacity:0;animation:glIn2 .4s var(--d,0s) both,qbob .6s calc(var(--d,0s) + .3s) ease-in-out infinite alternate}
+@keyframes qbob{to{transform:translateY(-6px)}}
+.paper.unfold{transform-origin:50% 100%;animation:unfold .45s both}
+@keyframes unfold{from{transform:scaleY(.05)}to{transform:none}}
+.paper .ink{filter:drop-shadow(0 0 3px currentColor)}
+.paper.unfold .ink{animation:inkglow .5s .4s ease-in-out 4 alternate}
+@keyframes inkglow{to{opacity:.3}}
+.beam{opacity:0;filter:blur(3px);animation:beam .8s both}
+@keyframes beam{0%{opacity:0}40%{opacity:.75}100%{opacity:0}}
+.paper.burnup{transform-origin:50% 100%;animation:burnup 1.2s .9s ease-in both}
+@keyframes burnup{0%{transform:none;filter:none}100%{transform:scaleY(0);filter:brightness(.2)}}
+.flames{transform-origin:50% 100%;opacity:0;animation:flame .14s steps(2) infinite alternate,flin .3s var(--d,0s) both,flout .5s calc(var(--d,0s) + 1.3s) forwards}
+@keyframes flame{to{transform:scale(1.08,.86)}}@keyframes flin{to{opacity:1}}@keyframes flout{to{opacity:0}}
+.ash{opacity:0;animation:ash 1.1s ease-out both}
+@keyframes ash{0%{opacity:.9}100%{opacity:0;transform:translateY(-140px)}}
+.paper.foldaway{transform-origin:50% 50%;animation:foldaway 1.1s .3s ease-in both}
+@keyframes foldaway{0%{transform:none}40%{transform:scaleY(.12)}70%{transform:scale(.25,.12)}100%{transform:translateY(80px) scale(.15,.1);opacity:0}}
+.cone{opacity:0;filter:blur(4px);animation:cone .5s both}
+@keyframes cone{0%{opacity:0}30%{opacity:.4}40%{opacity:.1}100%{opacity:.36}}
+.door2{transform-origin:0 50%;animation:door2 .4s ease-out both;opacity:.9}
+@keyframes door2{from{transform:scaleX(0)}to{transform:none}}
+.lamp{opacity:0;mix-blend-mode:soft-light;animation:lamp .8s both}
+@keyframes lamp{0%{opacity:0}15%{opacity:.6}22%{opacity:0}35%{opacity:.7}100%{opacity:.55}}
+.dirt{opacity:0;animation:dirt .5s ease-in both}
+@keyframes dirt{0%{opacity:1;transform:translateY(-320px)}100%{opacity:1;transform:translateY(110px)}}
+.mound{animation:mound 1.5s ease-out both}
+@keyframes mound{from{transform:translateY(130px)}to{transform:none}}
+.pokehand{opacity:0;animation:poke .5s var(--d,0s) ease-out both,twitch .12s calc(var(--d,0s) + .5s) 5 alternate}
+@keyframes poke{from{opacity:1;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes twitch{to{transform:translateX(3px) rotate(4deg)}}
+.dog{animation:dog 1.4s ease-in-out both}
+@keyframes dog{0%{transform:translateX(420px)}45%{transform:translateX(220px)}70%{transform:translate(120px,-70px)}100%{transform:translate(20px,0)}}
+.strs path{stroke-dasharray:460;stroke-dashoffset:460;animation:draw .7s ease-in forwards}
+.tv{animation:bpop .3s both}
+.stat{animation:stat .08s steps(2) 12}
+@keyframes stat{50%{fill:#3b424c}}
+.tvd{opacity:0;animation:glIn2 .2s both}
+.fly{animation:fly .7s ease-in both}
+.fly.fl1{--tx:110px}.fly.fl2{--tx:-110px}
+@keyframes fly{0%{opacity:0}20%{opacity:1}100%{opacity:0;transform:translate(var(--tx),-60px) scale(.4)}}
+.case{animation:case .5s var(--d,0s) cubic-bezier(.2,1.3,.4,1) both,bump .12s calc(var(--d,0s) + 1.4s) 2 alternate,bump2 .12s calc(var(--d,0s) + 1.8s) 2 alternate}
+@keyframes bump2{to{transform:translateY(-6px) rotate(-2deg)}}
+@keyframes case{from{transform:translateY(260px)}to{transform:none}}
+@keyframes bump{to{transform:translateY(-7px) rotate(2deg)}}
+.zipl{stroke-dasharray:100;stroke-dashoffset:100;animation:draw .5s forwards}
+svg>.dm.glint .pu{fill:#d6f3ff;filter:drop-shadow(0 0 3px #7cc8ff) drop-shadow(0 0 7px #7cc8ff)}
+svg>.dm.wood.glint .pu{fill:#b8ffcb;filter:drop-shadow(0 0 3px #59ff8a) drop-shadow(0 0 7px #59ff8a)}
+svg>.dm.turn .head{transform-box:fill-box;transform-origin:50% 90%;animation:turnh 1.4s ease-in-out forwards}
+@keyframes turnh{to{transform:rotate(-14deg) translateX(-3px)}}
+svg>.dm.wake{transform-box:fill-box;transform-origin:50% 100%;animation:wake .5s ease-out}
+svg>.dm.wake .pu{fill:#fff;filter:drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px #ff9a3c)}
+svg>.dm.slappy.wake .pu{filter:drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px #4fb8ff)}
+@keyframes wake{0%{transform:none}20%{transform:translateY(-14px) scale(1.04)}40%{transform:rotate(-4deg)}60%{transform:rotate(3deg)}100%{transform:none}}
+svg>.dm.limp .head{transform-box:fill-box;transform-origin:50% 100%;animation:limph .7s ease-in forwards}
+svg>.dm.limp .eyes,.spr.limp .eyes{opacity:.08;transition:opacity .3s}
+@keyframes limph{to{transform:rotate(28deg) translate(6px,10px)}}
+/* ---- finale scare (bad endings) ---- */
+.js.creep{display:block}
+.js.creep .face{animation:creep 1.7s ease-in forwards;filter:contrast(1.45) saturate(.4) brightness(.5)}
+@keyframes creep{0%{transform:translate(-50%,-50%) scale(.05);opacity:0}100%{transform:translate(-50%,-52%) scale(.34);opacity:.8}}
+.js.creep .grain{opacity:.12}
+.js.on.big .face{animation:lungeB .22s cubic-bezier(.12,1.6,.35,1) forwards,jit .05s steps(2) .22s 46}
+@keyframes lungeB{0%{transform:translate(-50%,-52%) scale(.34)}100%{transform:translate(-50%,-57%) scale(1.3)}}
+.js.on.big .red{animation:redp .2s ease-in-out 14 alternate}
+.js.on.big .jline{font-size:clamp(46px,9vw,140px)}
+.js.big.out{animation:jsout 1s ease-in forwards}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -196,6 +363,7 @@ h3{font-family:"Special Elite","Courier New",monospace;font-weight:400;color:var
     <p>A horror story you play together, based on R.L. Stine’s <i>Night of the Living Dummy</i>.</p>
     <div class="setrow">Talking time before each vote:
       <span class="seg" id="segTime"><button data-t="90">1:30</button><button data-t="120">2:00</button><button data-t="150">2:30</button><button data-t="180">3:00</button></span>
+      <span style="margin-left:14px">Jump scares:</span><span class="seg" id="segScare"><button data-s="1">On</button><button data-s="0">Off</button></span>
     </div>
     <div><button class="btn" id="bBegin">Start</button><button class="btn ghost" id="bResume" hidden>Continue</button></div>
     <details class="keys"><summary>Keys</summary>
@@ -214,6 +382,7 @@ h3{font-family:"Special Elite","Courier New",monospace;font-weight:400;color:var
 <div class="ov" id="ovMap"><button class="ic close" data-close>Close</button><div id="mapBody"></div></div>
 <div class="confirm" id="confirm"><div><p id="confirmText">Start over? This run will be lost.</p><button class="btn" id="cYes">Start over</button><button class="btn ghost" id="cNo">Cancel</button></div></div>
 <div class="dev" id="dev"></div>
+<div class="js" id="js"><div class="flash"></div><div class="face"></div><div class="shade"></div><div class="grain"></div><div class="red"></div><div class="jline"></div></div>
 <div class="card" id="card"><small id="cardSmall"></small><div id="cardTitle"></div></div>
 
 <script>
@@ -337,7 +506,7 @@ const NODES = {
     text: s => [
       'You let go. Your hands drop into your lap. Kris picks him up by the waist, all awkward and pleased with herself.',
       'Then Slappy’s head tips back. His mouth falls open, and a voice comes out that nobody in that room has ever heard before. It isn’t yours. It isn’t anybody’s.',
-      sl('Get lost, copycat.'),
+      sl('Get lost, copycat.') + '<i class="jsmark" data-k="slappy"></i>',
       'His wooden hand swings up and cracks across Kris’s face.',
       'Kris screams. Everybody turns and looks at you.',
       'Your hands are still in your lap. You know they are. You were looking right at them.'
@@ -438,7 +607,7 @@ const NODES = {
     text: s => [
       'You don’t move. You hardly breathe. Kris takes a step toward her bed.',
       'Behind her, in the chair, a wooden arm comes up. Slowly. Carefully. Like it doesn’t want to wake anybody.',
-      'It closes around her wrist.',
+      'It closes around her wrist.<i class="jsmark" data-k="slappy"></i>',
       'Kris shrieks and whips around and looks straight at you. You’re in bed, both hands under the covers.',
       `${k('Very funny, Lindy.')} ${l('I didn’t...')} ${k('Yeah, yeah. Gotcha. Ha ha.')} She pulls the covers over her head.`,
       'In the chair, Slappy sits perfectly straight. His arm’s on the armrest, right where it was.'
@@ -736,10 +905,10 @@ const NODES = {
     },
     ask: s => s.allied ? 'The twins found strange words in Mr. Wood’s pocket.' : 'Kris is alone with the strange words.',
     choices: [
-      { key: 'wood', label: s => s.allied ? 'Read it to Mr. Wood.' : 'Read it out loud.', sub: s => s.allied ? 'If he’s alive, prove it.' : 'They’re just words. Mr. Wood’s right there on your lap.', fx: {}, set: s => { s.words = 'wood'; s.reader = s.allied ? 'both' : 'kris'; }, go: 'c9_wood' },
+      { key: 'wood', label: s => s.allied ? 'Read it to Mr. Wood.' : 'Read it out loud.', sub: s => s.allied ? 'If he’s alive, prove it.' : 'They’re just words. Mr. Wood’s right there on your lap.', fx: {}, scare: true, scareFace: 'wood', set: s => { s.words = 'wood'; s.reader = s.allied ? 'both' : 'kris'; }, go: 'c9_wood' },
       { key: 'slappy', label: 'Read it to Slappy.', sub: s => s.allied ? 'If it’s him, call his bluff.' : 'He’s the one who’s always watching.', fx: { voice: 1 }, set: s => { s.words = 'slappy'; s.reader = s.allied ? 'both' : 'kris'; }, go: 'c9_slappy' },
       { key: 'burn', label: 'Burn it.', sub: 'Some things you don’t test.', when: s => s.allied, fx: { bond: 1 }, set: s => { s.words = 'none'; }, go: 'c9_burn' },
-      { key: 'back', label: 'Fold it up and put it back.', sub: 'Pretend you never saw it.', when: s => !s.allied, fx: {}, set: s => { s.words = 'wood'; s.reader = 'lindy'; }, go: 'c9_back' }
+      { key: 'back', label: 'Fold it up and put it back.', sub: 'Pretend you never saw it.', when: s => !s.allied, fx: {}, scare: true, set: s => { s.words = 'wood'; s.reader = 'lindy'; }, go: 'c9_back' }
     ]
   },
 
@@ -748,7 +917,7 @@ const NODES = {
     text: s => [
       s.allied ? 'You say the words together, slowly, every strange sound of them, right into Mr. Wood’s grinning face.' : 'You say the words out loud, slowly, every strange sound of them, with Mr. Wood on your lap.',
       'Nothing happens. Obviously nothing happens. You laugh. A little too loud.',
-      `Then Mr. Wood blinks. Once. Slowly. Like somebody waking up from a really long sleep and not liking what he sees.${s.allied ? ' Lindy grabs your arm so hard it leaves a bruise.' : ''}`,
+      `<i class="jsmark" data-k="wood"></i>Then Mr. Wood blinks. Once. Slowly. Like somebody waking up from a really long sleep and not liking what he sees.${s.allied ? ' Lindy grabs your arm so hard it leaves a bruise.' : ''}`,
       'Across the room, the chair by the window creaks. Nobody’s sitting anywhere near it.'
     ],
     next: 'c10'
@@ -916,14 +1085,14 @@ const NODES = {
       s.together ? `Concert or no concert, Dad doesn’t trust those dummies. He locks Mr. Wood in the closet himself. ${da('Monday he goes back to the pawnshop.')}` : `Dad locks Mr. Wood in the closet himself. ${da('Monday he goes back to the pawnshop. Do NOT take him out.')}`,
       'At one-twenty in the morning, you hear the closet door open.',
       'A small shadow crosses the moonlight. Sneakers whisper over the carpet. It gets to the bedroom door and slips out into the dark hall.',
-      'You go after it. On the landing you grab its shoulder and spin it around, and it’s Mr. Wood, and he’s grinning, and he blinks.',
+      'You go after it. On the landing you grab its shoulder and spin it around, and it’s Mr. Wood, and he’s grinning, and he blinks.<i class="jsmark" data-k="wood"></i>',
       wd('Let go. Or I’ll throw you down the stairs.'),
       `You don’t let go. You both tumble down three steps. The hall light snaps on, and Lindy is at the top of the stairs screaming. He’s strong. Way stronger than wood should be. ${wd(s.reader === 'lindy' ? 'Your sister read the words. She woke me up. So you belong to me now. Both of you. This is MY house.' : 'You read the words. You woke me up. So you belong to me now. Both of you. This is MY house.')}`,
       'Down the hall, your parents’ door is still shut. And back in your room, in the chair by the window, Slappy sits all by himself. If you’d looked, you might have noticed he was smiling wider than usual.'
     ],
     ask: s => 'Mr. Wood is alive. And he is furious.',
     choices: [
-      { key: 'wake', label: 'Wake Mom and Dad.', sub: 'Make them see it this time.', fx: {}, go: s => s.trust >= -1 ? 'E5' : 'c12W_fail' },
+      { key: 'wake', label: 'Wake Mom and Dad.', sub: 'Make them see it this time.', fx: {}, scare: s => s.trust < -1, go: s => s.trust >= -1 ? 'E5' : 'c12W_fail' },
       { key: 'bury', label: 'Bury him. Tonight.', sub: 'Under the dirt pile next door. Deep.', fx: {}, go: 'c12W_bury' },
       { key: 'check', label: 'Check on Slappy first.', sub: 'Something about that chair.', when: s => s.clues >= 3, fx: { clues: 2 }, go: 'c12W_check' }
     ]
@@ -1019,7 +1188,7 @@ const NODES = {
     choices: [
       { key: 'deal', label: 'Take the deal.', sub: 'Lindy gets famous. Kris gets something. What’s the harm?', fx: { voice: 2 }, go: 'E2' },
       { key: 'refuse', label: 'Say no.', sub: '“Get back in your chair.”', fx: { bond: 1 }, go: 'c13S' },
-      { key: 'wake', label: 'Wake Mom and Dad.', sub: 'Scream the house down.', fx: {}, go: s => s.trust >= -1 ? 'E5' : 'c12S_fail' }
+      { key: 'wake', label: 'Wake Mom and Dad.', sub: 'Scream the house down.', fx: {}, scare: s => s.trust < -1, go: s => s.trust >= -1 ? 'E5' : 'c12S_fail' }
     ]
   },
 
@@ -1047,8 +1216,8 @@ const NODES = {
     ask: s => 'Slappy wants his show.',
     choices: [
       { key: 'show', label: 'Let Lindy do the show. With him.', sub: 'Maybe it’ll be fine. Maybe.', fx: { voice: 1 }, go: 'E2' },
-      { key: 'roller', label: 'The steamroller.', sub: 'Grab him. Run next door.', fx: {}, go: 'E10' },
-      { key: 'trick', label: 'Beat him at his own trick.', sub: 'Throw your voice into HIM.', when: s => s.clues >= 3, fx: {}, go: s => s.bond >= 1 ? 'E6' : 'E2', set: s => { s.trickTried = true; } }
+      { key: 'roller', label: 'The steamroller.', sub: 'Grab him. Run next door.', fx: {}, scare: true, go: 'E10' },
+      { key: 'trick', label: 'Beat him at his own trick.', sub: 'Throw your voice into HIM.', when: s => s.clues >= 3, fx: {}, scare: s => s.bond < 1, go: s => s.bond >= 1 ? 'E6' : 'E2', set: s => { s.trickTried = true; } }
     ]
   },
 
@@ -1059,15 +1228,15 @@ const NODES = {
       `Since the paper burned, the house has been quieter. No walking. ${s.disaster ? 'Well, except the concert. But that was... You don’t finish the thought.' : 'No green gunk.'} Just one thing. At night.`,
       'At one in the morning, you hear voices in the bedroom. Two voices, arguing in whispers.',
       'One of them is yours. The other one is Lindy’s. And you’re both lying in bed with your mouths shut.',
-      'The voices are coming from the chair by the window.',
+      'The voices are coming from the chair by the window.<i class="jsmark" data-k="eyes"></i>',
       `${sl('Copycat,')} says your sister’s voice from the chair. ${sl('You ruin everything. You always have,')} says yours. Old fights. Real ones. Word for word. He’s been listening for weeks. He’s been practising.`,
       'Across the gap between the beds, Lindy’s hand finds yours. In the dark, Slappy is rehearsing the two of you, the way you two used to rehearse with him.'
     ],
     ask: s => 'Slappy is talking in their voices.',
     choices: [
-      { key: 'talk', label: 'Talk to Lindy. For real.', sub: 'Say the stuff you’ve never said.', fx: { bond: 1 }, go: s => s.bond >= 3 ? 'E3' : 'c12N_fail' },
+      { key: 'talk', label: 'Talk to Lindy. For real.', sub: 'Say the stuff you’ve never said.', fx: { bond: 1 }, scare: s => s.bond < 3, go: s => s.bond >= 3 ? 'E3' : 'c12N_fail' },
       { key: 'case', label: 'Shut him in the suitcase.', sub: 'Zip it up. Sit on it.', fx: { clues: 1 }, go: 'c13N' },
-      { key: 'wake', label: 'Wake Mom and Dad.', sub: 'Let them hear it too.', fx: {}, go: s => s.trust >= -1 ? 'E5' : 'c13N' }
+      { key: 'wake', label: 'Wake Mom and Dad.', sub: 'Let them hear it too.', fx: {}, scare: s => s.trust < -1, go: s => s.trust >= -1 ? 'E5' : 'c13N' }
     ]
   },
 
@@ -1092,9 +1261,9 @@ const NODES = {
     ask: s => 'What do the twins do about Slappy?',
     choices: [
       { key: 'act', label: 'Do the show together. No dummy.', sub: 'Leave him home. Let him watch on TV.', when: s => s.bond >= 2, fx: { bond: 1 }, set: s => { s.actShow = true; }, go: 'E3' },
-      { key: 'trick', label: 'Make HIM the joke.', sub: 'Beat him at his own trick.', when: s => s.clues >= 3, fx: {}, go: s => s.bond >= 1 ? 'E6' : 'E4' },
-      { key: 'dump', label: 'Throw him back in the dumpster.', sub: 'Back where he came from.', fx: {}, go: s => s.bond >= 1 ? 'E9' : 'E4' },
-      { key: 'tell', label: 'Tell Mom and Dad everything.', sub: 'From the very first day. Make them listen.', when: s => s.bond < 2 || s.clues < 3, fx: {}, go: s => s.trust >= 0 ? 'E5' : 'E4' }
+      { key: 'trick', label: 'Make HIM the joke.', sub: 'Beat him at his own trick.', when: s => s.clues >= 3, fx: {}, scare: s => s.bond < 1, go: s => s.bond >= 1 ? 'E6' : 'E4' },
+      { key: 'dump', label: 'Throw him back in the dumpster.', sub: 'Back where he came from.', fx: {}, scare: s => s.bond < 1, go: s => s.bond >= 1 ? 'E9' : 'E4' },
+      { key: 'tell', label: 'Tell Mom and Dad everything.', sub: 'From the very first day. Make them listen.', when: s => s.bond < 2 || s.clues < 3, fx: {}, scare: s => s.trust < 0, go: s => s.trust >= 0 ? 'E5' : 'E4' }
     ]
   },
 
@@ -1108,7 +1277,7 @@ const NODES = {
       sl('Thanks, girls. I could never have gotten rid of him on my own.'),
       'You try to pull away. You can’t. His grip just gets tighter, and tighter, until you can feel the little wooden joints of his fingers.',
       sl('From now on, I do the talking.'),
-      'His jaw clacks open. Clacks shut. And your jaw opens and shuts with it, clack, clack, clack, and you can’t make it stop.'
+      'His jaw clacks open. Clacks shut. And your jaw opens and shuts with it, clack, clack, clack, and you can’t make it stop.<i class="jsmark" data-k="slappy"></i>'
     ]
   },
 
@@ -1138,7 +1307,7 @@ const NODES = {
       'Weeks go by. Barky starts growling at the attic door, but Barky growls at everything.',
       'Then one night, really late, you wake up and hear it. Coming through the ceiling. Two girls’ voices, very soft, very patient. Saying your old fights back to each other, word for word.',
       sl('Copycat.') + ' ' + sl('You ruin everything.'),
-      'He’s practising again. And this time, he’s got all the time in the world.'
+      'He’s practising again. And this time, he’s got all the time in the world.<i class="jsmark" data-k="doll"></i>'
     ]
   },
 
@@ -1177,7 +1346,7 @@ const NODES = {
       'The audience howls. Slappy tries to talk, and Lindy talks right over him in his own voice, all sweet and squeaky. Then you do. You make him sing a lullaby. You make him cry for his mommy. You make him say his dream is to grow up and be a kitchen spoon.',
       'Every laugh lands on him like a hammer. You can feel him getting heavier. Stiffer. More wooden. By the commercial break he’s just a dummy. A silly, harmless joke the whole city just watched.',
       'In the car home, you and Lindy laugh so hard you can’t breathe.',
-      'From the trunk, somebody laughs along with you. A second too late. And in your voice.'
+      'From the trunk, somebody laughs along with you. A second too late. And in your voice.<i class="jsmark" data-k="slappy"></i>'
     ]
   },
 
@@ -1190,7 +1359,7 @@ const NODES = {
       'Lindy goes the long way round and shuts the window. You pick Slappy up by the collar, out at arm’s length, and when Mom and Dad get home you tell them. Everything, from the very beginning. Both of you, finishing each other’s sentences. And this time Dad listens. He drives Slappy to the dump himself, that same afternoon.',
       'That night, for the first time, the chair by the window is empty.',
       'You lie there staring at it. You can’t help it.',
-      'At three in the morning, it creaks. Slowly. The way a chair creaks when somebody small sits down in it.'
+      'At three in the morning, it creaks. Slowly. The way a chair creaks when somebody small sits down in it.<i class="jsmark" data-k="eyes"></i>'
     ]
   },
 
@@ -1237,7 +1406,7 @@ const NODES = {
       `The driver climbs down, looking sick. He picks up what’s left: a flat grey suit, two flat brown shoes. And the head. The head is perfect. Not one scratch. Still smiling. ${o('You want this back?')} ${k('NO.')}`,
       'He tosses it in the dumpster.',
       `That evening the doorbell rings. It’s Ben Marshall from down the block, out of breath, holding something round against his chest. ${o(s.threw ? 'He was in the dumpster again,' : 'He was in the dumpster,')} Ben says. ${o('He said to bring him to you.')}`,
-      `Ben’s grinning. Grinning way too wide. ${o('He told me a joke on the way over,')} he says. ${o('It was about you.')}`
+      `Ben’s grinning. Grinning way too wide. ${o('He told me a joke on the way over,')} he says. ${o('It was about you.')}<i class="jsmark" data-k="slappy"></i>`
     ]
   }
 };
@@ -1255,7 +1424,7 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
   del(k) { try { localStorage.removeItem(k); } catch (e) {} }
 };
-let prefs = Object.assign({ voteSecs: 120, sound: true }, store.get(PKEY, {}));
+let prefs = Object.assign({ voteSecs: 120, sound: true, scares: true }, store.get(PKEY, {}));
 let found = store.get(EKEY, []);
 let G = null, node = null, paras = [], shown = 0, voteState = null, lastScene = { chair: [], time: 'night' };
 
@@ -1265,13 +1434,14 @@ const applyFx = (s, fx) => { for (const k in fx) s[k] = (s[k] || 0) + fx[k]; };
 
 /* ================= SOUND (all synthesised, no files) ================= */
 const Snd = (() => {
-  let ac = null, master, amb = null, beat = null, rain = null, noiseBuf;
+  let ac = null, master, echo, amb = null, beat = null, rain = null, noiseBuf;
   const ok = () => ac && prefs.sound;
   function init() {
     if (ac) return;
     try {
       ac = new (window.AudioContext || window.webkitAudioContext)();
-      master = ac.createGain(); master.gain.value = 0.7; master.connect(ac.destination);
+      master = ac.createGain(); master.gain.value = 0.75; const comp = ac.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 6; master.connect(comp); comp.connect(ac.destination);
+      echo = ac.createDelay(1); echo.delayTime.value = 0.23; const fb = ac.createGain(); fb.gain.value = 0.38; echo.connect(fb); fb.connect(echo); echo.connect(master);
       noiseBuf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate);
       const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
     } catch (e) { ac = null; }
@@ -1358,7 +1528,79 @@ const Snd = (() => {
     [79, 74].forEach((m, i) => { const t = ac.currentTime + i * 0.35, o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = mid(m); o.connect(g); g.connect(master); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.12, t + 0.01); g.gain.exponentialRampToValueAtTime(0.001, t + 1.6); o.start(t); o.stop(t + 1.7); });
   }
   function refresh(time) { if (!ac) return; ambient(time); if (rain) rain.g.gain.setTargetAtTime(prefs.sound ? 0.07 : 0, ac.currentTime, 0.5); }
-  return { init, ambient, clack, heart, box, tick, chime, refresh, resume: () => ac && ac.resume && ac.resume() };
+  /* ---- horror library ---- */
+  function env(g, t, peak, a, d) { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); }
+  function out(node, wet) { node.connect(master); if (wet) node.connect(echo); }
+  function stinger() {
+    if (!ok()) return; const t = ac.currentTime;
+    const b = ac.createOscillator(), bg = ac.createGain(); b.frequency.setValueAtTime(70, t); b.frequency.exponentialRampToValueAtTime(28, t + 1.2); b.connect(bg); env(bg, t, 1.0, 0.01, 1.3); out(bg); b.start(t); b.stop(t + 1.4);
+    const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3200; const cg = ac.createGain(); lp.connect(cg); env(cg, t, 0.5, 0.008, 1.6); out(cg, true);
+    [233, 247, 311, 349, 466, 494, 740].forEach(f => { const o = ac.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = (Math.random() - 0.5) * 40; o.connect(lp); o.start(t); o.stop(t + 1.7); });
+    const n = noise(), hp = ac.createBiquadFilter(), ng = ac.createGain(); hp.type = 'highpass'; hp.frequency.value = 1800; n.connect(hp); hp.connect(ng); env(ng, t, 0.9, 0.005, 0.7); out(ng, true); n.start(t); n.stop(t + 0.8);
+  }
+  function shriek() {
+    if (!ok()) return; const t = ac.currentTime;
+    const o = ac.createOscillator(), lfo = ac.createOscillator(), lg = ac.createGain(), bp = ac.createBiquadFilter(), g = ac.createGain();
+    o.type = 'sawtooth'; o.frequency.setValueAtTime(700, t); o.frequency.exponentialRampToValueAtTime(1500, t + 0.35); o.frequency.exponentialRampToValueAtTime(1100, t + 1.2);
+    lfo.frequency.value = 28; lg.gain.value = 70; lfo.connect(lg); lg.connect(o.frequency);
+    bp.type = 'bandpass'; bp.Q.value = 6; bp.frequency.setValueAtTime(1400, t); bp.frequency.exponentialRampToValueAtTime(2800, t + 0.4);
+    o.connect(bp); bp.connect(g); env(g, t, 0.45, 0.02, 1.2); out(g, true); o.start(t); lfo.start(t); o.stop(t + 1.3); lfo.stop(t + 1.3);
+  }
+  function laugh(pitch = 1, vol = 0.32, delay = 0) {
+    if (!ok()) return; const t0 = ac.currentTime + delay;
+    for (let i = 0; i < 7; i++) {
+      const t = t0 + i * 0.15, o = ac.createOscillator(), f1 = ac.createBiquadFilter(), f2 = ac.createBiquadFilter(), g = ac.createGain();
+      o.type = 'sawtooth'; o.frequency.setValueAtTime((240 - i * 11) * pitch, t); o.frequency.exponentialRampToValueAtTime((200 - i * 11) * pitch, t + 0.11);
+      f1.type = 'bandpass'; f1.frequency.value = 850 * pitch; f1.Q.value = 4; f2.type = 'bandpass'; f2.frequency.value = 2300 * pitch; f2.Q.value = 6;
+      o.connect(f1); o.connect(f2); f1.connect(g); f2.connect(g); env(g, t, vol * (1 - i * 0.08), 0.015, 0.1); out(g, true); o.start(t); o.stop(t + 0.14);
+    }
+  }
+  function whisper(vol = 0.18) {
+    if (!ok()) return; const t = ac.currentTime, n = noise(), bp = ac.createBiquadFilter(), g = ac.createGain(), am = ac.createOscillator(), amg = ac.createGain(), pan = ac.createStereoPanner ? ac.createStereoPanner() : null;
+    bp.type = 'bandpass'; bp.frequency.value = 2600; bp.Q.value = 1.2; am.frequency.value = 5 + Math.random() * 4; amg.gain.value = vol * 0.6; am.connect(amg); amg.connect(g.gain);
+    n.connect(bp); bp.connect(g); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + 0.3); g.gain.linearRampToValueAtTime(0, t + 1.5);
+    if (pan) { pan.pan.value = Math.random() * 1.6 - 0.8; g.connect(pan); out(pan, true); } else out(g, true);
+    n.start(t); am.start(t); n.stop(t + 1.6); am.stop(t + 1.6);
+  }
+  function riser(len = 0.6) {
+    if (!ok()) return; const t = ac.currentTime, n = noise(), bp = ac.createBiquadFilter(), g = ac.createGain();
+    bp.type = 'bandpass'; bp.Q.value = 3; bp.frequency.setValueAtTime(300, t); bp.frequency.exponentialRampToValueAtTime(5000, t + len);
+    n.connect(bp); bp.connect(g); g.gain.setValueAtTime(0.001, t); g.gain.exponentialRampToValueAtTime(0.5, t + len); g.gain.setValueAtTime(0.0001, t + len + 0.01); out(g); n.start(t); n.stop(t + len + 0.05);
+  }
+  function knock() { if (!ok()) return; const t = ac.currentTime; [0, 0.3, 0.6].forEach(d => { thump(t + d, 0.6); const n = noise(), bp = ac.createBiquadFilter(), g = ac.createGain(); bp.type = 'bandpass'; bp.frequency.value = 400; n.connect(bp); bp.connect(g); env(g, t + d, 0.4, 0.003, 0.08); out(g, true); n.start(t + d); n.stop(t + d + 0.1); }); }
+  function creak() {
+    if (!ok()) return; const t = ac.currentTime, o = ac.createOscillator(), bp = ac.createBiquadFilter(), g = ac.createGain();
+    o.type = 'sawtooth'; const curve = new Float32Array(40).map((_, i) => 60 + i * 1.6 + Math.sin(i * 1.7) * 14); o.frequency.setValueCurveAtTime(curve, t, 1.6);
+    bp.type = 'bandpass'; bp.frequency.value = 700; bp.Q.value = 7; o.connect(bp); bp.connect(g); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.3, t + 0.3); g.gain.linearRampToValueAtTime(0, t + 1.6); out(g, true); o.start(t); o.stop(t + 1.7);
+  }
+  function giggle() { laugh(2.3, 0.1); }
+  function creepy() { [knock, creak, giggle, whisper, creak][Math.floor(Math.random() * 5)](); }
+  function duck(on) { if (!ac || !amb) return; amb.g.gain.setTargetAtTime(on ? 0 : (prefs.sound ? 0.11 : 0), ac.currentTime, on ? 0.03 : 0.8); if (beat && on) heart(false); }
+  function sfx(name, delay = 0) {
+    if (!ok()) return; const t = ac.currentTime + delay;
+    const nz = (type, f, q, peak, a, dcy, len) => { const n = noise(), bf = ac.createBiquadFilter(), g = ac.createGain(); bf.type = type; bf.frequency.value = f; bf.Q.value = q || 1; n.connect(bf); bf.connect(g); env(g, t, peak, a, dcy); out(g); n.start(t); n.stop(t + (len || a + dcy + 0.05)); return bf; };
+    const osc = (type, f0, f1, peak, a, dcy, wet) => { const o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + a + dcy); o.connect(g); env(g, t, peak, a, dcy); out(g, wet); o.start(t); o.stop(t + a + dcy + 0.05); };
+    switch (name) {
+      case 'whoosh': { const b = nz('bandpass', 400, 2, 0.5, 0.25, 0.35); b.frequency.setValueAtTime(350, t); b.frequency.exponentialRampToValueAtTime(3200, t + 0.25); b.frequency.exponentialRampToValueAtTime(500, t + 0.6); break; }
+      case 'thud': thump(t, 1); nz('lowpass', 300, 1, 0.5, 0.005, 0.2); break;
+      case 'clang': [317, 509, 811, 1133, 1690].forEach((f, i) => osc('square', f, f * 0.99, 0.07 / (i + 1) * 2, 0.003, 0.9, true)); thump(t, 0.8); break;
+      case 'slam': thump(t, 1); nz('lowpass', 900, 1, 0.9, 0.003, 0.25); osc('sine', 55, 35, 0.8, 0.005, 0.4); break;
+      case 'slap': nz('highpass', 1500, 1, 1, 0.002, 0.09); thump(t, 0.4); break;
+      case 'pop': osc('sine', 520, 880, 0.18, 0.005, 0.09); break;
+      case 'click': nz('bandpass', 2500, 3, 0.7, 0.001, 0.03); break;
+      case 'paper': [0, 0.12, 0.26, 0.37].forEach(d => { const n = noise(), hp = ac.createBiquadFilter(), g = ac.createGain(); hp.type = 'highpass'; hp.frequency.value = 2500; n.connect(hp); hp.connect(g); env(g, t + d, 0.22, 0.01, 0.08); out(g); n.start(t + d); n.stop(t + d + 0.12); }); break;
+      case 'crackle': for (let i = 0; i < 34; i++) { const d = Math.random() * 1.6, n = noise(), bp = ac.createBiquadFilter(), g = ac.createGain(); bp.type = 'bandpass'; bp.frequency.value = 1200 + Math.random() * 3000; n.connect(bp); bp.connect(g); env(g, t + d, 0.15 + Math.random() * 0.3, 0.002, 0.03); out(g); n.start(t + d); n.stop(t + d + 0.05); } nz('lowpass', 500, 1, 0.25, 0.3, 1.4); break;
+      case 'rumble': nz('lowpass', 120, 1, 0.9, 0.4, 1.7, 2.2); osc('sawtooth', 42, 38, 0.18, 0.4, 1.6); break;
+      case 'zip': { const b = nz('bandpass', 1500, 4, 0.35, 0.02, 0.55); b.frequency.setValueAtTime(900, t); b.frequency.linearRampToValueAtTime(3500, t + 0.55); break; }
+      case 'murmur': for (let i = 0; i < 6; i++) { const d = i * 0.22, b = ac.createBiquadFilter(), n = noise(), g = ac.createGain(); b.type = 'bandpass'; b.frequency.value = 400 + Math.random() * 500; b.Q.value = 5; n.connect(b); b.connect(g); env(g, t + d, 0.12, 0.1, 0.35); out(g); n.start(t + d); n.stop(t + d + 0.5); } break;
+      case 'bark': [0, 0.22].forEach(d => { const o = ac.createOscillator(), bp = ac.createBiquadFilter(), g = ac.createGain(); o.type = 'sawtooth'; o.frequency.setValueAtTime(420, t + d); o.frequency.exponentialRampToValueAtTime(260, t + d + 0.1); bp.type = 'bandpass'; bp.frequency.value = 1100; bp.Q.value = 3; o.connect(bp); bp.connect(g); env(g, t + d, 0.35, 0.005, 0.1); out(g); o.start(t + d); o.stop(t + d + 0.13); }); break;
+      case 'warm': [67, 71, 74, 79].forEach((m, i) => { const o = ac.createOscillator(), g = ac.createGain(), tt = t + i * 0.09; o.type = 'triangle'; o.frequency.value = 440 * Math.pow(2, (m - 69) / 12); o.connect(g); env(g, tt, 0.08, 0.02, 1.4); out(g, true); o.start(tt); o.stop(tt + 1.5); }); break;
+      case 'buzz': osc('sawtooth', 60, 60, 0.12, 0.02, 0.5); break;
+      case 'static': nz('highpass', 600, 1, 0.3, 0.02, 1.0); break;
+      case 'knockin': [0, 0.4].forEach(d => { thump(t + d, 0.7); }); break;
+    }
+  }
+  return { init, ambient, clack, heart, box, tick, chime, refresh, sfx, stinger, shriek, laugh, whisper, riser, knock, creak, giggle, creepy, duck, resume: () => ac && ac.resume && ac.resume() };
 })();
 
 /* ================= SCENE PICTURE ================= */
@@ -1411,6 +1653,190 @@ function drawScene(sc, target) {
   ${dms}
   <rect width="400" height="470" fill="url(#vig)"/></svg>`;
 }
+
+
+
+/* ================= WHAT THE CHOICE DID (in-scene action animations) ================= */
+const CV = { k: 'var(--k)', l: 'var(--l)', sl: 'var(--sl)', wd: 'var(--wd)', g: '#b4bccb' };
+function chairX(kind) { const ch = (lastScene && lastScene.chair) || []; const i = ch.indexOf(kind); if (i < 0) return null; return ch.length === 2 ? [168, 232][i] : 200; }
+const dl = s => s ? `animation-delay:${s}s` : '';
+const dv = s => `--d:${s || 0}s`;
+function spr(kind, x, cls, delay = 0) { return `<g class="spr ${cls}" style="${dl(delay)}">${dummy(kind, x)}</g>`; }
+function bub(text, color, x, y, delay = 0, it = false) {
+  const w = Math.max(64, text.length * 8.4 + 30);
+  return `<g class="bub" style="${dl(delay)}"><path d="M${x - 7} ${y + 12}l7 13 7-13z" fill="#0b0f1c" style="stroke:${color}" stroke-width="2"/><rect x="${x - w / 2}" y="${y - 18}" width="${w}" height="33" rx="14" fill="#0b0f1cf0" style="stroke:${color}" stroke-width="2.2"/>
+    <text x="${x}" y="${y + 5}" text-anchor="middle" font-size="16" font-family="Georgia,serif" ${it ? 'font-style="italic"' : ''} style="fill:${color}">${text}</text></g>`;
+}
+function glow(side, color, cls = '', delay = 0) { const x = side === 'l' ? 62 : side === 'r' ? 338 : 200; return `<ellipse class="gl ${cls}" cx="${x}" cy="420" rx="74" ry="52" style="fill:${color};${dv(delay)}"/>`; }
+const DARK = (o = 0.55, delay = 0) => `<rect class="dk" width="400" height="470" fill="#000" style="--o:${o};${dl(delay)}"/>`;
+const FLASH = (c = '#fff', delay = 0) => `<rect class="fl" width="400" height="470" fill="${c}" style="${dl(delay)}"/>`;
+const PAPER = (cls, color, delay = 0) => `<g class="paper ${cls}" style="${dl(delay)}"><rect x="150" y="330" width="100" height="74" rx="3" fill="#efe6cf" transform="rotate(-4 200 367)"/>
+  <g class="ink" style="stroke:${color}" stroke-width="2.4" fill="none" stroke-linecap="round" transform="rotate(-4 200 367)"><path d="M162 346q8-6 16 0t16 0 16 0 16 0"/><path d="M162 360q8-6 16 0t16 0 16 0"/><path d="M162 374q8-6 16 0t16 0 16 0 16 0"/><path d="M162 388q8-6 16 0t16 0"/></g></g>`;
+const MAG = (cls, delay = 0) => `<g class="mag ${cls}" style="${dl(delay)}"><circle cx="200" cy="300" r="34" fill="#cfe6ff22" stroke="#d8d2c4" stroke-width="6"/><path d="M224 324l34 34" stroke="#6b4a2e" stroke-width="11" stroke-linecap="round"/></g>`;
+const EYES = (x, color, delay = 0) => `<g class="peek" style="${dl(delay)}"><ellipse cx="${x - 16}" cy="400" rx="10" ry="6" style="fill:${color}"/><ellipse cx="${x + 16}" cy="400" rx="10" ry="6" style="fill:${color}"/><circle cx="${x - 14}" cy="400" r="3" fill="#000"/><circle cx="${x + 18}" cy="400" r="3" fill="#000"/></g>`;
+const CONE = (x, color, delay = 0) => `<polygon class="cone" points="${x - 14},0 ${x + 14},0 ${x + 78},440 ${x - 78},440" style="fill:${color};${dl(delay)}"/><ellipse class="cone" cx="${x}" cy="440" rx="80" ry="14" style="fill:${color};${dl(delay)}"/>`;
+const ROLLER = `<g class="roller"><rect x="40" y="318" width="150" height="70" rx="8" fill="#e0b43a"/><rect x="110" y="276" width="70" height="48" rx="6" fill="#c7991f"/><rect x="120" y="284" width="48" height="26" fill="#1d2530"/>
+  <rect x="-40" y="330" width="110" height="98" rx="49" fill="#4b525c" stroke="#2b3036" stroke-width="5"/><circle cx="160" cy="404" r="26" fill="#2b3036"/><path d="M-30 379h90" stroke="#2b3036" stroke-width="3"/></g>`;
+const HAND = (color, cls, delay = 0) => `<g class="hand ${cls}" style="${dl(delay)}"><rect x="300" y="318" width="140" height="44" rx="10" style="fill:${color}" opacity=".85"/>
+  <g fill="#e9c9a6" stroke="#8a6a50" stroke-width="2"><ellipse cx="292" cy="340" rx="30" ry="26"/><rect x="226" y="314" width="62" height="13" rx="6.5"/><rect x="218" y="329" width="70" height="13" rx="6.5"/><rect x="222" y="344" width="66" height="13" rx="6.5"/><rect x="232" y="359" width="56" height="12" rx="6"/><path d="M286 318c-10-12-24-16-30-10s8 14 18 20" /></g></g>`;
+const ACTS = {
+  keep: () => ({ html: spr('slappy', 200, 'rise') + bub('Finders keepers.', CV.l, 290, 210, 1.0), snd: [['whoosh', 0.1], ['thud', 0.85], ['giggle', 1.2]], glint: ['slappy', 1.0] }),
+  tossBack: () => ({ html: spr('slappy', 200, 'tossdown') + `<g class="dumpst"><rect x="230" y="380" width="160" height="70" rx="4" fill="#2f5a3a"/><rect class="lid" x="226" y="372" width="168" height="12" rx="3" fill="#24452c" style="${dl(1.15)}"/></g>`, snd: [['whoosh', 0.25], ['clang', 1.2]] }),
+  pass: () => ({ html: glow('l', CV.k) + glow('r', CV.l, 'brighten', 0.9) + spr('slappy', 200, 'passR'), hide: ['slappy'], snd: [['whoosh', 0.2], ['thud', 1.25], ['pop', 1.4]] }),
+  clutch: () => ({ html: glow('l', CV.k, 'brighten', 0.5) + glow('r', CV.l, 'fade', 0.6) + spr('slappy', 200, 'yankL') + bub('Mine.', CV.k, 90, 230, 0.7), hide: ['slappy'], snd: [['whoosh', 0.15], ['thud', 0.6]] }),
+  sayOwn: p => ({ html: glow(p.side, CV[p.c]) + bub(p.t, CV[p.c], p.side === 'l' ? 110 : 290, 236, 0.35) + (p.t2 ? bub(p.t2, CV[p.c2 || 'g'], p.side === 'l' ? 290 : 110, 196, 1.2) : ''), snd: [['pop', 0.35], ['pop', 1.2], ['warm', 0.5]] }),
+  sayVia: p => { const x = chairX(p.kind) || 200; return { html: (chairX(p.kind) ? '' : spr(p.kind, 200, 'still')) + glow(p.side, CV[p.c]) + bub(p.t, CV[p.c], x, 214, 0.4, true), talk: [[p.kind, 0.3]], glint: [p.kind, 1.1], snd: [['clack', 0.3], ['pop', 0.4], ['giggle', 1.2]] }; },
+  insist: () => ({ html: glow('r', CV.l) + bub('I didn’t do it!', CV.l, 290, 236, 0.3) + bub('Lindy. Enough.', CV.g, 120, 160, 1.15), snd: [['pop', 0.3], ['pop', 1.15], ['buzz', 1.15]], glint: ['slappy', 1.4] }),
+  grab: () => ({ html: DARK(0.45) + glow('l', CV.k, 'dim') + HAND(CV.l, 'lunge', 0.35) + FLASH('#fff', 0.55), snd: [['whoosh', 0.3], ['slap', 0.55]], glint: ['slappy', 0.8] }),
+  peek: p => ({ html: DARK(0.6) + EYES(p.side === 'l' ? 80 : 320, CV[p.c], 0.6), turn: (lastScene.chair || []).slice(), snd: [['creak', 0.4]] }),
+  whisper: () => ({ html: DARK(0.4) + glow('r', CV.l, 'dim') + bub('Kris? You okay?', CV.l, 290, 236, 0.3, false), blink: ['slappy', 1.1], snd: [['whisper', 0.3]] }),
+  accuse: p => ({ html: glow('l', CV.k, 'brighten') + glow('r', CV.l, 'shrink', 0.7) + `<path class="bolt" d="M120 420l70-50-20-10 80-40" stroke="#ff4d4d" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" style="${dl(0.45)}"/>` + bub(p.t, CV.k, 120, 236, 0.3) + FLASH('#a0101a', 0.6), snd: [['pop', 0.3], ['slam', 0.6]], shake: 0.6 }),
+  ask: () => ({ html: glow('l', CV.k) + glow('r', CV.l) + bub('Did you do this?', CV.k, 120, 236, 0.3) + bub('No. I swear.', CV.l, 290, 196, 1.2), snd: [['pop', 0.3], ['pop', 1.2]] }),
+  together: p => ({ html: glow('l', CV.k, 'toC-l', 0.2) + glow('r', CV.l, 'toC-r', 0.2) + `<ellipse class="gl merge" cx="200" cy="430" rx="110" ry="70" fill="#fff2d6" style="${dl(1.1)}"/>` + bub(p.t1, CV.k, 120, 230, 0.3) + bub(p.t2, CV.l, 285, 190, 0.9), snd: [['pop', 0.3], ['pop', 0.9], ['warm', 1.1]] }),
+  slam: () => ({ html: glow('l', CV.k) + glow('r', CV.l) + bub('No chance.', CV.k, 120, 236, 0.2) + `<g class="door" style="${dl(0.8)}"><rect x="190" y="20" width="210" height="450" fill="#3b2a20" stroke="#1c130e" stroke-width="8"/><rect x="214" y="50" width="162" height="160" rx="4" fill="none" stroke="#251a13" stroke-width="6"/><rect x="214" y="240" width="162" height="190" rx="4" fill="none" stroke="#251a13" stroke-width="6"/><circle cx="212" cy="240" r="9" fill="#c9a24a"/></g>`, snd: [['pop', 0.2], ['slam', 1.15]], shake: 1.15 }),
+  pullApart: () => ({ html: spr('slappy', 190, 'tangle apartL') + spr('wood', 214, 'tangle apartR'), snd: [['thud', 0.2], ['whoosh', 0.9], ['thud', 1.3], ['thud', 1.4]] }),
+  lookClose: () => ({ html: spr('slappy', 182, 'still') + spr('wood', 222, 'still') + `<path class="str" d="M182 0V244M222 0V244" stroke="#e8f6ff" stroke-width="1.6" style="${dl(1.1)}"/>` + MAG('sweep', 0.1), snd: [['creak', 0.2], ['whisper', 1.1]] }),
+  blameWood: () => ({ html: glow('l', CV.k) + bub('Mr. Wood did it.', CV.k, 125, 236, 0.3) + bub('Kris. Bed. Now.', CV.g, 270, 160, 1.15) + `<rect class="cold" width="400" height="470" fill="#4f7bd6" style="${dl(1.15)}"/>`, snd: [['pop', 0.3], ['pop', 1.15], ['buzz', 1.2]] }),
+  confess: () => ({ html: glow('l', CV.k, 'brighten') + glow('r', CV.l, 'brighten', 0.8) + bub('I did it.', CV.k, 115, 236, 0.3), talk: [['slappy', 1.1]], glint: ['slappy', 1.2], snd: [['pop', 0.3], ['warm', 0.7], ['giggle', 1.3]] }),
+  believe: () => ({ html: glow('l', CV.k) + bub('Okay. I believe you.', CV.k, 140, 236, 0.3), talk: [['slappy', 1.0]], glint: ['slappy', 1.1], snd: [['pop', 0.3], ['giggle', 1.1]] }),
+  slapQ: () => ({ html: FLASH('#fff', 0.15) + `<path class="print" d="M180 300c-10-30-6-60 4-60s10 30 12 40c0-30 4-52 14-52s10 30 10 50c2-18 8-34 16-32s6 30 2 52c6-10 14-14 18-10s-10 34-30 50c-18 14-40 8-46-38z" fill="#c0262c" style="${dl(0.15)}"/>` + bub('Then who slapped me?', CV.k, 200, 200, 0.7) + `<text class="q" x="${(chairX('slappy') || 200) + 32}" y="240" font-size="42" font-family="Georgia,serif" style="fill:${CV.sl};${dv(1.3)}">?</text>`, snd: [['slap', 0.15], ['pop', 0.7], ['whisper', 1.3]], glint: ['slappy', 1.3] }),
+  read: p => ({ html: PAPER('unfold', CV[p.c], 0.1) + `<polygon class="beam" points="190,340 210,340 ${(chairX(p.kind) || 200) + 18},262 ${(chairX(p.kind) || 200) - 18},262" style="fill:${CV[p.c]};${dl(0.9)}"/>`, wake: [p.kind, 1.15], snd: [['paper', 0.1], ['whisper', 0.6], ['riser', 0.6], ['thud', 1.2]] }),
+  burn: () => ({ html: PAPER('burnup', '#4a3b2a') + `<g class="flames" style="${dv(0.5)}"><path d="M160 400q10-40 20-10q6-50 22-20q10-46 22 0q10-30 18 30z" fill="#ff8a1e"/><path d="M175 400q8-26 14-6q8-34 16-10q8-28 14 6q6-16 10 10z" fill="#ffd54a"/></g>` + Array.from({ length: 9 }, (_, i) => `<circle class="ash" cx="${170 + i * 7}" cy="360" r="${1.5 + (i % 3)}" fill="#bbb" style="${dl(1.0 + i * 0.08)}"/>`).join(''), slump: true, snd: [['paper', 0.1], ['crackle', 0.5]] }),
+  fold: () => ({ html: PAPER('foldaway', '#4a3b2a'), blink: ['wood', 1.3], glint: ['wood', 1.4], snd: [['paper', 0.2], ['paper', 0.7], ['creak', 1.2]] }),
+  woodSorry: () => ({ html: spr('wood', 200, 'still') + glow('l', CV.k) + bub('Sorry-sorry-sorry!', CV.k, 200, 210, 0.35, true) + bub('That isn’t funny, Kris.', CV.g, 250, 140, 1.25), talk: [['wood', 0.3]], snd: [['clack', 0.3], ['pop', 0.35], ['buzz', 1.25]] }),
+  pointAt: () => ({ html: spr('slappy', 230, 'still') + glow('l', CV.k) + `<path class="bolt" d="M90 400L200 300" stroke="${CV.k}" stroke-width="5" fill="none" stroke-linecap="round" style="stroke:${CV.k};${dl(0.3)}"/>` + bub('Ask HIM.', CV.k, 105, 236, 0.4) + bub('He’s a dummy, Kris.', CV.g, 280, 150, 1.25), talk: [['slappy', 1.4]], snd: [['pop', 0.4], ['pop', 1.25], ['giggle', 1.5]] }),
+  stage: p => ({ html: DARK(0.8) + (p.who === 'wood' ? CONE(200, '#fff2d0') + spr('wood', 200, 'still') : p.who === 'two' ? CONE(130, CV.k, 0.2) + CONE(270, CV.l, 0.6) : CONE(200, CV.k, 0.2)), talk: p.who === 'wood' ? [['wood', 0.9]] : [], snd: [['click', 0.15], ['murmur', 0.4], p.who === 'two' ? ['warm', 0.9] : ['click', 0.6]] }),
+  lights: p => ({ html: `<rect class="door2" x="0" y="150" width="70" height="280" fill="#ffe7a8" style="${dl(0.1)}"/><rect class="lamp" width="400" height="470" fill="#ffd98a" style="${dl(0.35)}"/>` + bub(p.t, CV.g, 160, 150, 1.0), snd: [['creak', 0.0], ['click', 0.35], ['buzz', 0.4], ['pop', 1.0]] }),
+  bury: () => ({ html: Array.from({ length: 14 }, (_, i) => `<circle class="dirt" cx="${110 + (i * 37) % 190}" cy="300" r="${4 + i % 4}" fill="#4a3222" style="${dl(0.1 + i * 0.07)}"/>`).join('') + `<path class="mound" d="M0 470V380q100-60 200-60t200 60v90z" fill="#3a271b"/>` + `<g class="pokehand" style="${dv(1.55)}"><path d="M200 340v-34m-8 30v-26m16 26v-26m-24 34v-18" stroke="#ebcfae" stroke-width="7" stroke-linecap="round"/></g>`, snd: [['thud', 0.2], ['thud', 0.6], ['thud', 1.0], ['knockin', 1.6]] }),
+  check: () => ({ html: DARK(0.35) + MAG('toSl', 0.1), glint: ['slappy', 1.0], blink: ['slappy', 1.5], snd: [['creak', 0.3], ['whisper', 1.0]] }),
+  barky: () => ({ html: spr('wood', 200, 'drop') + `<g class="dog"><path d="M0 420c0-14 10-22 26-22h30l8-10 8 4-2 12c10 4 12 14 6 20h-8v14h-8v-12H22v12h-8v-14C6 424 0 424 0 420z" fill="#7a5532"/></g>`, snd: [['bark', 0.2], ['whoosh', 0.7], ['thud', 1.2], ['rumble', 0.6]] }),
+  roller: p => ({ html: spr(p.kind, 200, 'flatten') + ROLLER, hide: [p.kind], snd: [['rumble', 0], ['crackle', 0.9], ['thud', 0.95]], shake: 0.95 }),
+  strings: () => ({ html: glow('l', CV.k, 'lift', 0.6) + glow('r', CV.l, 'lift', 0.6) + `<g class="strs"><path d="M62 0V400M338 0V400M40 0V410M360 0V410" stroke="#cfe2ff" stroke-width="1.4"/></g>` + bub('Deal.', CV.sl, 200, 120, 0.9), snd: [['whisper', 0.1], ['pop', 0.9], ['laugh', 1.2]] }),
+  refuse: () => ({ html: glow('l', CV.k) + bub('Get back in your chair.', CV.k, 150, 236, 0.3) + bub('Heh.', CV.sl, 290, 140, 1.2), snd: [['pop', 0.3], ['giggle', 1.2]] }),
+  tv: () => ({ html: DARK(0.55) + `<g class="tv"><rect x="96" y="120" width="208" height="160" rx="12" fill="#151a22" stroke="#3a414d" stroke-width="8"/><rect class="stat" x="108" y="132" width="184" height="136" fill="#9aa3ad"/></g><g class="tvd" style="${dl(0.8)}"><g class="tvin">${dummy('slappy', 200)}</g></g>`, glint: ['slappy', 1.3], snd: [['static', 0.1], ['click', 0.8], ['laugh', 1.1]] }),
+  trick: p => { const x = chairX('slappy'); return { html: (x ? '' : spr('slappy', 318, 'limp', 1.3)) + glow('l', CV.k) + glow('r', CV.l) + `<g class="fly fl1" style="${dl(0.3)};--tx:${(x || 318) - 90}px">${bub('HA!', CV.k, 90, 330)}</g><g class="fly fl2" style="${dl(0.6)};--tx:${(x || 318) - 300}px">${bub('HA HA!', CV.l, 300, 330)}</g>`, limp: x ? 'slappy' : null, snd: [['pop', 0.3], ['pop', 0.55], ['laugh', 0.9], ['thud', 1.3]] }; },
+  suitcase: () => { const x = chairX('slappy') || 200; return { html: `<g class="case" style="${dv(0.1)}"><rect x="${x - 52}" y="246" width="104" height="170" rx="12" fill="#5d2a2a"/><rect x="${x - 18}" y="232" width="36" height="16" rx="5" fill="none" stroke="#3a1a1a" stroke-width="6"/><path class="zipl" d="M${x - 46} 330H${x + 46}" stroke="#d8c08a" stroke-width="3" style="${dl(0.8)}"/></g>`, hide: ['slappy'], snd: [['whoosh', 0.1], ['thud', 0.6], ['zip', 0.8], ['knockin', 1.5]] }; },
+  dumpster: () => ({ html: spr('slappy', chairX('slappy') || 200, 'tossdown') + `<g class="dumpst"><rect x="230" y="380" width="160" height="70" rx="4" fill="#2f5a3a"/><rect class="lid" x="226" y="372" width="168" height="12" rx="3" fill="#24452c" style="${dl(1.15)}"/></g>`, hide: ['slappy'], snd: [['whoosh', 0.25], ['clang', 1.2]] }),
+  tell: () => ({ html: glow('l', CV.k) + glow('r', CV.l) + `<rect class="lamp" width="400" height="470" fill="#ffd98a" style="${dl(0.2)}"/>` + bub('Mom. Dad. Listen.', CV.k, 130, 236, 0.3) + bub('From the start.', CV.l, 280, 196, 0.9) + bub('...Go on.', CV.g, 200, 120, 1.5), snd: [['click', 0.2], ['pop', 0.3], ['pop', 0.9], ['pop', 1.5]] })
+};
+const ACT_MAP = {
+  'c1b.keep': ['keep'], 'c1b.throw': ['tossBack'],
+  'c2.hand': ['pass'], 'c2.hold': ['clutch'],
+  'c2_apology.own': ['sayOwn', { side: 'r', c: 'l', t: 'Sorry, Kris.' }], 'c2_apology.slappy': ['sayVia', { kind: 'slappy', side: 'r', c: 'l', t: 'Sowwy, Kwis!' }], 'c2_apology.insist': ['insist'],
+  'c3.grab': ['grab'], 'c3.still': ['peek', { side: 'r', c: 'l' }], 'c3.whisper': ['whisper'],
+  'c4.accuse': ['accuse', { t: 'It was YOU.' }], 'c4.ask': ['ask'], 'c4.watch': ['peek', { side: 'l', c: 'k' }],
+  'c5.yes': ['together', { t1: 'Maybe... yeah.', t2: 'Really?' }], 'c5.no': ['slam'],
+  'c6.pull': ['pullApart'], 'c6.look': ['lookClose'],
+  'c7.wood': ['blameWood'], 'c7.lindy': ['accuse', { t: 'Lindy did it.' }], 'c7.me': ['confess'],
+  'c8.believe': ['believe'], 'c8.slap': ['slapQ'],
+  'c9.wood': ['read', { kind: 'wood', c: 'wd' }], 'c9.slappy': ['read', { kind: 'slappy', c: 'sl' }], 'c9.burn': ['burn'], 'c9.back': ['fold'],
+  'c10.own': ['sayOwn', { side: 'l', c: 'k', t: 'I’m sorry. Really.' }], 'c10.dummy': ['woodSorry'], 'c10.point': ['pointAt'],
+  'c11.wood': ['stage', { who: 'wood' }], 'c11.alone': ['stage', { who: 'one' }], 'c11.together': ['stage', { who: 'two' }],
+  'c12W.wake': ['lights', { t: 'What is it NOW?' }], 'c12W.bury': ['bury'], 'c12W.check': ['check'],
+  'c13W.barky': ['barky'], 'c13W.throw': ['roller', { kind: 'wood' }],
+  'c12S.deal': ['strings'], 'c12S.refuse': ['refuse'], 'c12S.wake': ['lights', { t: 'Girls? It’s 2 a.m.' }],
+  'c13S.show': ['tv'], 'c13S.roller': ['roller', { kind: 'slappy' }], 'c13S.trick': ['trick'],
+  'c12N.talk': ['together', { t1: 'I’m scared too.', t2: 'Me too.' }], 'c12N.case': ['suitcase'], 'c12N.wake': ['lights', { t: 'What’s all this noise?' }],
+  'c13N.act': ['stage', { who: 'two' }], 'c13N.trick': ['trick'], 'c13N.dump': ['dumpster'], 'c13N.tell': ['tell']
+};
+let actOn = false;
+function playAct(id, key) {
+  const m = ACT_MAP[id + '.' + key]; const svg = document.querySelector('#scene svg');
+  if (!m || !svg) return;
+  const a = ACTS[m[0]](m[1] || {}); actOn = true;
+  (a.hide || []).forEach(k => svg.classList.add('hide-' + k));
+  svg.lastElementChild.insertAdjacentHTML('beforebegin', `<g class="act">${a.html}</g>`);
+  (a.snd || []).forEach(([n, d]) => { if (['giggle', 'whisper', 'creak', 'laugh', 'clack'].includes(n)) setTimeout(() => n === 'laugh' ? Snd.laugh(1, 0.22) : n === 'whisper' ? Snd.whisper(0.2) : Snd[n](), d * 1000); else if (n === 'riser') setTimeout(() => Snd.riser(0.6), d * 1000); else Snd.sfx(n, d); });
+  (a.talk || []).forEach(([k, d]) => setTimeout(() => talk(k), d * 1000));
+  const fxc = (cls, k, d) => k && setTimeout(() => { const g = svg.querySelector(':scope > .dm.' + k); if (g) { g.classList.add(cls); } }, d * 1000);
+  if (a.glint) fxc('glint', a.glint[0], a.glint[1]);
+  if (a.blink) fxc('blink', a.blink[0], a.blink[1]);
+  if (a.wake) fxc('wake', a.wake[0], a.wake[1]);
+  if (a.limp) fxc('limp', a.limp, 1.25);
+  if (a.turn) a.turn.forEach(k => fxc('turn', k, 0.5));
+  if (a.slump) svg.querySelectorAll(':scope > .dm').forEach(g => setTimeout(() => g.classList.add('limp'), 1300));
+  if (a.shake) setTimeout(() => { document.body.classList.add('shake'); setTimeout(() => document.body.classList.remove('shake'), 500); }, a.shake * 1000);
+  setTimeout(() => { actOn = false; }, 2300);
+}
+
+/* ================= JUMP SCARES (original faces) ================= */
+const FACES = {
+  slappy: `<svg viewBox="0 0 400 470"><defs><radialGradient id="jfa" cx="50%" cy="38%" r="62%"><stop offset="0" stop-color="#f3d8b6"/><stop offset=".72" stop-color="#c3946c"/><stop offset="1" stop-color="#4a2c18"/></radialGradient><filter id="jgl" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <ellipse cx="200" cy="225" rx="165" ry="200" fill="url(#jfa)"/>
+    <path d="M38 190C40 40 360 40 362 190C330 120 268 104 200 104S70 120 38 190Z" fill="#3a2414"/>
+    <path d="M92 150Q140 120 182 150M218 150Q260 120 308 150" stroke="#24120a" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <ellipse cx="140" cy="220" rx="50" ry="42" fill="#140804"/><ellipse cx="260" cy="220" rx="50" ry="42" fill="#140804"/>
+    <ellipse cx="140" cy="220" rx="36" ry="31" fill="#f6f1e4"/><ellipse cx="260" cy="220" rx="36" ry="31" fill="#f6f1e4"/>
+    <path d="M108 214l14 4 8-6M112 232l16-2M172 212l-14 6M228 214l14 4 8-6M232 232l16-2M292 212l-14 6" stroke="#b3202a" stroke-width="2" fill="none" opacity=".8"/><g filter="url(#jgl)"><circle class="jpu" cx="146" cy="224" r="5" fill="#9fe8ff"/><circle class="jpu" cx="254" cy="224" r="5" fill="#9fe8ff"/></g>
+    <circle cx="92" cy="292" r="20" fill="#9a2a2a" opacity=".45"/><circle cx="308" cy="292" r="20" fill="#9a2a2a" opacity=".45"/>
+    <path d="M122 300V430M278 300V430" stroke="#3a2010" stroke-width="5"/>
+    <path class="jmouth" d="M112 296Q200 318 288 296L276 440Q200 462 124 440Z" fill="#070202"/>
+    <path d="M144 305l9 22 9-20M184 312l9 24 9-23M222 312l9 23 9-23M256 305l9 21 9-22" fill="#e9e1cc"/>
+    <path d="M104 292Q200 322 296 292" stroke="#b0101c" stroke-width="17" fill="none" stroke-linecap="round"/><path d="M196 306l7 9 7-9z" fill="#c3946c"/>
+    <path d="M214 34l-14 44 18 26-22 46 12 20" stroke="#2a1608" stroke-width="3.5" fill="none"/><path d="M300 120l-30 40 8 30" stroke="#2a1608" stroke-width="3" fill="none"/></svg>`,
+  wood: `<svg viewBox="0 0 400 470"><defs><radialGradient id="jfb" cx="50%" cy="38%" r="62%"><stop offset="0" stop-color="#f0d3b0"/><stop offset=".72" stop-color="#b98761"/><stop offset="1" stop-color="#3d2212"/></radialGradient><filter id="jgl2" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <ellipse cx="200" cy="215" rx="160" ry="190" fill="url(#jfb)"/>
+    <path d="M36 190c-8-120 70-160 164-160s178 40 166 160c-20-40-40-58-64-60l-14 30-26-36-24 34-24-38-22 36-26-34-16 32c-30 4-52 20-70 36z" fill="#c4401a"/>
+    <g fill="#8a4a2a" opacity=".7"><circle cx="110" cy="270" r="4"/><circle cx="128" cy="282" r="3"/><circle cx="96" cy="286" r="3"/><circle cx="290" cy="270" r="4"/><circle cx="272" cy="284" r="3"/><circle cx="304" cy="288" r="3"/></g>
+    <ellipse cx="138" cy="215" rx="48" ry="44" fill="#0e0503"/><ellipse cx="262" cy="215" rx="48" ry="44" fill="#0e0503"/>
+    <g filter="url(#jgl2)"><circle class="jpu" cx="138" cy="215" r="11" fill="#7dff9e"/><circle class="jpu" cx="262" cy="215" r="11" fill="#7dff9e"/></g>
+    <path d="M206 20l-16 70 20 40-26 70 18 50-22 60 14 70" stroke="#120604" stroke-width="7" fill="none"/>
+    <path class="jmouth" d="M110 300Q200 320 290 300L300 462Q200 476 100 462Z" fill="#050101"/>
+    <path d="M104 296Q200 324 296 296" stroke="#a3121b" stroke-width="15" fill="none" stroke-linecap="round"/>
+    <path d="M118 300V462M282 300V462" stroke="#2a1408" stroke-width="5"/></svg>`,
+  doll: `<svg viewBox="0 0 400 470"><defs><radialGradient id="jfc" cx="50%" cy="40%" r="62%"><stop offset="0" stop-color="#f5f1ea"/><stop offset=".75" stop-color="#cfc6b8"/><stop offset="1" stop-color="#5d554a"/></radialGradient></defs>
+    <path d="M60 140C40 300 70 430 80 470M340 140C360 300 330 430 320 470" stroke="#0a0806" stroke-width="40" fill="none"/>
+    <ellipse cx="200" cy="225" rx="150" ry="190" fill="url(#jfc)"/>
+    <path d="M58 170C70 50 330 50 342 170C300 120 250 112 200 118S100 120 58 170Z" fill="#0d0a08"/>
+    <ellipse cx="140" cy="215" rx="40" ry="46" fill="#050303"/><ellipse cx="260" cy="215" rx="40" ry="46" fill="#050303"/>
+    <circle class="jpu" cx="140" cy="222" r="5" fill="#ff2a2a"/><circle class="jpu" cx="260" cy="222" r="5" fill="#ff2a2a"/>
+    <path d="M124 258c-4 40 4 70-2 110M152 258c2 30-4 50 0 80M248 258c-2 40 4 60 0 100M274 258c4 34-2 58 2 90" stroke="#1a0606" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path class="jmouth" d="M168 330Q200 322 232 330L226 372Q200 382 174 372Z" fill="#090303"/>
+    <path d="M178 334l5 12 5-11M196 333l5 13 5-12M214 334l5 12 5-11" fill="#ddd6c6"/>
+    <path d="M200 40l10 60-22 40 30 50-18 60M300 160l-40 30 10 40-30 20M90 300l40-10 20 30" stroke="#4a4038" stroke-width="3" fill="none"/></svg>`,
+  eyes: `<svg viewBox="0 0 400 470"><defs><filter id="jgl3" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <g filter="url(#jgl3)"><ellipse cx="130" cy="190" rx="52" ry="30" fill="#e8f6ff"/><ellipse cx="270" cy="190" rx="52" ry="30" fill="#e8f6ff"/>
+    <circle class="jpu" cx="130" cy="190" r="7" fill="#05080c"/><circle class="jpu" cx="270" cy="190" r="7" fill="#05080c"/></g>
+    <path class="jmouth" d="M70 300Q200 400 330 300Q200 350 70 300Z" fill="#e9e3d2"/>
+    <path d="M90 312l10 14 10-10 10 16 12-14 10 18 12-16 12 20 12-18 12 20 12-18 12 18 12-16 10 16 12-14 10 12 10-12" stroke="#050505" stroke-width="5" fill="none"/></svg>`
+};
+const SCARE_LINES = {
+  slappy: ['WRONG CHOICE.', 'THANK YOU.', 'YOU’RE MINE NOW.', 'I SAW THAT.', 'GOTCHA.', 'KEEP GOING. I LIKE IT.'],
+  wood: ['MY HOUSE.', 'YOU WOKE ME UP.', 'YOU’LL BE SORRY.', 'I WARNED YOU.'],
+  doll: ['PLAY WITH ME.', 'DON’T LOOK AWAY.', 'WE’RE ALL DUMMIES HERE.', 'ONE MORE FRIEND.'],
+  eyes: ['BEHIND YOU.', 'I’M RIGHT HERE.', 'DON’T TURN AROUND.', 'I CAN SEE YOU.']
+};
+const BAD_END = { 1: ['slappy', 'YOUR TURN ON MY KNEE.'], 2: ['slappy', 'ALL MY DUMMIES.'], 4: ['slappy', 'I’LL DO THE TALKING.'], 5: ['doll', 'THANKS FOR THE RIDE.'], 8: ['eyes', 'JUST US NOW.'], 9: ['slappy', 'GUESS WHO’S BACK.'], 10: ['slappy', 'MISS ME?'] };
+let endScared = null;
+const LINE_COLOR = { slappy: 'var(--sl)', wood: 'var(--wd)', doll: '#ff4d4d', eyes: '#e8f6ff' };
+let jsOn = false, lastFace = '';
+function pickFace(pref) {
+  if (pref && FACES[pref]) return pref;
+  const pool = ['slappy', 'slappy', 'doll', 'eyes'].concat(G && G.s.words === 'wood' ? ['wood', 'wood'] : []);
+  let f; do { f = pool[Math.floor(Math.random() * pool.length)]; } while (f === lastFace && pool.length > 1);
+  return f;
+}
+function jumpscare(kind, line, done, big) {
+  done = done || (() => {});
+  if (!prefs.scares) { Snd.laugh(1, 0.22); return done(); }
+  const face = pickFace(kind); lastFace = face;
+  const lines = SCARE_LINES[face]; const text = line || lines[Math.floor(Math.random() * lines.length)];
+  jsOn = true; Snd.duck(true);
+  const el0 = $('#js');
+  if (big) { el0.querySelector('.face').innerHTML = FACES[face]; el0.querySelector('.jline').textContent = ''; el0.className = 'js creep ' + face; Snd.riser(1.6); Snd.whisper(0.3); setTimeout(() => Snd.whisper(0.3), 700); Snd.heart(true); }
+  const T = big ? 1700 : 320, H = big ? 2600 : 1350, E = big ? 3400 : 2050;
+  setTimeout(() => {
+    const el = $('#js');
+    el.querySelector('.face').innerHTML = FACES[face];
+    const ln = el.querySelector('.jline'); ln.textContent = text; ln.style.color = LINE_COLOR[face];
+    el.className = 'js on ' + (big ? 'big ' : '') + face; document.body.classList.add('shake');
+    Snd.heart(false); Snd.stinger(); Snd.shriek(); setTimeout(() => Snd.whisper(0.25), 300);
+    if (big) { setTimeout(() => { Snd.stinger(); Snd.sfx('slam'); }, 260); setTimeout(() => Snd.shriek(), 700); }
+    setTimeout(() => { Snd.laugh(face === 'doll' ? 1.9 : big ? 0.8 : 1, 0.36); if (big) Snd.laugh(1.6, 0.2, 0.5); el.classList.add('out'); }, H);
+    setTimeout(() => { el.className = 'js'; document.body.classList.remove('shake'); jsOn = false; Snd.duck(false); if (node && node.tension && !node.ending) Snd.heart(true); done(); }, E);
+  }, T);
+}
+setInterval(() => { if (node && node.tension && !jsOn && Math.random() < 0.4) Snd.creepy(); }, 9000);
 
 /* ================= CORE ================= */
 function setChapter(n) {
@@ -1471,7 +1897,10 @@ function reveal() {
   const p = document.createElement('p'); p.innerHTML = paras[shown]; p.classList.add('fresh');
   if (node.ending && shown === paras.length - 1) p.classList.add('last');
   box.appendChild(p);
-  if (/class="v sl"/.test(paras[shown])) { Snd.clack(2); talk('slappy'); }
+  if (/class="v sl"/.test(paras[shown])) { Snd.clack(2); talk('slappy'); Snd.whisper(0.12); }
+  const isLast = shown === paras.length - 1, bad = node.ending && BAD_END[node.ending];
+  const mk = /class="jsmark" data-k="(\w+)"/.exec(paras[shown]); if (mk && !(bad && isLast)) setTimeout(() => jumpscare(mk[1]), 650);
+  if (bad && isLast && endScared !== G.visited.length) { endScared = G.visited.length; setTimeout(() => { if (node && node.ending && BAD_END[node.ending]) jumpscare(bad[0], bad[1], null, true); }, 2600); }
   if (/class="v wd"/.test(paras[shown])) { Snd.clack(2); talk('wood'); }
   shown++;
   renderActions();
@@ -1499,6 +1928,7 @@ function renderActions() {
 function advance() {
   try { if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur(); } catch (e) {}
   if (document.querySelector('.ov.on') || $('#confirm').classList.contains('on')) return;
+  if (jsOn) return;
   if (cardOn) return hideCard();
   if (voteState) return;
   if (shown < paras.length) return reveal();
@@ -1553,7 +1983,11 @@ function openVote() {
     const dest = val(c.go, s);
     $('#actions').innerHTML = `<div class="chosen">You chose: ${o.label}</div>`;
     voteState = null; save(); dev();
-    setTimeout(() => enter(dest), 1300);
+    const wrong = c.scare !== undefined ? !!val(c.scare, s) : ((fx.voice || 0) > 0 || (fx.bond || 0) < 0 || (fx.trust || 0) <= -2);
+    playAct(G.cur, c.key);
+    const hasAct = !!ACT_MAP[G.cur + '.' + c.key];
+    if (wrong) { setTimeout(() => Snd.riser(0.55), hasAct ? 1650 : 0); setTimeout(() => jumpscare(c.scareFace, null, () => enter(dest)), hasAct ? 2000 : 380); }
+    else { if (!hasAct) Snd.chime(); setTimeout(() => enter(dest), hasAct ? 2700 : 1300); }
   };
   $('#bLock').onclick = lock; $('#bPause').onclick = () => { paused = !paused; draw(); }; $('#bMore').onclick = () => { left += 30; total = Math.max(total, left); draw(); };
   voteState = { pick, lock, pause: () => { paused = !paused; draw(); }, more: () => { left += 30; total = Math.max(total, left); draw(); }, stop: () => clearInterval(timer) };
@@ -1624,6 +2058,7 @@ function begin(resume) {
 }
 
 $('#segTime').querySelectorAll('button').forEach(b => { b.classList.toggle('on', +b.dataset.t === prefs.voteSecs); b.onclick = () => { prefs.voteSecs = +b.dataset.t; store.set(PKEY, prefs); $('#segTime').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); }; });
+$('#segScare').querySelectorAll('button').forEach(b => { b.classList.toggle('on', (b.dataset.s === '1') === !!prefs.scares); b.onclick = () => { prefs.scares = b.dataset.s === '1'; store.set(PKEY, prefs); $('#segScare').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); }; });
 const saved = store.get(KEY, null);
 if (saved && saved.cur && saved.cur !== 'intro' && NODES[saved.cur]) $('#bResume').hidden = false;
 $('#bBegin').onclick = () => { if (G && G.cur !== 'intro') return confirmNew(); store.del(KEY); begin(false); };
