@@ -253,7 +253,7 @@ svg.hide-slappy>.dm.slappy,svg.hide-wood>.dm.wood{opacity:0}
 .peek{transform-origin:50% 50%;animation:peek .35s both}
 @keyframes peek{0%{transform:scaleY(0)}100%{transform:none}}
 .hand.lunge{animation:lunge2 .28s cubic-bezier(.3,1.5,.5,1) both}
-@keyframes lunge2{0%{transform:translateX(260px)}70%{transform:translateX(-100px)}100%{transform:translateX(-80px) scaleX(.92)}}
+@keyframes lunge2{0%{transform:translateX(260px)}70%{transform:translateX(-160px)}100%{transform:translateX(-140px) scaleX(.92)}}
 .bolt{stroke-dasharray:400;stroke-dashoffset:400;animation:draw .35s ease-out forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
 .door{transform-origin:100% 50%;animation:door .35s .8s cubic-bezier(.6,0,.9,.4) both}
@@ -436,6 +436,141 @@ body.phonemode>*:not(#phone):not(script){display:none!important}
 .phone .ph-clock{font-size:34px;font-variant-numeric:tabular-nums;text-align:center;margin-top:4px}
 .phone .ph-chosen{font-size:22px;padding:16px;border-radius:14px;background:#1a2a44;border:2px solid var(--sl)}
 .phone .ph-foot{font-size:13px;opacity:.6;margin-top:auto}
+/* ---- people in the action scenes ---- */
+.act .fig{opacity:0;animation:figIn .3s ease-out both}
+@keyframes figIn{to{opacity:1}}
+.act .fig .fbody{transform-box:fill-box;transform-origin:50% 100%}
+.act .fig.stepIn .fbody{animation:stepIn .7s var(--d,0s) ease-out both}
+@keyframes stepIn{to{transform:translateX(var(--in,0px))}}
+.act .fig[data-who="k"]{--in:34px;--out:-22px;--rot:6deg;--dv:70deg}.act .fig[data-who="l"]{--in:-34px;--out:22px;--rot:-6deg;--dv:-70deg}
+.act .fig.stepOut .fbody{animation:stepOut .7s var(--d,0s) ease-in both}
+@keyframes stepOut{to{transform:translateX(var(--out,0px)) rotate(calc(var(--rot,0deg) * -1.5))}}
+.act .fig.reach .fbody{animation:reach .5s var(--d,0s) ease-out both}
+@keyframes reach{to{transform:translateX(var(--in,0px)) rotate(var(--rot,0deg))}}
+.act .fig.flinch .fbody{animation:flinch .4s var(--d,0s) ease-out both}
+@keyframes flinch{30%{transform:translateX(12px) rotate(4deg)}100%{transform:translateX(8px) scale(.96)}}
+.act .fig.crouch .fbody{transform:scaleY(.82) translateX(30px)}
+.act .fig.dimf{filter:brightness(.6)}
+.act .fig.lift .fbody{animation:liftF 1.2s var(--d,0s) ease-in-out both}
+@keyframes liftF{50%{transform:translateY(-16px)}100%{transform:translateY(-10px)}}
+.act .fig.dive .fbody{animation:dive .6s var(--d,0s) ease-in both}
+@keyframes dive{to{transform:translateY(40px) rotate(var(--dv,70deg)) scale(.9)}}
+.act .fig.enter .fbody{animation:enterF .5s ease-out both}
+@keyframes enterF{from{transform:translateX(-60px)}to{transform:none}}
+.act .fig.spk .mouth{transform-box:fill-box;transform-origin:center;animation:mtalk .12s ease-in-out 7 alternate}
+@keyframes mtalk{to{transform:scaleY(2.6)}}
+.tvin2{transform-box:view-box;transform:translate(48px,62px) scale(.62)}
+/* ---- lobby, presenter vote, dashboard ---- */
+#ovLobby #lobbyBody{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:86vh;text-align:center;gap:6px}
+#ovLobby h2{font-size:clamp(28px,4vw,52px);margin:0}
+#ovLobby .row{margin-top:10px}
+.opt.mine{box-shadow:inset 4px 0 0 var(--sl)}
+.opt.mine .letter{outline:2px solid var(--sl);outline-offset:2px}
+.pjoin{font-size:13px;opacity:.65;margin:8px 0 2px}
+#ovDash #dashBody{max-width:1280px;margin:0 auto}
+#ovDash .stats{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0 18px}
+#ovDash .stats>div{flex:1;min-width:120px;background:#ffffff0d;border:1px solid #ffffff1a;border-radius:12px;padding:12px 14px}
+#ovDash .stats b{display:block;font-size:30px;font-variant-numeric:tabular-nums}
+#ovDash .stats span{font-size:13px;opacity:.7}
+#ovDash .dgrid{display:grid;grid-template-columns:1.15fr 1fr;gap:22px}
+@media(max-width:900px){#ovDash .dgrid{grid-template-columns:1fr}}
+#ovDash h3{margin:6px 0 10px}
+#ovDash .tl{display:flex;flex-direction:column;gap:8px}
+#ovDash .trow{display:grid;grid-template-columns:54px 1fr 96px;gap:10px;align-items:start;padding:10px 12px;border-radius:12px;background:#ffffff0a;border-left:4px solid #ffffff30}
+#ovDash .trow.good{border-left-color:#6fd39a}#ovDash .trow.bad{border-left-color:#ff6b6b}
+#ovDash .tch{font-size:13px;opacity:.6;padding-top:2px}
+#ovDash .tq{font-size:13px;opacity:.7}
+#ovDash .ta{font-size:16px;margin:2px 0 6px}
+#ovDash .twhy{font-size:13px;opacity:.75;margin-top:5px}
+#ovDash .tv{font-size:12px;text-align:center;padding:4px 6px;border-radius:999px;background:#ffffff14}
+#ovDash .tv.good{background:#6fd39a26;color:#8ee6b0}#ovDash .tv.bad{background:#ff6b6b26;color:#ff9a9a}
+#ovDash .vsplit{display:flex;height:16px;border-radius:5px;overflow:hidden;gap:2px;font-size:11px}
+#ovDash .vsplit i{display:flex;align-items:center;justify-content:center;background:#ffffff26;font-style:normal;min-width:4px}
+#ovDash .vsplit i.win{background:var(--sl);color:#0b0e18}
+#ovDash .vsplit.none{font-size:11px;opacity:.5;height:auto}
+#ovDash .icards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#ovDash .icard{background:#ffffff0a;border:1px solid #ffffff17;border-radius:12px;padding:12px 14px}
+#ovDash .icard h4{margin:0 0 4px;font-size:14px;opacity:.8}
+#ovDash .icard .big{font-size:26px;margin-bottom:4px}
+#ovDash .icard p{margin:0;font-size:14px;line-height:1.4}
+#ovDash .icard .note{margin-top:8px;font-size:12px;opacity:.55;font-style:italic}
+#ovDash .wd{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#ovDash .wd h4{margin:0 0 6px}#ovDash .wd h4.good{color:#8ee6b0}#ovDash .wd h4.bad{color:#ff9a9a}
+#ovDash .wd p{font-size:14px;margin:0 0 6px;opacity:.9}
+/* ---- the book ---- */
+.book3d{--H:min(66vh,540px);--W:calc(var(--H) * .72);width:calc(var(--W) * 2);height:var(--H);position:relative;margin:auto;perspective:2400px;cursor:pointer}
+.book3d .bk-spread{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.5,0,.3,1)}
+.book3d.closed .bk-spread{transform:translateX(-25%) rotateY(-16deg) rotateX(5deg)}
+.book3d.closed:hover .bk-spread{transform:translateX(-25%) rotateY(-8deg) rotateX(3deg)}
+.book3d.open .bk-spread{transform:none}
+.bk-base{position:absolute;left:50%;top:-6px;width:calc(50% + 10px);height:calc(100% + 12px);background:#14060a;border-radius:3px 10px 10px 3px;transform:translateZ(-14px);box-shadow:0 30px 60px #000c}
+.bk-lbase{position:absolute;left:-10px;top:-6px;width:calc(50% + 10px);height:calc(100% + 12px);background:#14060a;border-radius:10px 3px 3px 10px;transform:translateZ(-14px);opacity:0;transition:opacity .4s .6s}
+.book3d.open .bk-lbase{opacity:1}
+.bk-right{position:absolute;left:50%;top:0;width:50%;height:100%;border-radius:2px 6px 6px 2px;box-shadow:inset 18px 0 30px -18px #0007,3px 0 0 #e2d6b8,6px 0 0 #cfc29f,9px 0 0 #bdb08c;overflow:hidden}
+.bk-cover{position:absolute;left:50%;top:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transform:translateZ(3px) rotateY(0deg);transition:transform 1.5s cubic-bezier(.6,.05,.25,1)}
+.book3d.open .bk-cover{transform:translateZ(3px) rotateY(-180deg)}
+.book3d.instant .bk-cover,.book3d.instant .bk-spread,.book3d.instant .bk-lbase{transition:none!important}
+.bk-front,.bk-inside{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:2px 8px 8px 2px;overflow:hidden}
+.bk-front{box-shadow:inset 6px 0 10px #0009}
+.bk-front svg{width:100%;height:100%;display:block}
+.bk-inside{transform:rotateY(180deg);border-radius:8px 2px 2px 8px;box-shadow:inset -18px 0 30px -18px #0007}
+.bk-in{position:absolute;inset:7% 9%;color:#2a2018;font-family:Georgia,serif;display:flex;flex-direction:column}
+.pg-hand{font-family:"Segoe Script","Bradley Hand","Brush Script MT",cursive;font-size:calc(var(--H) * .06);color:#5a3a8a;transform:rotate(-6deg);margin-top:30%;line-height:1.3;text-align:center}
+.pg-sign{font-family:"Segoe Script","Bradley Hand",cursive;color:#5a3a8a;align-self:flex-end;margin-top:10px;font-size:calc(var(--H) * .04)}
+.pg-ch{font-family:"Special Elite","Courier New",monospace;font-size:calc(var(--H) * .03);letter-spacing:.2em;text-transform:uppercase;color:#7a5a3a;text-align:center;margin-top:8%}
+.pg-h{font-size:calc(var(--H) * .058);text-align:center;margin:6px 0 16px;color:#1d140e}
+.pg-p{font-size:calc(var(--H) * .032);line-height:1.55;margin:0 0 10px;color:#3a2e22}
+.pg-last{font-style:italic;margin-top:6%}
+.dropcap{float:left;font-size:3.1em;line-height:.8;padding:4px 6px 0 0;color:#8a1c1c}
+.pg-end{margin-top:auto;text-align:center;font-family:"Special Elite","Courier New",monospace;letter-spacing:.3em;color:#8a1c1c;font-size:calc(var(--H) * .04)}
+.pg-scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.pg-scene svg{width:100%;height:100%;filter:sepia(.25) contrast(1.05)}
+.bk-front .cv-stamp{opacity:0}
+.book3d.awake .cv-stamp{animation:stampIn .35s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes stampIn{0%{opacity:0;transform:rotate(-14deg) scale(2.4);transform-box:fill-box;transform-origin:center}100%{opacity:.92;transform:rotate(-14deg);transform-box:fill-box;transform-origin:center}}
+.book3d.awake .cv-dummy .pu{fill:#d6f3ff;filter:drop-shadow(0 0 2px #7cc8ff) drop-shadow(0 0 4px #7cc8ff)}
+.book3d.awake .cv-dummy .head{transform-box:fill-box;transform-origin:50% 100%;animation:tilt 3s ease-in-out infinite}
+.book3d.closed .cv-dummy .pu{transition:fill .4s}
+.cv-voice{filter:drop-shadow(0 0 6px #4fb8ff88)}
+.book3d.dive{transition:transform 1.4s cubic-bezier(.45,.05,.7,.55),opacity 1.4s ease-in;transform:scale(6) translateX(10%);transform-origin:75% 50%;opacity:.35}
+#ovTitle.diving .title{opacity:0;transition:opacity .5s}
+.titlepic{display:flex;align-items:center;justify-content:center;min-height:70vh}
+.fadeblack{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:54;transition:opacity .9s}
+.fadeblack.on{opacity:1}
+.ovbook{position:fixed;inset:0;z-index:57;display:none;align-items:center;justify-content:center;background:radial-gradient(900px 600px at 50% 45%,#1a1220 0%,#05060a 75%);cursor:pointer}
+.ovbook.on{display:flex;animation:fadeIn .6s both}
+@keyframes fadeIn{from{opacity:0}}
+.ovbook .book3d{--H:min(78vh,640px)}
+.ovbook .book3d.closed .bk-spread{transform:translateX(-25%)}
+.ovbook .book3d.shut .bk-spread{animation:shutBump .4s 1.2s ease-out}
+@keyframes shutBump{40%{transform:translateX(-25%) scale(1.03)}}
+.bk-skip{position:fixed;bottom:18px;right:24px;color:#ffffff60;font-size:14px}
+/* ---- dashboard: chart and animated final result ---- */
+#ovDash .nchart{background:#ffffff08;border:1px solid #ffffff14;border-radius:14px;padding:12px 16px 8px;margin:0 0 20px}
+#ovDash .nchart h3{margin:2px 0 6px}
+#ovDash .nchart svg{width:100%;height:auto;display:block}
+#ovDash .dline{stroke-dasharray:3000;stroke-dashoffset:3000}
+#ovDash.go .dline{animation:drawL 1.6s ease-out forwards}
+@keyframes drawL{to{stroke-dashoffset:0}}
+#ovDash .dend{opacity:0}#ovDash.go .dend{animation:glIn2 .4s both}
+#ovDash .dlegend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;opacity:.85;margin-top:4px}
+#ovDash .dlegend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+#ovDash.go .trow{animation:rowIn .5s both}
+#ovDash.go .trow:nth-child(1){animation-delay:.1s}#ovDash.go .trow:nth-child(2){animation-delay:.18s}#ovDash.go .trow:nth-child(3){animation-delay:.26s}#ovDash.go .trow:nth-child(4){animation-delay:.34s}#ovDash.go .trow:nth-child(5){animation-delay:.42s}#ovDash.go .trow:nth-child(6){animation-delay:.5s}#ovDash.go .trow:nth-child(7){animation-delay:.58s}#ovDash.go .trow:nth-child(8){animation-delay:.66s}#ovDash.go .trow:nth-child(n+9){animation-delay:.74s}
+@keyframes rowIn{from{opacity:0;transform:translateX(-14px)}}
+#ovDash.go .vsplit{transform-origin:left;animation:growX .9s .5s ease-out both}
+@keyframes growX{from{transform:scaleX(0)}}
+#ovDash.go .icard{animation:rowIn .5s both}
+#ovDash.go .icard:nth-child(2){animation-delay:.15s}#ovDash.go .icard:nth-child(3){animation-delay:.3s}#ovDash.go .icard:nth-child(4){animation-delay:.45s}#ovDash.go .icard:nth-child(5){animation-delay:.6s}#ovDash.go .icard:nth-child(6){animation-delay:.75s}
+#ovDash .dfinal{margin:26px 0 40px;padding:22px;border-radius:16px;background:#ffffff08;border:1px solid #ffffff17;text-align:center}
+#ovDash .dtug{display:flex;align-items:center;gap:14px;max-width:760px;margin:6px auto 20px;font-size:17px}
+#ovDash .dtugbar{flex:1;height:18px;border-radius:9px;background:var(--sl);overflow:hidden;box-shadow:inset 0 0 0 1px #ffffff22}
+#ovDash .dtugbar b{display:block;height:100%;width:50%;background:var(--k);transition:width 1.6s cubic-bezier(.3,1.4,.5,1) .4s}
+#ovDash.go .dtugbar b{width:var(--w)}
+#ovDash .dverdict{font-family:"Special Elite","Courier New",monospace;font-size:clamp(36px,5.5vw,76px);opacity:0;transform:scale(2.2) rotate(-6deg)}
+#ovDash .dverdict.slam{animation:verdict .45s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes verdict{to{opacity:1;transform:rotate(-3deg)}}
+#ovDash .dverdict.bad{color:#ff6b6b;text-shadow:0 0 24px #ff000055}#ovDash .dverdict.good{color:#8ee6b0;text-shadow:0 0 24px #00ff8844}#ovDash .dverdict.mid{color:var(--moon)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -468,7 +603,6 @@ body.phonemode>*:not(#phone):not(script){display:none!important}
       <span style="margin-left:14px">Jump scares:</span><span class="seg" id="segScare"><button data-s="1">On</button><button data-s="0">Off</button></span>
     </div>
     <div><button class="btn" id="bBegin">Start</button><button class="btn ghost" id="bResume" hidden>Continue</button></div>
-    <div id="titleqr"></div>
     <details class="keys"><summary>Keys</summary>
       <span><kbd>Space</kbd>next line</span>
       <span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd>pick an option</span>
@@ -483,11 +617,15 @@ body.phonemode>*:not(#phone):not(script){display:none!important}
 </div></div>
 
 <div class="ov" id="ovCurtain"><button class="ic close" data-close>Close</button><div id="curtainBody"></div></div>
+<div class="ov" id="ovLobby"><div id="lobbyBody"></div></div>
+<div class="ov" id="ovDash"><button class="ic close" data-close>Close</button><div id="dashBody"></div></div>
 <div class="ov" id="ovJoin"><button class="ic close" data-close>Close</button><div id="joinBody"></div></div>
 <div class="ov" id="ovMap"><button class="ic close" data-close>Close</button><div id="mapBody"></div></div>
 <div class="confirm" id="confirm"><div><p id="confirmText">Start over? This run will be lost.</p><button class="btn" id="cYes">Start over</button><button class="btn ghost" id="cNo">Cancel</button></div></div>
 <div class="dev" id="dev"></div>
 <div class="coldopen" id="cold"></div>
+<div class="ovbook" id="ovBook"></div>
+<div class="fadeblack" id="fadeBlack"></div>
 <div class="phone" id="phone" hidden></div>
 <div class="cine" id="cine"></div>
 <div class="js" id="js"><div class="flash"></div><div class="face"></div><div class="shade"></div><div class="grain"></div><div class="red"></div><div class="jline"></div></div>
@@ -1834,9 +1972,9 @@ const dl = s => s ? `animation-delay:${s}s` : '';
 const dv = s => `--d:${s || 0}s`;
 function spr(kind, x, cls, delay = 0) { return `<g class="spr ${cls}" style="${dl(delay)}">${dummy(kind, x)}</g>`; }
 function bub(text, color, x, y, delay = 0, it = false) {
-  const w = Math.max(64, text.length * 8.4 + 30);
-  return `<g class="bub" style="${dl(delay)}"><path d="M${x - 7} ${y + 12}l7 13 7-13z" fill="#0b0f1c" style="stroke:${color}" stroke-width="2"/><rect x="${x - w / 2}" y="${y - 18}" width="${w}" height="33" rx="14" fill="#0b0f1cf0" style="stroke:${color}" stroke-width="2.2"/>
-    <text x="${x}" y="${y + 5}" text-anchor="middle" font-size="16" font-family="Georgia,serif" ${it ? 'font-style="italic"' : ''} style="fill:${color}">${text}</text></g>`;
+  const w = Math.min(392, Math.max(64, text.length * 8.4 + 30)), cx = Math.min(Math.max(x, w / 2 + 4), 396 - w / 2), tx = Math.min(Math.max(x, cx - w / 2 + 16), cx + w / 2 - 16);
+  return `<g class="bub" style="${dl(delay)}"><path d="M${tx - 7} ${y + 12}l7 13 7-13z" fill="#0b0f1c" style="stroke:${color}" stroke-width="2"/><rect x="${cx - w / 2}" y="${y - 18}" width="${w}" height="33" rx="14" fill="#0b0f1cf0" style="stroke:${color}" stroke-width="2.2"/>
+    <text x="${cx}" y="${y + 5}" text-anchor="middle" font-size="16" font-family="Georgia,serif" ${it ? 'font-style="italic"' : ''} style="fill:${color}">${text}</text></g>`;
 }
 function glow(side, color, cls = '', delay = 0) { const x = side === 'l' ? 62 : side === 'r' ? 338 : 200; return `<ellipse class="gl ${cls}" cx="${x}" cy="420" rx="74" ry="52" style="fill:${color};${dv(delay)}"/>`; }
 const DARK = (o = 0.55, delay = 0) => `<rect class="dk" width="400" height="470" fill="#000" style="--o:${o};${dl(delay)}"/>`;
@@ -1850,60 +1988,111 @@ const ROLLER = `<g class="roller"><rect x="40" y="318" width="150" height="70" r
   <rect x="-40" y="330" width="110" height="98" rx="49" fill="#4b525c" stroke="#2b3036" stroke-width="5"/><circle cx="160" cy="404" r="26" fill="#2b3036"/><path d="M-30 379h90" stroke="#2b3036" stroke-width="3"/></g>`;
 const HAND = (color, cls, delay = 0) => `<g class="hand ${cls}" style="${dl(delay)}"><rect x="300" y="318" width="140" height="44" rx="10" style="fill:${color}" opacity=".85"/>
   <g fill="#e9c9a6" stroke="#8a6a50" stroke-width="2"><ellipse cx="292" cy="340" rx="30" ry="26"/><rect x="226" y="314" width="62" height="13" rx="6.5"/><rect x="218" y="329" width="70" height="13" rx="6.5"/><rect x="222" y="344" width="66" height="13" rx="6.5"/><rect x="232" y="359" width="56" height="12" rx="6"/><path d="M286 318c-10-12-24-16-30-10s8 14 18 20" /></g></g>`;
+/* people: the twins are identical except for their colour; grown-ups are grey (the colour code) */
+const KX = 92, LX = 308, A1 = 30, A2 = 370;
+const DRESS = { k: '#6a55b5', l: '#b48a2c' };
+function fig(who, x, cls = '', delay = 0) {
+  if (who === 'k' || who === 'l') {
+    const c = who === 'k' ? CV.k : CV.l;
+    return `<g class="fig ${cls}" data-who="${who}" style="${dv(delay)}"><g class="fbody">
+      <path d="M${x - 24} 330c-6 30-6 70-2 110h48c4-40 4-80-2-110z" fill="#2a1c14"/>
+      <path d="M${x - 27} 446l7-112q20-16 40 0l7 112z" fill="${DRESS[who]}"/>
+      <path d="M${x - 27} 446l7-112q20-16 40 0l7 112" fill="none" style="stroke:${c}" stroke-width="2.5" opacity=".9"/>
+      <rect x="${x - 33}" y="336" width="9" height="62" rx="4.5" fill="#e3c3a2"/><rect x="${x + 24}" y="336" width="9" height="62" rx="4.5" fill="#e3c3a2"/>
+      <rect x="${x - 5}" y="306" width="10" height="16" fill="#d9b693"/>
+      <ellipse cx="${x}" cy="288" rx="21" ry="23" fill="#e8c9a8"/>
+      <path d="M${x - 23} 292c-2-30 8-42 23-42s25 12 23 42c-4-12-10-20-23-21c-13 1-19 9-23 21z" fill="#2a1c14"/>
+      <circle cx="${x - 7}" cy="290" r="2.2" fill="#2a1a12"/><circle cx="${x + 7}" cy="290" r="2.2" fill="#2a1a12"/>
+      <ellipse class="mouth" cx="${x}" cy="301" rx="4" ry="1.6" fill="#7a3a34"/></g></g>`;
+  }
+  const A = { mom: ['#7b8494', 'bun'], dad: ['#5e6b7d', 'short'], mrm: ['#8a8f99', 'curl'], mm: ['#6b7280', 'bald'] }[who];
+  const hair = A[1] === 'bun' ? `<path d="M${x - 22} 172c-2-26 10-36 22-36s24 10 22 36c-6-12-12-18-22-18s-16 6-22 18z" fill="#4a4a52"/><circle cx="${x}" cy="134" r="11" fill="#4a4a52"/>`
+    : A[1] === 'short' ? `<path d="M${x - 22} 170c-2-24 10-34 22-34s24 10 22 34c-4-8-10-14-22-14s-18 6-22 14z" fill="#3a3a40"/>`
+    : A[1] === 'curl' ? `<g fill="#b9bcc4"><circle cx="${x - 16}" cy="152" r="10"/><circle cx="${x}" cy="144" r="11"/><circle cx="${x + 16}" cy="152" r="10"/><circle cx="${x - 20}" cy="168" r="8"/><circle cx="${x + 20}" cy="168" r="8"/></g>`
+    : `<path d="M${x - 22} 170c0-6 2-10 4-12M${x + 22} 170c0-6-2-10-4-12" stroke="#9a9ca4" stroke-width="5" fill="none"/>`;
+  return `<g class="fig adult ${cls}" data-who="${who}" style="${dv(delay)}"><g class="fbody">
+    <path d="M${x - 34} 470l6-246q28-20 56 0l6 246z" fill="${A[0]}"/><path d="M${x - 34} 470l6-246q28-20 56 0l6 246" fill="none" stroke="${CV.g}" stroke-width="2.5" opacity=".8"/>
+    <rect x="${x - 6}" y="196" width="12" height="18" fill="#d0b394"/>
+    <ellipse cx="${x}" cy="172" rx="22" ry="25" fill="#e2c4a4"/>${hair}
+    ${who === 'mm' ? `<g fill="none" stroke="#2a2a30" stroke-width="2"><circle cx="${x - 8}" cy="172" r="6"/><circle cx="${x + 8}" cy="172" r="6"/><path d="M${x - 2} 172h4"/></g>` : `<circle cx="${x - 8}" cy="172" r="2.2" fill="#2a1a12"/><circle cx="${x + 8}" cy="172" r="2.2" fill="#2a1a12"/>`}
+    <ellipse class="mouth" cx="${x}" cy="186" rx="4.5" ry="1.6" fill="#6a3a34"/></g></g>`;
+}
+const POS = { k: KX, l: LX, mom: A2, dad: A1, mrm: A1, mm: A2 };
+const HEAD = who => (who === 'k' || who === 'l') ? 248 : 140;
+function scene(people, lines, extra = '', under = '') {
+  let prevY = 1e9;
+  const html = under + people.map(p => typeof p === 'string' ? fig(p, POS[p]) : fig(p[0], p[1] ?? POS[p[0]], p[2] || '', p[3] || 0)).join('')
+    + extra + lines.map(([who, text, d, it], i) => {
+      const sp = typeof who === 'string' ? { x: POS[who], c: CV[who] || CV.g, top: HEAD(who) } : who;
+      const y = Math.min(sp.top - 32, prevY - 46, 212); prevY = y;
+      return bub(text, sp.c, sp.x, y, d, it);
+    }).join('');
+  return { html, speak: lines.filter(([w]) => typeof w === 'string').map(([w, , d]) => [w, d]) };
+}
+const LINE = (who, x) => ({ x, c: CV[who], top: 250 });
+const ghostC = () => (G && G.s.words === 'wood') ? CV.wd : CV.sl;
+const both = ['k', 'l'];
+function A(people, lines, extra, more) { const s = scene(people, lines, extra, (more && more.under) || ''); return Object.assign({ html: s.html, speak: s.speak }, more || {}); }
 const ACTS = {
-  keep: () => ({ html: glow('r', CV.l) + spr('slappy', 200, 'rise') + bub('She’s keeping me!', CV.l, 200, 205, 1.0, true), snd: [['whoosh', 0.1], ['thud', 0.85], ['giggle', 1.2]], glint: ['slappy', 1.0] }),
-  tossBack: () => ({ html: spr('slappy', 200, 'tossdown') + `<g class="dumpst"><rect x="230" y="380" width="160" height="70" rx="4" fill="#2f5a3a"/><rect class="lid" x="226" y="372" width="168" height="12" rx="3" fill="#24452c" style="${dl(1.15)}"/></g>`, snd: [['whoosh', 0.25], ['clang', 1.2]] }),
-  pass: () => ({ html: glow('r', CV.l) + glow('l', CV.k, 'brighten', 0.9) + spr('slappy', 200, 'passL'), hide: ['slappy'], snd: [['whoosh', 0.2], ['thud', 1.25], ['pop', 1.4]] }),
-  clutch: () => ({ html: glow('r', CV.l, 'brighten', 0.5) + glow('l', CV.k) + spr('slappy', 200, 'yankR') + bub('Mine.', CV.l, 310, 230, 0.7), hide: ['slappy'], snd: [['whoosh', 0.15], ['thud', 0.6]] }),
-  sayOwn: p => ({ html: glow(p.side, CV[p.c]) + bub(p.t, CV[p.c], p.x || (p.side === 'l' ? 110 : 290), 236, 0.35) + (p.t2 ? bub(p.t2, CV[p.c2 || 'g'], p.side === 'l' ? 290 : 110, 196, 1.2) : ''), snd: [['pop', 0.35], ['pop', 1.2], ['warm', 0.5]] }),
-  sayVia: p => { const x = chairX(p.kind) || 200; return { html: (chairX(p.kind) ? '' : spr(p.kind, 200, 'still')) + glow(p.side, CV[p.c]) + bub(p.t, CV[p.c], x, 214, 0.4, true), talk: [[p.kind, 0.3]], glint: [p.kind, 1.1], snd: [['clack', 0.3], ['pop', 0.4], ['giggle', 1.2]] }; },
-  insist: () => ({ html: glow('r', CV.l) + bub('I didn’t do it. I swear.', CV.l, 270, 236, 0.3) + bub('Then who did?', CV.g, 120, 160, 1.15), snd: [['pop', 0.3], ['pop', 1.15], ['buzz', 1.15]], glint: ['slappy', 1.4] }),
-  grab: () => ({ html: DARK(0.45) + glow('l', CV.k, 'dim') + HAND(CV.l, 'lunge', 0.35) + FLASH('#fff', 0.55), snd: [['whoosh', 0.3], ['slap', 0.55]], glint: ['slappy', 0.8] }),
-  peek: p => ({ html: DARK(0.6) + EYES(p.side === 'l' ? 80 : 320, CV[p.c], 0.6), turn: (lastScene.chair || []).slice(), snd: [['creak', 0.4]] }),
-  whisper: () => ({ html: DARK(0.4) + glow('r', CV.l, 'dim') + bub('Kris? You okay?', CV.l, 290, 236, 0.3, false), blink: ['slappy', 1.1], snd: [['whisper', 0.3]] }),
-  accuse: p => ({ html: glow('l', CV.k, 'brighten') + glow('r', CV.l, 'shrink', 0.7) + `<path class="bolt" d="M120 420l70-50-20-10 80-40" stroke="#ff4d4d" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" style="${dl(0.45)}"/>` + bub(p.t, CV.k, 120, 236, 0.3) + FLASH('#a0101a', 0.6), snd: [['pop', 0.3], ['slam', 0.6]], shake: 0.6 }),
-  ask: () => ({ html: glow('l', CV.k) + glow('r', CV.l) + bub('Did you do this?', CV.k, 120, 236, 0.3) + bub('No. I swear.', CV.l, 290, 196, 1.2), snd: [['pop', 0.3], ['pop', 1.2]] }),
-  snub: () => ({ html: glow('l', CV.k, 'outL', 0.9) + glow('r', CV.l, 'outR', 0.9) + bub('I’d rather do an act with the dumpster.', CV.k, 200, 236, 0.2) + bub('Good.', CV.l, 300, 170, 1.2), snd: [['pop', 0.2], ['pop', 1.2], ['buzz', 1.3]] }),
-  talkFail: () => ({ html: glow('l', CV.k, 'toC-l', 0.2) + glow('r', CV.l, 'toC-r', 0.2) + bub('Lindy, I’ve always...', CV.k, 130, 330, 0.3) + bub('Copycat.', CV.sl, chairX('slappy') || 200, 205, 1.3), talk: [['slappy', 1.25]], glint: ['slappy', 1.3], snd: [['pop', 0.3], ['clack', 1.25], ['whisper', 1.3]], shake: 1.35 }),
-  together: p => ({ html: glow('l', CV.k, 'toC-l', 0.2) + glow('r', CV.l, 'toC-r', 0.2) + `<ellipse class="gl merge" cx="200" cy="430" rx="110" ry="70" fill="#fff2d6" style="${dl(1.1)}"/>` + bub(p.t1, CV.k, 120, 230, 0.3) + bub(p.t2, CV.l, 285, 190, 0.9), snd: [['pop', 0.3], ['pop', 0.9], ['warm', 1.1]] }),
-  slam: () => ({ html: glow('l', CV.k) + glow('r', CV.l) + bub('No chance.', CV.k, 120, 236, 0.2) + `<g class="door" style="${dl(0.8)}"><rect x="190" y="20" width="210" height="450" fill="#3b2a20" stroke="#1c130e" stroke-width="8"/><rect x="214" y="50" width="162" height="160" rx="4" fill="none" stroke="#251a13" stroke-width="6"/><rect x="214" y="240" width="162" height="190" rx="4" fill="none" stroke="#251a13" stroke-width="6"/><circle cx="212" cy="240" r="9" fill="#c9a24a"/></g>`, snd: [['pop', 0.2], ['slam', 1.15]], shake: 1.15 }),
-  pullApart: () => ({ html: spr('slappy', 190, 'tangle apartL') + spr('wood', 214, 'tangle apartR'), snd: [['thud', 0.2], ['whoosh', 0.9], ['thud', 1.3], ['thud', 1.4]] }),
-  lookClose: () => ({ html: spr('slappy', 190, 'still') + spr('wood', 214, 'still') + `<circle class="str" cx="202" cy="292" r="16" fill="none" stroke="#9fe8ff" stroke-width="3" style="${dl(1.1)}"/>` + MAG('sweep', 0.1), snd: [['creak', 0.2], ['whisper', 1.1]] }),
-  blameWood: () => ({ html: glow('l', CV.k) + bub('Mr. Wood did it.', CV.k, 125, 236, 0.3) + bub('STOP. This is sick.', CV.g, 270, 160, 1.15) + `<rect class="cold" width="400" height="470" fill="#4f7bd6" style="${dl(1.15)}"/>`, snd: [['pop', 0.3], ['pop', 1.15], ['buzz', 1.2]] }),
-  confess: () => ({ html: glow('l', CV.k, 'brighten') + glow('r', CV.l, 'brighten', 0.8) + bub('I did it.', CV.k, 115, 236, 0.3) + bub('Kris. Why?', CV.g, 280, 160, 1.4), talk: [['slappy', 1.1]], glint: ['slappy', 1.2], snd: [['pop', 0.3], ['warm', 0.7], ['giggle', 1.3]] }),
-  believe: () => ({ html: glow('l', CV.k) + bub('It was a joke? All of it?', CV.k, 160, 236, 0.3), talk: [['slappy', 1.0]], glint: ['slappy', 1.1], snd: [['pop', 0.3], ['giggle', 1.1]] }),
-  slapQ: () => ({ html: FLASH('#fff', 0.15) + `<path class="print" d="M180 300c-10-30-6-60 4-60s10 30 12 40c0-30 4-52 14-52s10 30 10 50c2-18 8-34 16-32s6 30 2 52c6-10 14-14 18-10s-10 34-30 50c-18 14-40 8-46-38z" fill="#c0262c" style="${dl(0.15)}"/>` + bub('Then who slapped me?', CV.k, 200, 200, 0.7) + `<text class="q" x="${(chairX('slappy') || 200) + 32}" y="240" font-size="42" font-family="Georgia,serif" style="fill:${CV.sl};${dv(1.3)}">?</text>`, snd: [['slap', 0.15], ['pop', 0.7], ['whisper', 1.3]], glint: ['slappy', 1.3] }),
-  read: p => ({ html: PAPER('unfold', CV[p.c], 0.1) + `<polygon class="beam" points="190,340 210,340 ${(chairX(p.kind) || 200) + 18},262 ${(chairX(p.kind) || 200) - 18},262" style="fill:${CV[p.c]};${dl(0.9)}"/>`, wake: [p.kind, 1.15], snd: [['paper', 0.1], ['whisper', 0.6], ['riser', 0.6], ['thud', 1.2]] }),
-  burn: () => ({ html: PAPER('burnup', '#4a3b2a') + `<g class="flames" style="${dv(0.5)}"><path d="M160 400q10-40 20-10q6-50 22-20q10-46 22 0q10-30 18 30z" fill="#ff8a1e"/><path d="M175 400q8-26 14-6q8-34 16-10q8-28 14 6q6-16 10 10z" fill="#ffd54a"/></g>` + Array.from({ length: 9 }, (_, i) => `<circle class="ash" cx="${170 + i * 7}" cy="360" r="${1.5 + (i % 3)}" fill="#bbb" style="${dl(1.0 + i * 0.08)}"/>`).join(''), slump: true, snd: [['paper', 0.1], ['crackle', 0.5]] }),
-  fold: () => ({ html: PAPER('foldaway', '#4a3b2a'), blink: ['wood', 1.3], glint: ['wood', 1.4], snd: [['paper', 0.2], ['paper', 0.7], ['creak', 1.2]] }),
-  woodSorry: () => ({ html: spr('wood', 200, 'still') + glow('l', CV.k) + bub('Say sorry, Mr. Wood.', CV.k, 110, 236, 0.2) + bub('Sorry you’re so OLD.', G && G.s.words === 'wood' ? CV.wd : CV.sl, 220, 196, 1.0), talk: [['wood', 0.3]], snd: [['clack', 0.3], ['pop', 0.35], ['buzz', 1.25]] }),
-  pointAt: () => ({ html: glow('r', CV.l) + spr('slappy', 250, 'still') + glow('l', CV.k) + `<path class="bolt" d="M90 400L220 300" stroke="${CV.k}" stroke-width="5" fill="none" stroke-linecap="round" style="stroke:${CV.k};${dl(0.3)}"/>` + bub('It was HIM!', CV.k, 105, 236, 0.4), talk: [['slappy', 1.4]], snd: [['pop', 0.4], ['pop', 1.25], ['giggle', 1.5]] }),
-  stage: p => ({ html: DARK(0.8) + (p.who === 'wood' ? CONE(200, '#fff2d0') + spr('wood', 200, 'still') : p.who === 'two' ? CONE(200, '#fff2d0', 0.2) + glow('c', CV.k, 'twinL', 0.5) + glow('c', CV.l, 'twinR', 0.5) : CONE(200, '#fff2d0', 0.2) + glow('c', CV.k, '', 0.5)), talk: p.who === 'wood' ? [['wood', 0.9]] : [], snd: [['click', 0.15], ['murmur', 0.4], p.who === 'two' ? ['warm', 0.9] : ['click', 0.6]] }),
-  lights: p => ({ html: `<rect class="door2" x="0" y="150" width="70" height="280" fill="#ffe7a8" style="${dl(0.1)}"/><rect class="lamp" width="400" height="470" fill="#ffd98a" style="${dl(0.35)}"/>` + bub(p.t, CV.g, 160, 150, 1.0), snd: [['creak', 0.0], ['click', 0.35], ['buzz', 0.4], ['pop', 1.0]] }),
-  bury: () => ({ html: Array.from({ length: 14 }, (_, i) => `<circle class="dirt" cx="${110 + (i * 37) % 190}" cy="300" r="${4 + i % 4}" fill="#4a3222" style="${dl(0.1 + i * 0.07)}"/>`).join('') + `<path class="mound" d="M0 470V380q100-60 200-60t200 60v90z" fill="#3a271b"/>` + `<g class="pokehand" style="${dv(1.55)}"><path d="M200 340v-34m-8 30v-26m16 26v-26m-24 34v-18" stroke="#ebcfae" stroke-width="7" stroke-linecap="round"/></g>`, snd: [['thud', 0.2], ['thud', 0.6], ['thud', 1.0], ['knockin', 1.6]] }),
-  check: () => ({ html: DARK(0.35) + MAG('toSl', 0.1), glint: ['slappy', 1.0], blink: ['slappy', 1.5], snd: [['creak', 0.3], ['whisper', 1.0]] }),
-  barky: () => ({ html: spr('wood', 200, 'drop') + `<g class="dog"><path d="M0 420c0-14 10-22 26-22h30l8-10 8 4-2 12c10 4 12 14 6 20h-8v14h-8v-12H22v12h-8v-14C6 424 0 424 0 420z" fill="#7a5532"/></g>`, snd: [['bark', 0.2], ['whoosh', 0.7], ['thud', 1.2], ['rumble', 0.6]] }),
-  roller: p => ({ html: spr(p.kind, 200, 'flatten') + ROLLER, hide: [p.kind], snd: [['rumble', 0], ['crackle', 0.9], ['thud', 0.95]], shake: 0.95 }),
-  strings: () => ({ html: glow('l', CV.k, 'lift', 0.6) + glow('r', CV.l, 'lift', 0.6) + `<g class="strs"><path d="M62 0V400M338 0V400M40 0V410M360 0V410" stroke="#cfe2ff" stroke-width="1.4"/></g>` + bub('Deal.', CV.sl, 200, 120, 0.9), snd: [['whisper', 0.1], ['pop', 0.9], ['laugh', 1.2]] }),
-  refuse: () => ({ html: glow('l', CV.k) + glow('r', CV.l) + bub('No deal.', CV.k, 120, 236, 0.3) + bub('Heh.', CV.sl, 290, 140, 1.2), snd: [['pop', 0.3], ['giggle', 1.2]] }),
-  tv: () => ({ html: DARK(0.55) + `<g class="tv"><rect x="96" y="120" width="208" height="160" rx="12" fill="#151a22" stroke="#3a414d" stroke-width="8"/><rect class="stat" x="108" y="132" width="184" height="136" fill="#9aa3ad"/></g><g class="tvd" style="${dl(0.8)}"><g class="tvin">${dummy('slappy', 200)}</g></g>`, glint: ['slappy', 1.3], snd: [['static', 0.1], ['click', 0.8], ['laugh', 1.1]] }),
-  trick: p => { const x = chairX('slappy'); return { html: (x ? '' : spr('slappy', 318, 'limp', 1.3)) + glow('l', CV.k) + glow('r', CV.l) + `<g class="fly fl1" style="${dl(0.3)};--tx:${(x || 318) - 90}px">${bub('HA!', CV.k, 90, 330)}</g><g class="fly fl2" style="${dl(0.6)};--tx:${(x || 318) - 300}px">${bub('HA HA!', CV.l, 300, 330)}</g>`, limp: x ? 'slappy' : null, snd: [['pop', 0.3], ['pop', 0.55], ['laugh', 0.9], ['thud', 1.3]] }; },
-  suitcase: () => { const x = chairX('slappy') || 200; return { html: `<g class="case" style="${dv(0.1)}"><rect x="${x - 52}" y="246" width="104" height="170" rx="12" fill="#5d2a2a"/><rect x="${x - 18}" y="232" width="36" height="16" rx="5" fill="none" stroke="#3a1a1a" stroke-width="6"/><path class="zipl" d="M${x - 46} 330H${x + 46}" stroke="#d8c08a" stroke-width="3" style="${dl(0.8)}"/></g>`, hide: ['slappy'], snd: [['whoosh', 0.1], ['thud', 0.6], ['zip', 0.8], ['knockin', 1.5]] }; },
-  dumpster: () => ({ html: spr('slappy', chairX('slappy') || 200, 'tossdown') + `<g class="dumpst"><rect x="230" y="380" width="160" height="70" rx="4" fill="#2f5a3a"/><rect class="lid" x="226" y="372" width="168" height="12" rx="3" fill="#24452c" style="${dl(1.15)}"/></g>`, hide: ['slappy'], snd: [['whoosh', 0.25], ['clang', 1.2]] }),
-  tell: () => ({ html: glow('l', CV.k) + glow('r', CV.l) + `<rect class="lamp" width="400" height="470" fill="#ffd98a" style="${dl(0.2)}"/>` + bub('Mom. Dad. Listen.', CV.k, 130, 236, 0.3) + bub('From the start.', CV.l, 280, 196, 0.9) + bub('...Go on.', CV.g, 200, 120, 1.5), snd: [['click', 0.2], ['pop', 0.3], ['pop', 0.9], ['pop', 1.5]] })
+  keep: () => A(both, [[LINE('l', 200), 'She’s keeping me!', 1.0, true]], spr('slappy', 200, 'rise'), { snd: [['whoosh', 0.1], ['thud', 0.85], ['giggle', 1.2]], glint: ['slappy', 1.0] }),
+  tossBack: () => A(both, [['k', 'Thank you.', 1.5]], spr('slappy', 200, 'tossdown') + `<g class="dumpst"><rect x="140" y="392" width="140" height="62" rx="4" fill="#2f5a3a"/><rect class="lid" x="136" y="384" width="148" height="12" rx="3" fill="#24452c" style="${dl(1.15)}"/></g>`, { snd: [['whoosh', 0.25], ['clang', 1.2]] }),
+  pass: () => A([['k', KX, 'stepIn', 0.9], 'l'], [], spr('slappy', 200, 'passL'), { hide: ['slappy'], snd: [['whoosh', 0.2], ['thud', 1.25]] }),
+  clutch: () => A([['k', KX, 'reach', 0.4], ['l', LX, 'stepIn', 0.3]], [], spr('slappy', 200, 'yankR'), { hide: ['slappy'], snd: [['whoosh', 0.15], ['thud', 0.6]] }),
+  lindyOwn: () => A(['dad', 'k', 'l'], [['l', 'I’m sorry.', 0.35]], '', { snd: [['warm', 0.5]] }),
+  lindyVia: () => A(['dad', 'k', 'l'], [[LINE('l', chairX('slappy') || 200), 'Sorry you were in my way.', 0.4, true]], '', { talk: [['slappy', 0.3]], glint: ['slappy', 1.1], snd: [['clack', 0.3], ['giggle', 1.2]] }),
+  insist: () => A(['dad', 'k', 'l'], [['l', 'I didn’t do it. I swear.', 0.3], ['dad', 'Then who did?', 1.2]], '', { snd: [['buzz', 1.2]], glint: ['slappy', 1.4] }),
+  grab: () => A([['k', 150, 'dimf'], ['l', LX]], [['l', 'Gotcha!', 0.8]], HAND(CV.l, 'lunge', 0.3) + FLASH('#fff', 0.5), { under: DARK(0.3), snd: [['whoosh', 0.3], ['slap', 0.5]], glint: ['slappy', 0.8] }),
+  peekL: () => A([['k', 150, 'dimf stepIn']], [], EYES(320, CV.l, 0.6), { under: DARK(0.55), turn: (lastScene.chair || []).slice(), snd: [['creak', 0.4]] }),
+  whisper: () => A([['k', 150, 'dimf'], 'l'], [['l', 'Kris? You okay?', 0.3]], '', { under: DARK(0.35), blink: ['slappy', 1.1], snd: [['whisper', 0.3]] }),
+  accuse: p => A(p.mom ? ['k', ['l', LX, 'flinch', 0.7], 'mom'] : ['k', ['l', LX, 'flinch', 0.7]], [['k', p.t, 0.3], ['l', p.r, 1.15]], `<path class="bolt" d="M118 330l60-20-14-10 70-12" stroke="#ff4d4d" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" style="${dl(0.45)}"/>` + FLASH('#a0101a', 0.6), { snd: [['slam', 0.6]], shake: 0.6 }),
+  ask: () => A(both, [['k', 'Did you do this?', 0.3], ['l', 'No. I swear.', 1.2]]),
+  peekK: () => A([], [], DARK(0.6) + EYES(80, CV.k, 0.6), { turn: (lastScene.chair || []).slice(), snd: [['creak', 0.4]] }),
+  together: p => A([['k', KX, 'stepIn', 0.9], ['l', LX, 'stepIn', 0.9]], [['k', p.t1, 0.3], ['l', p.t2, 1.0]], `<ellipse class="gl merge" cx="200" cy="420" rx="120" ry="60" fill="#fff2d6" style="${dv(1.2)}"/>`, { snd: [['warm', 1.1]] }),
+  snub: () => A([['k', KX, 'stepOut', 1.3], ['l', LX, 'stepOut', 1.3]], [['k', 'I’d rather do an act with the dumpster.', 0.2], ['l', 'Good.', 1.1]], '', { snd: [['buzz', 1.3]] }),
+  pullApart: () => A([['k', KX, 'reach', 0.6], ['l', LX, 'reach', 0.6]], [], spr('slappy', 190, 'tangle apartL') + spr('wood', 214, 'tangle apartR'), { snd: [['thud', 0.2], ['whoosh', 0.9], ['thud', 1.3]] }),
+  lookClose: () => A([['k', KX, 'crouch']], [['k', 'Don’t touch them.', 0.2]], spr('slappy', 190, 'still') + spr('wood', 214, 'still') + `<circle class="str" cx="202" cy="292" r="16" fill="none" stroke="#9fe8ff" stroke-width="3" style="${dl(1.1)}"/>` + MAG('sweep', 0.1), { snd: [['creak', 0.2], ['whisper', 1.1]] }),
+  blameWood: () => A(['k', 'l', 'mom'], [['k', 'Mr. Wood did it.', 0.2], ['l', 'She’s right, Mom...', 0.9], ['mom', 'STOP. This is sick.', 1.5]], '', { under: `<rect class="cold" width="400" height="470" fill="#4f7bd6" style="${dl(1.5)}"/>`, snd: [['buzz', 1.5]] }),
+  confess: () => A(['k', 'l', 'mom'], [['k', 'I did it.', 0.2], ['mom', 'Kris. Why?', 0.9], ['l', 'She didn’t.', 1.5]], '', { talk: [['slappy', 1.6]], glint: ['slappy', 1.6], snd: [['giggle', 1.7]] }),
+  believe: () => A(both, [['k', 'It was a joke? All of it?', 0.2], ['l', 'You should’ve SEEN your face!', 1.0]], '', { talk: [['slappy', 1.6]], glint: ['slappy', 1.6], snd: [['giggle', 1.7]] }),
+  slapQ: () => A(both, [['k', 'Then who slapped me?', 0.4], ['l', 'What?', 1.2]], FLASH('#fff', 0.15) + `<text class="q" x="${(chairX('slappy') || 200) + 30}" y="240" font-size="42" font-family="Georgia,serif" style="fill:${CV.sl};${dv(1.5)}">?</text>`, { snd: [['slap', 0.15], ['whisper', 1.5]], glint: ['slappy', 1.5] }),
+  read: p => { const al = G && G.s.allied; return A(al ? both : ['k'], [['k', 'Oru kandi, vesso marra…', 0.2, true]].concat(al ? [['l', 'Tellu nim, adaro sen…', 0.7, true]] : []), PAPER('unfold', CV[p.c], 0.1) + `<polygon class="beam" points="190,340 210,340 ${(chairX(p.kind) || 200) + 18},262 ${(chairX(p.kind) || 200) - 18},262" style="fill:${CV[p.c]};${dl(1.0)}"/>`, { wake: [p.kind, 1.25], snd: [['paper', 0.1], ['whisper', 0.6], ['riser', 0.6], ['thud', 1.3]] }); },
+  burn: () => A(both, [], PAPER('burnup', '#4a3b2a') + `<g class="flames" style="${dv(0.5)}"><path d="M160 400q10-40 20-10q6-50 22-20q10-46 22 0q10-30 18 30z" fill="#ff8a1e"/><path d="M175 400q8-26 14-6q8-34 16-10q8-28 14 6q6-16 10 10z" fill="#ffd54a"/></g>` + Array.from({ length: 9 }, (_, i) => `<circle class="ash" cx="${170 + i * 7}" cy="360" r="${1.5 + (i % 3)}" fill="#bbb" style="${dl(1.0 + i * 0.08)}"/>`).join(''), { slump: true, snd: [['paper', 0.1], ['crackle', 0.5]] }),
+  fold: () => A(['k'], [], PAPER('foldaway', '#4a3b2a'), { blink: ['wood', 1.3], glint: ['wood', 1.4], snd: [['paper', 0.2], ['paper', 0.7], ['creak', 1.2]] }),
+  millersOwn: () => A(['mrm', 'k', 'mm'], [['k', 'I’m sorry. I’d never say that.', 0.3], ['mm', 'It’s fine. I’ve been called worse.', 1.3]], '', { snd: [['warm', 1.4]] }),
+  woodSorry: () => A(['mrm', 'k', 'mm'], [['k', 'Say sorry, Mr. Wood.', 0.2], [{ x: 170, c: ghostC(), top: 250 }, 'Sorry you’re so OLD.', 1.0]], spr('wood', 170, 'still'), { talk: [['wood', 0.95]], snd: [['clack', 0.95], ['buzz', 1.4]] }),
+  pointAt: () => A(['mrm', 'k', 'l', 'mm'], [['k', 'It was HIM!', 0.4]], spr('slappy', 250, 'still') + `<path class="bolt" d="M120 330L230 300" stroke-width="5" fill="none" stroke-linecap="round" style="stroke:${CV.k};${dl(0.3)}"/>`, { talk: [['slappy', 1.4]], snd: [['giggle', 1.5]] }),
+  stage: p => {
+    const cone = CONE(200, '#fff2d0', 0.2);
+    if (p.who === 'wood') return A([['k', 160]], [[{ x: 245, c: ghostC(), top: 250 }, 'If we count your chins, do we get your age?', 0.9]], spr('wood', 245, 'still'), { under: DARK(0.8) + cone, talk: [['wood', 0.9]], snd: [['click', 0.15], ['murmur', 0.4], ['murmur', 1.6]] });
+    if (p.who === 'one') return A([['k', 200]], [[{ x: 380, c: ghostC(), top: 250 }, 'Hey, kid! Where’s the dummy?', 1.0]], '', { under: DARK(0.8) + cone, snd: [['click', 0.15], ['murmur', 0.4], ['murmur', 1.5]] });
+    return A([['k', 168], ['l', 232]], [], '', { under: DARK(0.8) + cone, snd: [['click', 0.15], ['murmur', 0.4], ['warm', 0.9]] });
+  },
+  lights: p => A([['dad', 34, 'enter'], 'k', 'l'], [['dad', p.t, 0.9]], '', { under: `<rect class="door2" x="0" y="110" width="74" height="340" fill="#ffe7a8" style="${dl(0.05)}"/><rect class="lamp" width="400" height="470" fill="#ffd98a" style="${dl(0.35)}"/>`, snd: [['creak', 0.0], ['click', 0.35], ['buzz', 0.4]] }),
+  bury: () => A(both, [], Array.from({ length: 14 }, (_, i) => `<circle class="dirt" cx="${130 + (i * 37) % 150}" cy="300" r="${4 + i % 4}" fill="#4a3222" style="${dl(0.1 + i * 0.07)}"/>`).join('') + `<path class="mound" d="M120 470V390q80-50 160 0v80z" fill="#3a271b"/><g class="pokehand" style="${dv(1.55)}"><path d="M200 356v-34m-8 30v-26m16 26v-26m-24 34v-18" stroke="#ebcfae" stroke-width="7" stroke-linecap="round"/></g>`, { snd: [['thud', 0.2], ['thud', 0.6], ['thud', 1.0], ['knockin', 1.6]] }),
+  check: () => A(['k'], [], MAG('toSl', 0.1), { under: DARK(0.35), glint: ['slappy', 1.0], blink: ['slappy', 1.5], snd: [['creak', 0.3], ['whisper', 1.0]] }),
+  barky: () => A([['k', KX, 'dive', 0.6], ['l', LX, 'dive', 0.6]], [], spr('wood', 200, 'drop') + `<g class="dog"><path d="M0 420c0-14 10-22 26-22h30l8-10 8 4-2 12c10 4 12 14 6 20h-8v14h-8v-12H22v12h-8v-14C6 424 0 424 0 420z" fill="#7a5532"/></g>`, { snd: [['bark', 0.2], ['whoosh', 0.7], ['thud', 1.2], ['rumble', 0.6]] }),
+  roller: p => A(both, [], spr(p.kind, 200, 'flatten') + ROLLER, { hide: [p.kind], snd: [['rumble', 0], ['crackle', 0.9], ['thud', 0.95]], shake: 0.95 }),
+  strings: () => A([['k', KX, 'lift', 0.6], ['l', LX, 'lift', 0.6]], [[{ x: 200, c: CV.sl, top: 280 }, 'Deal.', 0.9]], `<g class="strs"><path d="M${KX} 0V252M${LX} 0V252M${KX - 30} 0V340M${LX + 30} 0V340" stroke="#cfe2ff" stroke-width="1.4"/></g><g transform="translate(0 30)">${spr('slappy', 200, 'still')}</g>`, { talk: [['slappy', 0.85]], snd: [['whisper', 0.1], ['laugh', 1.2]] }),
+  refuse: () => A(both, [['k', 'No deal.', 0.3], [{ x: 200, c: CV.sl, top: 280 }, 'Heh.', 1.2]], `<g transform="translate(0 30)">${spr('slappy', 200, 'still')}</g>`, { talk: [['slappy', 1.15]], snd: [['giggle', 1.2]] }),
+  tv: () => A([['k', 60]], [], `<g class="tv"><rect x="116" y="120" width="250" height="180" rx="12" fill="#151a22" stroke="#3a414d" stroke-width="8"/><rect class="stat" x="128" y="132" width="226" height="156" fill="#9aa3ad"/></g><g class="tvd" style="${dl(0.8)}"><g class="tvin2">${fig('l', 280)}</g><g class="tvin">${dummy('slappy', 200)}</g></g>`, { under: DARK(0.55), glint: ['slappy', 1.3], snd: [['static', 0.1], ['click', 0.8], ['laugh', 1.1]] }),
+  trick: () => { const x = chairX('slappy'); return A(both, [], (x ? '' : `<g transform="translate(0 30)">${spr('slappy', 200, 'limp', 1.3)}</g>`) + `<g class="fly" style="${dl(0.3)};--tx:${(x || 200) - KX}px">${bub('HA!', CV.k, KX, 215)}</g><g class="fly" style="${dl(0.6)};--tx:${(x || 200) - LX}px">${bub('HA HA!', CV.l, LX, 215)}</g>`, { limp: x ? 'slappy' : null, snd: [['laugh', 0.9], ['thud', 1.3]] }); },
+  talkFail: () => A(['k', ['l', LX, 'flinch', 1.3]], [['k', 'Lindy, I’ve always...', 0.3], [{ x: chairX('slappy') || 200, c: CV.sl, top: 250 }, 'Copycat.', 1.3]], '', { talk: [['slappy', 1.25]], glint: ['slappy', 1.3], snd: [['clack', 1.25], ['whisper', 1.3]], shake: 1.35 }),
+  suitcase: () => { const x = chairX('slappy') || 200; return A([['k', KX, 'reach', 0.2], ['l', LX, 'reach', 0.2]], [], `<g class="case" style="${dv(0.1)}"><rect x="${x - 52}" y="246" width="104" height="170" rx="12" fill="#5d2a2a"/><rect x="${x - 18}" y="232" width="36" height="16" rx="5" fill="none" stroke="#3a1a1a" stroke-width="6"/><path class="zipl" d="M${x - 46} 330H${x + 46}" stroke="#d8c08a" stroke-width="3" style="${dl(0.8)}"/></g>`, { hide: ['slappy'], snd: [['whoosh', 0.1], ['thud', 0.6], ['zip', 0.8], ['knockin', 1.5]] }); },
+  dumpster: () => A(both, [['k', 'I’ll throw him!', 0.1], ['l', 'No, I’ll...', 0.6]], spr('slappy', chairX('slappy') || 200, 'tossdown') + `<g class="dumpst"><rect x="140" y="392" width="140" height="62" rx="4" fill="#2f5a3a"/><rect class="lid" x="136" y="384" width="148" height="12" rx="3" fill="#24452c" style="${dl(1.15)}"/></g>`, { hide: ['slappy'], snd: [['whoosh', 0.25], ['clang', 1.2]] }),
+  tell: () => A(['dad', 'k', 'l', 'mom'], [['k', 'Mom. Dad. Listen.', 0.2], ['l', 'From the start.', 0.8], ['dad', '...Go on.', 1.4]], '', { under: `<rect class="lamp" width="400" height="470" fill="#ffd98a" style="${dl(0.1)}"/>`, snd: [['click', 0.1]] })
 };
 const ACT_MAP = {
   'c1b.keep': ['keep'], 'c1b.throw': ['tossBack'],
   'c2.hand': ['pass'], 'c2.hold': ['clutch'],
-  'c2_apology.own': ['sayOwn', { side: 'r', c: 'l', t: 'I’m sorry.' }], 'c2_apology.slappy': ['sayVia', { kind: 'slappy', side: 'r', c: 'l', t: 'Sorry you were in my way.' }], 'c2_apology.insist': ['insist'],
-  'c3.grab': ['grab'], 'c3.still': ['peek', { side: 'r', c: 'l' }], 'c3.whisper': ['whisper'],
-  'c4.accuse': ['accuse', { t: 'SO not funny, Lindy.' }], 'c4.ask': ['ask'], 'c4.watch': ['peek', { side: 'l', c: 'k' }],
+  'c2_apology.own': ['lindyOwn'], 'c2_apology.slappy': ['lindyVia'], 'c2_apology.insist': ['insist'],
+  'c3.grab': ['grab'], 'c3.still': ['peekL'], 'c3.whisper': ['whisper'],
+  'c4.accuse': ['accuse', { t: 'SO not funny, Lindy.', r: 'I didn’t do it!' }], 'c4.ask': ['ask'], 'c4.watch': ['peekK'],
   'c5.yes': ['together', { t1: 'Maybe... yeah.', t2: 'When you’re good enough.' }], 'c5.no': ['snub'],
   'c6.pull': ['pullApart'], 'c6.look': ['lookClose'],
-  'c7.wood': ['blameWood'], 'c7.lindy': ['accuse', { t: 'Lindy did it.' }], 'c7.me': ['confess'],
+  'c7.wood': ['blameWood'], 'c7.lindy': ['accuse', { t: 'Lindy did it.', r: 'I was ASLEEP!', mom: true }], 'c7.me': ['confess'],
   'c8.believe': ['believe'], 'c8.slap': ['slapQ'],
   'c9.wood': ['read', { kind: 'wood', c: 'wd' }], 'c9.slappy': ['read', { kind: 'slappy', c: 'sl' }], 'c9.burn': ['burn'], 'c9.back': ['fold'],
-  'c10.own': ['sayOwn', { side: 'l', c: 'k', t: 'I’m sorry. I’d never say that.', x: 180 }], 'c10.dummy': ['woodSorry'], 'c10.point': ['pointAt'],
+  'c10.own': ['millersOwn'], 'c10.dummy': ['woodSorry'], 'c10.point': ['pointAt'],
   'c11.wood': ['stage', { who: 'wood' }], 'c11.alone': ['stage', { who: 'one' }], 'c11.together': ['stage', { who: 'two' }],
   'c12W.wake': ['lights', { t: 'What is it NOW?' }], 'c12W.bury': ['bury'], 'c12W.check': ['check'],
   'c13W.barky': ['barky'], 'c13W.throw': ['roller', { kind: 'wood' }],
@@ -1921,6 +2110,7 @@ function playAct(id, key) {
   svg.lastElementChild.insertAdjacentHTML('beforebegin', `<g class="act">${a.html}</g>`);
   (a.snd || []).forEach(([n, d]) => { if (['giggle', 'whisper', 'creak', 'laugh', 'clack'].includes(n)) setTimeout(() => n === 'laugh' ? Snd.laugh(1, 0.22) : n === 'whisper' ? Snd.whisper(0.2) : Snd[n](), d * 1000); else if (n === 'riser') setTimeout(() => Snd.riser(0.6), d * 1000); else Snd.sfx(n, d); });
   (a.talk || []).forEach(([k, d]) => setTimeout(() => talk(k), d * 1000));
+  (a.speak || []).forEach(([who, d]) => setTimeout(() => svg.querySelectorAll(`.act .fig[data-who="${who}"]`).forEach(f => { f.classList.add('spk'); setTimeout(() => f.classList.remove('spk'), 1000); }), d * 1000));
   const fxc = (cls, k, d) => k && setTimeout(() => { const g = svg.querySelector(':scope > .dm.' + k); if (g) { g.classList.add(cls); } }, d * 1000);
   if (a.glint) fxc('glint', a.glint[0], a.glint[1]);
   if (a.blink) fxc('blink', a.blink[0], a.blink[1]);
@@ -2103,7 +2293,7 @@ function Mqtt(url, onUp, onMsg, onDown) {
     close() { dead = true; try { ws.close(); } catch (e) {} }
   };
 }
-const ROOM = (() => { let r = store.get('otherVoice.room', null); if (!r) { const A = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; r = Array.from({ length: 5 }, () => A[Math.floor(Math.random() * A.length)]).join(''); store.set('otherVoice.room', r); } return r; })();
+const ROOM = (() => { let r = null; try { r = sessionStorage.getItem('otherVoice.room'); } catch (e) {} if (!r) { const A = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; r = Array.from({ length: 6 }, () => A[Math.floor(Math.random() * A.length)]).join(''); try { sessionStorage.setItem('otherVoice.room', r); } catch (e) {} } return r; })();
 const TOPIC = r => 'theothervoice/' + r;
 const joinURL = () => location.origin + location.pathname + '?vote=' + ROOM;
 const canPhone = () => /^https?:$/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname) || !!window.OV_TEST;
@@ -2111,18 +2301,29 @@ const Phones = {
   conns: [], round: null, votes: {}, listeners: [], lastQ: null,
   start() {
     if (this.conns.length || !canPhone()) return;
-    (window.OV_BROKERS || BROKERS).forEach(u => { const c = Mqtt(u, () => { c.sub(TOPIC(ROOM) + '/v'); if (this.lastQ) c.pub(TOPIC(ROOM) + '/q', this.lastQ, true); this.status(); }, (t, m) => this.onVote(m), () => this.status()); this.conns.push(c); });
+    (window.OV_BROKERS || BROKERS).forEach(u => { const c = Mqtt(u, () => { c.sub(TOPIC(ROOM) + '/v'); c.sub(TOPIC(ROOM) + '/j'); c.pub(TOPIC(ROOM) + '/q', this.lastQ || JSON.stringify({ r: 'lobby', open: false, lobby: true }), true); this.status(); }, (t, m) => t.endsWith('/j') ? this.onJoin(m) : this.onVote(m), () => this.status()); this.conns.push(c); });
     setInterval(() => this.status(), 3000);
   },
   get up() { return this.conns.some(c => c.alive); },
   publish(q) { this.lastQ = JSON.stringify(q); this.conns.forEach(c => c.pub(TOPIC(ROOM) + '/q', this.lastQ, true)); },
-  onVote(m) { const v = JSON.parse(m); if (!this.round || v.r !== this.round.r || !this.round.open) return; if (typeof v.i !== 'number' || v.i < 0 || v.i >= this.round.n) return; this.votes[v.v] = v.i; this.listeners.forEach(f => f()); },
+  joined: new Set(),
+  onJoin(m) { try { const v = JSON.parse(m); if (v && v.v) { this.joined.add(v.v); this.joinListeners.forEach(f => f()); } } catch (e) {} },
+  joinListeners: [],
+  onVote(m) { const v = JSON.parse(m); if (v && v.v) this.joined.add(v.v); if (!this.round || v.r !== this.round.r || !this.round.open) return; if (typeof v.i !== 'number' || v.i < 0 || v.i >= this.round.n) return; this.votes[v.v] = v.i; this.listeners.forEach(f => f()); },
   counts(n) { const c = new Array(n).fill(0); Object.values(this.votes).forEach(i => { if (i < n) c[i]++; }); return c; },
-  status() { document.querySelectorAll('.pstat').forEach(el => { el.classList.toggle('ok', this.up); el.textContent = !canPhone() ? 'Phone voting works from the online link' : this.up ? 'Phones connected' : 'Connecting phones… (hands still work)'; }); }
+  status() { const n = this.joined.size; document.querySelectorAll('.pstat').forEach(el => { el.classList.toggle('ok', this.up); el.textContent = !canPhone() ? 'Phone voting works from the online link' : this.up ? `${n} phone${n === 1 ? '' : 's'} joined` : 'Connecting phones… (hands still work)'; }); document.querySelectorAll('.pjoin').forEach(el => el.textContent = canPhone() ? `${n} phone${n === 1 ? '' : 's'} in the room · press J to show the code` : ''); }
 };
 function qrBlock(big) {
   if (!canPhone()) return `<div class="qrbox off"><span class="pstat"></span></div>`;
   return `<div class="qrbox${big ? ' big' : ''}">${QR.svg(joinURL())}<div class="qrtxt"><b>Scan to vote</b><span>Room ${ROOM}</span><span class="pstat"></span></div></div>`;
+}
+function lobby(go) {
+  if (!canPhone()) return go();
+  const el = $('#ovLobby');
+  $('#lobbyBody').innerHTML = `<h2>Tonight, this room is the author.</h2><p class="lede">Scan the code to join. Everyone who scans votes in this one game.</p>${qrBlock(true)}<p class="joinurl">${joinURL()}</p><div class="row"><button class="btn" id="bGo">Begin the night</button></div>`;
+  el.classList.add('on'); Phones.status();
+  Phones.joinListeners = [() => Phones.status()];
+  $('#bGo').onclick = () => { el.classList.remove('on'); Phones.joinListeners = []; go(); };
 }
 function showJoin() { $('#joinBody').innerHTML = `<h2>Vote from your phone</h2>${qrBlock(true)}<p class="joinurl">${canPhone() ? joinURL() : ''}</p>`; $('#ovJoin').classList.add('on'); Phones.status(); }
 
@@ -2137,7 +2338,7 @@ function phoneApp(room) {
   const draw = () => {
     if (!q || !q.open) {
       $('#phAsk').textContent = q && q.chosen ? 'The room chose:' : ''; $('#phOpts').innerHTML = q && q.chosen ? `<div class="ph-chosen">${q.chosen}</div>` : '';
-      $('#phStatus').textContent = conn && conn.alive ? 'Waiting for the next vote…' : 'Connecting…'; $('#phClock').textContent = ''; $('#phFoot').textContent = 'Keep this page open. The next vote will appear here.'; return;
+      $('#phStatus').textContent = !(conn && conn.alive) ? 'Connecting…' : (!q || q.lobby) ? 'You’re in. Watch the big screen: the first vote is coming.' : 'Waiting for the next vote…'; $('#phClock').textContent = ''; $('#phFoot').textContent = 'Keep this page open. Every vote will appear here.'; return;
     }
     $('#phStatus').textContent = mine < 0 ? 'Vote now' : 'Vote sent. You can change it until time runs out.';
     $('#phAsk').textContent = q.ask;
@@ -2153,7 +2354,8 @@ function phoneApp(room) {
   };
   const tryNext = () => {
     if (conn) conn.close(); const u = list[bi++ % list.length];
-    conn = Mqtt(u, () => { conn.sub(TOPIC(room) + '/q'); draw(); }, onMsg, () => draw());
+    conn = Mqtt(u, () => { conn.sub(TOPIC(room) + '/q'); conn.pub(TOPIC(room) + '/j', JSON.stringify({ v: me })); draw(); }, onMsg, () => draw());
+    clearInterval(window.__hb); window.__hb = setInterval(() => { if (conn && conn.alive) conn.pub(TOPIC(room) + '/j', JSON.stringify({ v: me })); }, 20000);
     setTimeout(() => { if (!conn.alive) tryNext(); }, 5000);
   };
   tryNext(); draw();
@@ -2311,7 +2513,8 @@ function reveal() {
   const mk = /class="jsmark" data-k="(\w+)"(?: data-cine="(\w+)")?/.exec(paras[shown]);
   if (mk && mk[2]) setTimeout(() => cutscene(mk[2]), 900);
   else if (mk && !(bad && isLast)) setTimeout(() => jumpscare(mk[1]), 650);
-  if (bad && isLast && endScared !== G.visited.length) { endScared = G.visited.length; setTimeout(() => { if (node && node.ending && BAD_END[node.ending]) jumpscare(bad[0], bad[1], null, true); }, 2600); }
+  if (bad && isLast && endScared !== G.visited.length) { endScared = G.visited.length; setTimeout(() => { if (node && node.ending && BAD_END[node.ending]) jumpscare(bad[0], bad[1], () => setTimeout(endBook, 700), true); }, 2600); }
+  else if (node.ending && isLast && !bad && endScared !== G.visited.length) { endScared = G.visited.length; setTimeout(endBook, 3800); }
   if (/class="v wd"/.test(paras[shown])) { Snd.clack(2); talk('wood'); }
   shown++;
   renderActions();
@@ -2325,8 +2528,8 @@ function renderActions() {
   if (node.ending) {
     const e = ENDINGS[node.ending - 1];
     a.innerHTML = `<div class="endcard"><div class="en">Ending ${e.n} of ${ENDINGS.length}</div><h2>${e.name}</h2>
-      <div class="row"><button class="btn" id="bCurt">Behind the curtain</button><button class="btn ghost" id="bMap2">The map</button><button class="btn ghost" id="bAgain">Play again</button></div></div>`;
-    $('#bCurt').onclick = showCurtain; $('#bMap2').onclick = showMap; $('#bAgain').onclick = () => confirmNew();
+      <div class="row"><button class="btn" id="bDash">How the night went</button><button class="btn ghost" id="bCurt">Behind the curtain</button><button class="btn ghost" id="bMap2">The map</button><button class="btn ghost" id="bAgain">Play again</button></div></div>`;
+    $('#bDash').onclick = showDash; $('#bCurt').onclick = showCurtain; $('#bMap2').onclick = showMap; $('#bAgain').onclick = () => confirmNew();
     Snd.heart(false);
   } else if (node.choices) {
     a.innerHTML = `<button class="btn" id="bVote">Vote</button>`; $('#bVote').onclick = openVote;
@@ -2339,7 +2542,7 @@ function renderActions() {
 function advance() {
   try { if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur(); } catch (e) {}
   if (document.querySelector('.ov.on') || $('#confirm').classList.contains('on')) return;
-  if (jsOn || coldOn || cineOn) return;
+  if (jsOn || coldOn || cineOn || bookOn) return;
   if (cardOn) return hideCard();
   if (voteState) return;
   if (shown < paras.length) return reveal();
@@ -2358,7 +2561,7 @@ function openVote() {
   $('#actions').innerHTML = `<div class="vote" id="vote"><div class="vhead">Your call</div><div class="vask">${ask}</div>
     <div class="opts">${opts.map((o, i) => `<div class="opt" role="button" tabindex="0" data-i="${i}"><span class="letter">${L[i]}</span><span class="olabel">${o.label}</span><span class="osub">${o.sub}</span>
       <span class="pc" id="pc${i}" title="Phone votes">0</span><span class="tally" title="Optional: count hands"><button data-m="${i}" aria-label="One fewer hand">−</button><output id="t${i}">0</output><button data-p="${i}" aria-label="One more hand">+</button></span></div>`).join('')}</div>
-    ${qrBlock(false)}
+    <div class="pjoin"></div>
     <div class="vbar"><span class="clock" id="clock"></span><span class="track"><b id="trk"></b></span>
       <button class="btn ghost" id="bPause">Pause</button><button class="btn ghost" id="bMore">+30s</button><button class="btn" id="bLock" disabled>Lock in</button>
       <span class="vnote" id="vnote">Talk it out, then vote on your phones.</span></div></div>`;
@@ -2368,6 +2571,8 @@ function openVote() {
   const pub = (extra = {}) => Phones.publish(Object.assign({ r, ask, opts: opts.map(o => o.label), open: !done, left, paused }, extra));
   const phoneN = () => Phones.counts(opts.length);
   const totals = () => { const p = phoneN(); return opts.map((o, i) => o.n + p[i]); };
+  const HOST = 'host-' + ROOM; let mine = -1;
+  const hostVote = i => { if (done || i < 0 || i >= opts.length) return; mine = i; Phones.votes[HOST] = i; document.querySelectorAll('.opt').forEach((el, j) => el.classList.toggle('mine', j === i)); showPhones(); if (left === 0) resolve(); };
   const draw = () => {
     $('#clock').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
     $('#trk').style.width = `${Math.max(0, left / total * 100)}%`;
@@ -2375,22 +2580,22 @@ function openVote() {
     $('#bLock').disabled = sel < 0; $('#bPause').textContent = paused ? 'Resume' : 'Pause';
   };
   const pick = i => { if (i >= 0 && i < opts.length) { sel = i; draw(); } };
-  const autoPick = () => { const t = totals(), m = Math.max(...t); const tops = t.map((n, i) => n === m ? i : -1).filter(i => i >= 0); if (m > 0 && tops.length === 1) pick(tops[0]); };
-  const showPhones = () => { const p = phoneN(); p.forEach((n, i) => { const e = $('#pc' + i); if (e) e.textContent = n; }); const sum = p.reduce((a, b) => a + b, 0); if (!done && left > 0 && !extended) $('#vnote').textContent = sum ? `${sum} phone vote${sum === 1 ? '' : 's'} in` : 'Talk it out, then vote on your phones.'; autoPick(); };
-  Phones.listeners = [showPhones];
+  const autoPick = () => { const t = totals(), m = Math.max(...t); const tops = t.map((n, i) => n === m ? i : -1).filter(i => i >= 0); sel = (m > 0 && tops.length === 1) ? tops[0] : -1; draw(); };
+  const showPhones = () => { const p = phoneN(); p.forEach((n, i) => { const e = $('#pc' + i); if (e) e.textContent = n; }); const sum = totals().reduce((a, b) => a + b, 0); if (!done && left > 0 && !extended) $('#vnote').textContent = sum ? `${sum} vote${sum === 1 ? '' : 's'} in` : 'Talk it out, then vote.'; autoPick(); Phones.status(); };
+  Phones.listeners = [() => { showPhones(); if (left === 0 && !done) resolve(); }];
   const resolve = () => {
     const t = totals(), m = Math.max(...t), tops = t.map((n, i) => n === m ? i : -1).filter(i => i >= 0);
-    if (m === 0) { $('#vnote').textContent = 'Time’s up. No votes yet: hands up, or pick one.'; return; }
+    if (m === 0) { $('#vnote').textContent = 'Time’s up. No votes yet: click an option to vote.'; return; }
     if (tops.length === 1) { pick(tops[0]); $('#vnote').textContent = `Time’s up. Most votes: ${'ABCD'[tops[0]]}.`; setTimeout(lock, 1600); return; }
     if (!extended) { extended = true; left = 15; total = 15; $('#vnote').textContent = 'It’s a tie! 15 more seconds.'; Snd.sfx('pop'); pub(); draw(); return; }
     const w = tops[Math.floor(Math.random() * tops.length)]; pick(w); $('#vnote').textContent = 'Still tied. The dummy decides.'; Snd.giggle(); setTimeout(lock, 1900);
   };
   document.querySelectorAll('.opt').forEach(el => {
-    el.addEventListener('click', e => { if (e.target.closest('.tally')) return; pick(+el.dataset.i); });
-    el.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); pick(+el.dataset.i); } });
+    el.addEventListener('click', e => { if (e.target.closest('.tally')) return; hostVote(+el.dataset.i); });
+    el.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); hostVote(+el.dataset.i); } });
   });
   document.querySelectorAll('[data-p],[data-m]').forEach(b => b.addEventListener('click', e => {
-    e.stopPropagation(); const i = +(b.dataset.p ?? b.dataset.m); opts[i].n = Math.max(0, opts[i].n + (b.dataset.p !== undefined ? 1 : -1)); $('#t' + i).value = opts[i].n; $('#t' + i).textContent = opts[i].n; autoPick();
+    e.stopPropagation(); const i = +(b.dataset.p ?? b.dataset.m); opts[i].n = Math.max(0, opts[i].n + (b.dataset.p !== undefined ? 1 : -1)); $('#t' + i).value = opts[i].n; $('#t' + i).textContent = opts[i].n; showPhones(); if (left === 0 && !done) resolve();
   }));
   const timer = setInterval(() => {
     if (paused || done) return;
@@ -2402,15 +2607,17 @@ function openVote() {
     const o = opts[sel], c = o.c, before = JSON.parse(JSON.stringify(s));
     const fx = c.fxFn ? c.fxFn(s) : (c.fx || {});
     applyFx(s, fx); if (c.set) c.set(s);
-    const tot = opts.reduce((a, b) => a + b.n, 0), sorted = opts.map(x => x.n).sort((a, b) => b - a);
-    const close = tot > 0 && sorted.length > 1 && (sorted[0] - sorted[1]) <= Math.max(2, Math.round(tot * 0.15));
+    const T = totals(), tot = T.reduce((a, b) => a + b, 0), sorted = T.slice().sort((a, b) => b - a);
+    const close = tot >= 2 && sorted.length > 1 && (sorted[0] - sorted[1]) <= Math.max(1, Math.round(tot * 0.1));
     if (close) s.closeVotes = (s.closeVotes || 0) + 1;
-    G.hist.push({ node: G.cur, ch: node.ch, ask, label: o.label, fx, before, after: JSON.parse(JSON.stringify(s)), counts: opts.map(x => ({ label: x.label, n: x.n })), close });
+    const locked = node.choices.filter(x => x.when && !x.when(before)).map(x => val(x.label, before));
+    G.hist.push({ node: G.cur, key: c.key, ch: node.ch, ask, label: o.label, fx, before, after: JSON.parse(JSON.stringify(s)), counts: opts.map((x, i) => ({ label: x.label, n: T[i] })), close, locked, phones: Phones.joined.size });
     const dest = val(c.go, s);
     $('#actions').innerHTML = `<div class="chosen">You chose: ${o.label}</div>`;
     voteState = null; save(); dev();
     Phones.round.open = false; Phones.listeners = []; pub({ open: false, chosen: o.label });
     const wrong = c.scare !== undefined ? !!val(c.scare, s) : ((fx.voice || 0) > 0 || (fx.bond || 0) < 0 || (fx.trust || 0) <= -2);
+    G.hist[G.hist.length - 1].wrong = wrong; save();
     playAct(G.cur, c.key);
     const hasAct = !!ACT_MAP[G.cur + '.' + c.key];
     if (wrong) { setTimeout(() => Snd.riser(0.55), hasAct ? 1650 : 0); setTimeout(() => jumpscare(c.scareFace, null, () => enter(dest)), hasAct ? 2000 : 380); }
@@ -2418,9 +2625,181 @@ function openVote() {
   };
   const pauseT = () => { paused = !paused; draw(); pub(); }, moreT = () => { left += 30; total = Math.max(total, left); draw(); pub(); };
   $('#bLock').onclick = lock; $('#bPause').onclick = pauseT; $('#bMore').onclick = moreT;
-  voteState = { pick, lock, pause: pauseT, more: moreT, stop: () => { clearInterval(timer); if (Phones.round && Phones.round.r === r) { Phones.round.open = false; pub({ open: false }); } } };
+  voteState = { pick: hostVote, lock, pause: pauseT, more: moreT, stop: () => { clearInterval(timer); if (Phones.round && Phones.round.r === r) { Phones.round.open = false; pub({ open: false }); } } };
   draw(); pub(); Phones.status(); showPhones();
   $('#vote').scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+/* ================= HOW THE NIGHT WENT (dashboard) ================= */
+const BLAME = ['c2_apology.insist', 'c4.accuse', 'c7.lindy', 'c7.wood', 'c10.point'], OWN = ['c2_apology.own', 'c4.ask', 'c7.me', 'c10.own', 'c12N.talk', 'c13N.tell', 'c5.yes', 'c11.together', 'c13N.act'];
+const VIA = ['c2_apology.slappy', 'c10.dummy', 'c11.wood', 'c1b.keep', 'c13S.show', 'c12S.deal'];
+function verdict(h) {
+  const f = h.fx || {}, sc = (f.bond || 0) + (f.clues || 0) + (f.trust || 0) * 0.5 - (f.voice || 0) * 1.5;
+  if (h.wrong || sc < 0) return ['bad', 'Backfired'];
+  if (sc > 0) return ['good', 'Worked'];
+  return ['meh', 'No effect yet'];
+}
+function why(h) {
+  const f = h.fx || {}, w = [];
+  if (f.bond > 0) w.push('brought the sisters closer'); if (f.bond < 0) w.push('pushed the sisters apart');
+  if (f.voice > 0) w.push('fed the dummies'); if (f.voice < 0) w.push('starved the dummies');
+  if (f.clues > 0) w.push('you noticed something'); if (f.trust > 0) w.push('the grown-ups believed you more'); if (f.trust < 0) w.push('the grown-ups trusted you less');
+  if (!w.length) w.push(h.wrong ? 'it gave the dummy an opening' : 'it set something up for later');
+  return w.join(', ');
+}
+
+/* ================= THE BOOK (title screen, opening dive, ending) ================= */
+const PAPER_BG = 'radial-gradient(120% 90% at 30% 20%,#f4ecd6 0%,#e7dbbd 60%,#cdbd98 100%)';
+let coverN = 0;
+function coverSVG() {
+  const u = 'c' + (++coverN);
+  const scratches = Array.from({ length: 14 }, (_, i) => `<path d="M${20 + (i * 53) % 260} ${30 + (i * 97) % 360}l${18 + i % 5 * 6} ${(i % 3) * 4 - 4}" stroke="#000" stroke-width=".8" opacity=".35"/>`).join('');
+  return `<svg viewBox="0 0 300 420" preserveAspectRatio="none"><defs>
+    <linearGradient id="lthr${u}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a1519"/><stop offset=".55" stop-color="#2a0b0e"/><stop offset="1" stop-color="#14060a"/></linearGradient>
+    <radialGradient id="ovl${u}" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1b2440"/><stop offset="1" stop-color="#05070d"/></radialGradient>
+    <clipPath id="ovc${u}"><ellipse cx="150" cy="232" rx="76" ry="94"/></clipPath></defs>
+    <rect width="300" height="420" fill="url(#lthr${u})"/>${scratches}
+    <rect x="12" y="12" width="276" height="396" fill="none" stroke="#b48a3c" stroke-width="2.5"/><rect x="19" y="19" width="262" height="382" fill="none" stroke="#b48a3c" stroke-width=".8"/>
+    <g fill="#b48a3c">${[[19, 19], [281, 19], [19, 401], [281, 401]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="5"/>`).join('')}</g>
+    <text x="150" y="70" text-anchor="middle" font-family="'Special Elite','Courier New',monospace" font-size="30" fill="#d9b46a" letter-spacing="3">THE OTHER</text>
+    <text class="cv-voice" x="150" y="114" text-anchor="middle" font-family="'Special Elite','Courier New',monospace" font-size="48" fill="#9fd6ff" letter-spacing="4">VOICE</text>
+    <ellipse cx="150" cy="232" rx="80" ry="98" fill="none" stroke="#b48a3c" stroke-width="4"/>
+    <g clip-path="url(#ovc${u})"><rect x="70" y="130" width="160" height="200" fill="url(#ovl${u})"/>
+      <g class="cv-dummy" transform="translate(150 232) scale(2.25) translate(-200 -276)">${dummy('slappy', 200)}</g></g>
+    <path d="M196 40l-8 26 10 14-6 22" stroke="#000" stroke-width="1.2" fill="none" opacity=".5"/>
+    <text x="150" y="358" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="15" fill="#d9b46a">A story you play together</text>
+    <text x="150" y="384" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#b48a3c" opacity=".85">after R. L. Stine’s Night of the Living Dummy</text>
+    <text class="cv-stamp" x="150" y="250" text-anchor="middle" font-family="'Special Elite','Courier New',monospace" font-size="50" fill="#c4161c" transform="rotate(-14 150 250)">THE END?</text>
+  </svg>`;
+}
+function bookHTML(id, inside, right) {
+  return `<div class="book3d closed" id="${id}"><div class="bk-spread">
+    <div class="bk-base"></div><div class="bk-lbase"></div>
+    <div class="bk-right" style="background:${PAPER_BG}"><div class="bk-in">${right}</div></div>
+    <div class="bk-cover"><div class="bk-front">${coverSVG()}</div><div class="bk-inside" style="background:${PAPER_BG}"><div class="bk-in">${inside}</div></div></div>
+  </div></div>`;
+}
+const TITLE_INSIDE = `<div class="pg-hand">Don’t read this<br>out loud.</div><div class="pg-sign">— K.</div>`;
+const TITLE_RIGHT = `<div class="pg-ch">Chapter One</div><div class="pg-h">Finders Keepers</div><p class="pg-p"><span class="dropcap">T</span>wo sisters. Two ventriloquist’s dummies. One chair by a bedroom window.</p><p class="pg-p">Every so often the story will stop and wait for you…</p>`;
+function titleBook() {
+  $('#titlepic').innerHTML = bookHTML('tbook', TITLE_INSIDE, TITLE_RIGHT);
+  $('#tbook').onclick = () => $('#bBegin').click();
+}
+function openBook(done) {
+  const bk = $('#tbook'); if (!bk) return done();
+  Snd.sfx('paper'); Snd.creak();
+  $('#ovTitle').classList.add('diving');
+  bk.classList.remove('closed'); bk.classList.add('open');
+  setTimeout(() => { Snd.whisper(0.3); bk.classList.add('dive'); }, 1700);
+  setTimeout(() => $('#fadeBlack').classList.add('on'), 2250);
+  setTimeout(() => { $('#ovTitle').classList.remove('diving'); bk.classList.add('instant'); bk.classList.remove('open', 'dive'); bk.classList.add('closed'); done(); setTimeout(() => { bk.classList.remove('instant'); $('#fadeBlack').classList.remove('on'); }, 400); }, 3200);
+}
+
+/* the ending, played out on the last page, then the book slams shut */
+const END_ACT = {
+  1: () => ({ html: glow('l', CV.k, 'dim') + bub('clack… clack… clack…', CV.k, 120, 236, 0.5, true), talk: [['slappy', 0.4], ['slappy', 1.8]], glint: ['slappy', 0.8], snd: [['clack', 0.4], ['clack', 1.8]] }),
+  2: () => ACTS.strings(),
+  3: () => { const a = ACTS.together({ t1: 'Together.', t2: 'No dummies.' }); a.html += bub('…copycat.', CV.sl, 200, 140, 2.4, false); a.snd.push(['whisper', 2.4]); return a; },
+  4: () => ({ html: DARK(0.5) + glow('l', CV.k, 'dim') + glow('r', CV.l, 'dim') + bub('I’ll do the talking.', CV.sl, chairX('slappy') || 200, 205, 0.8), talk: [['slappy', 0.7]], glint: ['slappy', 0.9], snd: [['clack', 0.7], ['giggle', 1.2]] }),
+  5: () => ({ html: `<g class="bub" style="animation-delay:.4s"><rect x="110" y="150" width="180" height="120" rx="4" fill="#efe6cf" transform="rotate(-6 200 210)"/><text x="200" y="215" text-anchor="middle" font-size="17" font-style="italic" font-family="Georgia,serif" transform="rotate(-6 200 210)" style="fill:var(--k)">Thanks for the ride.</text></g>`, snd: [['paper', 0.4], ['giggle', 1.4]] }),
+  6: () => ACTS.trick(),
+  7: () => ({ html: DARK(0.45) + bub('creak…', '#b4bccb', 200, 300, 1.2, true), snd: [['creak', 1.1]], blink: [(lastScene.chair || [])[0], 2] }),
+  8: () => ({ html: DARK(0.4) + glow('r', CV.l, 'dim') + bub('Just us now.', CV.sl, 200, 200, 0.9), glint: ['slappy', 0.8], snd: [['whisper', 0.8]] }),
+  9: () => ({ html: ACTS.dumpster().html + Array.from({ length: 6 }, (_, i) => `<text class="bub" x="${110 + (i % 3) * 70}" y="${150 + Math.floor(i / 3) * 40}" font-size="18" font-family="'Special Elite',monospace" fill="#b3121b" style="animation-delay:${1.4 + i * 0.15}s">MY HOUSE</text>`).join(''), hide: ['slappy'], snd: [['whoosh', 0.25], ['clang', 1.2], ['whisper', 1.6]] }),
+  10: () => ({ html: spr('slappy', 200, 'flatten') + ROLLER + bub('Miss me?', CV.sl, 200, 190, 2.3), hide: ['slappy'], snd: [['rumble', 0], ['crackle', 0.9], ['giggle', 2.3]] })
+};
+function runActOn(svg, a) {
+  if (!svg || !a) return;
+  (a.hide || []).forEach(k => svg.classList.add('hide-' + k));
+  svg.lastElementChild.insertAdjacentHTML('beforebegin', `<g class="act">${a.html}</g>`);
+  (a.snd || []).forEach(([n, d]) => { if (['giggle', 'whisper', 'creak', 'laugh', 'clack'].includes(n)) setTimeout(() => n === 'laugh' ? Snd.laugh(1, 0.22) : n === 'whisper' ? Snd.whisper(0.2) : Snd[n](), d * 1000); else Snd.sfx(n, d); });
+  const tk = k => { const g = svg.querySelector(':scope > .dm.' + k); if (!g) return; g.classList.remove('talk'); void g.getBoundingClientRect(); g.classList.add('talk'); setTimeout(() => g.classList.remove('talk'), 1300); };
+  (a.talk || []).forEach(([k, d]) => setTimeout(() => tk(k), d * 1000));
+  const fxc = (cls, k, d) => k && setTimeout(() => { const g = svg.querySelector(':scope > .dm.' + k); if (g) g.classList.add(cls); }, d * 1000);
+  if (a.glint) fxc('glint', a.glint[0], a.glint[1]); if (a.blink) fxc('blink', a.blink[0], a.blink[1]); if (a.limp) fxc('limp', a.limp, 1.25);
+}
+let bookOn = false;
+function endBook() {
+  if (!node || !node.ending || bookOn) return;
+  if (jsOn) return setTimeout(endBook, 500);
+  const e = ENDINGS[node.ending - 1], last = String(paras[paras.length - 1] || '').replace(/<[^>]+>/g, '');
+  const right = `<div class="pg-ch">Ending ${e.n} of ${ENDINGS.length}</div><div class="pg-h">${e.name}</div><p class="pg-p pg-last">“${last}”</p><div class="pg-end">THE END</div>`;
+  const ov = $('#ovBook'); ov.innerHTML = bookHTML('ebook', `<div class="pg-scene" id="pgScene"></div>`, right) + `<div class="bk-skip">click to continue</div>`;
+  const bk = $('#ebook'); bk.classList.add('instant'); bk.classList.remove('closed'); bk.classList.add('open');
+  drawScene(lastScene, $('#pgScene'));
+  ov.classList.add('on'); bookOn = true; Snd.duck(true); void bk.offsetWidth; bk.classList.remove('instant');
+  Snd.sfx('paper');
+  setTimeout(() => runActOn($('#pgScene svg'), END_ACT[node.ending] && END_ACT[node.ending]()), 600);
+  const T = [];
+  T.push(setTimeout(() => { bk.classList.remove('open'); bk.classList.add('closed', 'shut'); Snd.sfx('whoosh'); }, 6200));
+  T.push(setTimeout(() => { Snd.sfx('slam'); document.body.classList.add('shake'); setTimeout(() => document.body.classList.remove('shake'), 500); }, 7300));
+  T.push(setTimeout(() => { bk.classList.add('awake'); Snd.whisper(0.3); if (BAD_END[node.ending]) Snd.laugh(0.85, 0.28); else Snd.sfx('warm'); }, 7800));
+  const close = () => { T.forEach(clearTimeout); ov.classList.remove('on'); ov.innerHTML = ''; bookOn = false; Snd.duck(false); };
+  T.push(setTimeout(close, 11500));
+  ov.onclick = close;
+}
+
+
+/* the final result, animated at the bottom of the dashboard */
+const VERDICT = { 1: ['The dummy won.', 'bad'], 2: ['The dummy won.', 'bad'], 3: ['The sisters won.', 'good'], 4: ['The dummy won.', 'bad'], 5: ['Nobody won. He got away.', 'mid'], 6: ['The sisters won.', 'good'], 7: ['The sisters won. For now.', 'good'], 8: ['The dummies won.', 'bad'], 9: ['Nobody won. It starts again.', 'mid'], 10: ['The dummy won.', 'bad'] };
+function nightChart() {
+  const H = G.hist, K = ['bond', 'voice', 'clues', 'trust'], COL = { bond: '#c9a3ff', voice: '#7cc8ff', clues: '#f3efd9', trust: '#9fb6cf' }, NAME = { bond: 'Between the sisters', voice: 'The dummies', clues: 'What you noticed', trust: 'Mom and Dad' };
+  if (!H.length) return '';
+  const pts = [Object.fromEntries(K.map(k => [k, 0]))].concat(H.map(h => h.after));
+  const vals = pts.flatMap(p => K.map(k => p[k] || 0)), lo = Math.min(-3, ...vals), hi = Math.max(3, ...vals);
+  const W = 1000, Hh = 230, px = i => 40 + i * (W - 70) / Math.max(1, pts.length - 1), py = v => 18 + (hi - v) * (Hh - 42) / (hi - lo);
+  return `<div class="nchart"><h3>How the night moved</h3><svg viewBox="0 0 ${W} ${Hh}"><line x1="40" x2="${W - 30}" y1="${py(0)}" y2="${py(0)}" stroke="#ffffff30" stroke-dasharray="5 5"/>
+    ${pts.map((_, i) => `<line x1="${px(i)}" x2="${px(i)}" y1="14" y2="${Hh - 22}" stroke="#ffffff0d"/><text x="${px(i)}" y="${Hh - 6}" text-anchor="middle" font-size="12" fill="#8f99ad">${i ? 'Ch. ' + H[i - 1].ch : 'start'}</text>`).join('')}
+    ${K.map((k, j) => `<polyline class="dline" style="animation-delay:${0.2 + j * 0.25}s" points="${pts.map((p, i) => `${px(i)},${py(p[k] || 0)}`).join(' ')}" fill="none" stroke="${COL[k]}" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>`).join('')}
+    ${K.map((k, j) => `<circle class="dend" style="animation-delay:${1.6 + j * 0.25}s" cx="${px(pts.length - 1)}" cy="${py(pts[pts.length - 1][k] || 0)}" r="6" fill="${COL[k]}"/>`).join('')}</svg>
+    <div class="dlegend">${K.map(k => `<span><i style="background:${COL[k]}"></i>${NAME[k]}</span>`).join('')}</div></div>`;
+}
+function finalResult() {
+  const s = G.s, end = node && node.ending, v = end ? VERDICT[end] : ['The night isn’t over yet.', 'mid'];
+  const sis = Math.max(0, s.bond) + Math.max(0, s.clues) + Math.max(0, s.trust), dum = Math.max(0, s.voice) + Math.max(0, -s.bond) + Math.max(0, -s.trust), pct = Math.round(sis / Math.max(1, sis + dum) * 100);
+  return `<div class="dfinal"><h3>The final result</h3><div class="dtug"><span style="color:var(--k)">The sisters</span><div class="dtugbar"><b style="--w:${pct}%"></b></div><span style="color:var(--sl)">The dummies</span></div><div class="dverdict ${v[1]}">${v[0]}</div></div>`;
+}
+function animateDash() {
+  const ov = $('#ovDash');
+  ov.querySelectorAll('.stats b').forEach(o => { const n = parseInt(o.textContent, 10); if (isNaN(n)) return; const rest = o.textContent.replace(/^\d+/, ''), t0 = performance.now(); const step = t => { const k = Math.min(1, (t - t0) / 1100); o.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))) + rest; if (k < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); });
+  ov.classList.remove('go'); void ov.offsetWidth; ov.classList.add('go');
+  clearTimeout(animateDash.t); animateDash.t = setTimeout(() => { const vd = ov.querySelector('.dverdict'); if (!vd) return; vd.classList.add('slam'); Snd.sfx('slam'); if (vd.classList.contains('bad')) Snd.laugh(0.9, 0.25); else Snd.sfx('warm'); }, 2600);
+}
+
+function showDash() {
+  const H = G.hist, s = G.s, e = ENDINGS[(NODES[G.cur].ending || 1) - 1];
+  const votes = H.reduce((a, h) => a + h.counts.reduce((x, c) => x + c.n, 0), 0), phones = Math.max(0, ...H.map(h => h.phones || 0));
+  const seen = new Set(G.visited).size, total = Object.keys(NODES).length;
+  const swing = h => ['bond', 'voice', 'clues', 'trust'].reduce((a, k) => a + Math.abs((h.fx || {})[k] || 0), 0) + (h.wrong ? 1 : 0);
+  const turn = H.length ? H.reduce((a, h) => swing(h) > swing(a) ? h : a, H[0]) : null;
+  const counted = H.filter(h => h.counts.reduce((x, c) => x + c.n, 0) >= 2 && h.counts.length > 1);
+  const margin = h => { const n = h.counts.map(c => c.n).sort((a, b) => b - a); return n[0] - n[1]; };
+  const closest = counted.length ? counted.reduce((a, h) => margin(h) < margin(a) ? h : a, counted[0]) : null;
+  const k = h => h.node + '.' + h.key;
+  const via = H.filter(h => VIA.includes(k(h)) || (h.fx || {}).voice > 0).length, own = H.filter(h => OWN.includes(k(h))).length;
+  const blame = H.filter(h => BLAME.includes(k(h))).length, owned = H.filter(h => ['c2_apology.own', 'c7.me', 'c10.own'].includes(k(h))).length;
+  const locked = H.reduce((a, h) => a + (h.locked || []).length, 0), lockedEx = H.flatMap(h => h.locked || []).slice(0, 2);
+  const good = H.filter(h => verdict(h)[0] === 'good'), bad = H.filter(h => verdict(h)[0] === 'bad');
+  const bar = h => { const t = h.counts.reduce((a, c) => a + c.n, 0); if (!t) return '<div class="vsplit none">no count</div>'; return `<div class="vsplit">${h.counts.map(c => `<i class="${c.label === h.label ? 'win' : ''}" style="flex:${Math.max(c.n, 0.0001)}" title="${c.label}: ${c.n}">${c.n || ''}</i>`).join('')}</div>`; };
+  const card = (title, big, body, note) => `<div class="icard"><h4>${title}</h4>${big ? `<div class="big">${big}</div>` : ''}<p>${body}</p>${note ? `<p class="note">${note}</p>` : ''}</div>`;
+  const ins = [];
+  if (turn) ins.push(card('The turning point', `Ch. ${turn.ch}`, `“${turn.label}” moved the hidden scores more than any other vote: ${why(turn)}.`, 'A reversal that came from the room, not from the author.'));
+  if (closest) ins.push(card('The closest call', `${margin(closest)} vote${margin(closest) === 1 ? '' : 's'}`, `“${closest.label}” won by ${margin(closest)}. A few people decided what everyone else saw next.`, 'The reader makes the meaning. Tonight that was literal.'));
+  ins.push(card('Whose voice?', `${own} : ${via}`, `The room spoke in its own voice ${own} time${own === 1 ? '' : 's'}, and let a dummy do the talking (or fed one) ${via} time${via === 1 ? '' : 's'}. The dummies ended at ${s.voice} on their score.`, 'That was the hidden rule all night: the dummies grow every time the sisters speak through them.'));
+  ins.push(card('Blame or own it?', `${blame} : ${owned}`, `${blame ? `You blamed someone ${blame} time${blame === 1 ? '' : 's'}` : 'You never blamed anyone'}${owned ? `, and owned it ${owned} time${owned === 1 ? '' : 's'}` : ''}. The grown-ups ended at ${s.trust} on trust.`, 'Bad luck, an honest mistake and real wrongdoing look the same from the kitchen doorway.'));
+  ins.push(card('Did you read the code?', s.clues >= 2 ? 'Yes' : s.clues >= 1 ? 'Almost' : 'Not yet', s.clues >= 2 ? 'You stopped, looked closer and asked the right questions. That is what opened the cleverer options.' : 'The blue lines were Slappy talking with nobody working his mouth. The game told the truth all night, in a code it never explained.', 'Meaning you read through playing, not through being told.'));
+  ins.push(card('Doors you never saw', `${locked}`, locked ? `${locked} option${locked === 1 ? '' : 's'} stayed hidden because of earlier votes${lockedEx.length ? `, like “${lockedEx.join('” and “')}”` : ''}.` : 'Every option was open to you tonight. That is rare.', 'The rules decided which choices even existed.'));
+  $('#dashBody').innerHTML = `<h2>How the night went</h2><p class="lede">Ending ${e.n} of ${ENDINGS.length}: <b>${e.name}</b>. Here is what the room decided, and what it did.</p>
+  <div class="stats"><div><b>${H.length}</b><span>decisions</span></div><div><b>${votes || '—'}</b><span>votes counted</span></div><div><b>${phones || '—'}</b><span>phones in the room</span></div><div><b>${H.filter(h => h.close).length}</b><span>close calls</span></div><div><b>${seen}/${total}</b><span>scenes seen</span></div></div>
+  ${nightChart()}
+  <div class="dgrid"><div class="dcol"><h3>Decision by decision</h3><div class="tl">${H.map((h, i) => { const v = verdict(h); return `<div class="trow ${v[0]}"><div class="tch">Ch. ${h.ch}</div><div class="tmain"><div class="tq">${h.ask}</div><div class="ta">${h.label}</div>${bar(h)}<div class="twhy">${why(h)}</div></div><div class="tv ${v[0]}">${v[1]}</div></div>`; }).join('')}</div></div>
+  <div class="dcol"><h3>What the night showed</h3><div class="icards">${ins.join('')}</div>
+  <h3>What worked, what didn’t</h3><div class="wd"><div><h4 class="good">Worked</h4>${good.length ? good.slice(0, 4).map(h => `<p>“${h.label}”: ${why(h)}.</p>`).join('') : '<p>Nothing clearly helped tonight.</p>'}</div><div><h4 class="bad">Backfired</h4>${bad.length ? bad.slice(0, 4).map(h => `<p>“${h.label}”: ${why(h)}.</p>`).join('') : '<p>Nothing backfired. The dummies are disappointed.</p>'}</div></div>
+  <div class="row"><button class="btn ghost" id="dCurt">Behind the curtain</button><button class="btn ghost" id="dMap">The map</button></div></div></div>
+  ${finalResult()}`;
+  $('#dCurt').onclick = () => { $('#ovDash').classList.remove('on'); showCurtain(); };
+  $('#dMap').onclick = () => { $('#ovDash').classList.remove('on'); showMap(); };
+  $('#ovDash').classList.add('on'); $('#ovDash').scrollTop = 0; animateDash();
 }
 
 /* ================= BEHIND THE CURTAIN ================= */
@@ -2446,7 +2825,7 @@ function showCurtain() {
   <div class="meters">${meter('Kris and Lindy', s.bond, '#c9a3ff')}${meter('The dummies', s.voice, '#7cc8ff')}${meter('What you noticed', s.clues, '#f3efd9')}${meter('Mom and Dad', s.trust, '#9fb6cf')}</div>
   <h3>Your votes</h3>
   <table><thead><tr><th>#</th><th>The moment</th><th>You chose</th><th>What it did</th></tr></thead><tbody>
-  ${G.hist.map((h, i) => `<tr><td>${i + 1}</td><td>${h.ask}</td><td>${h.label}${h.counts.some(c => c.n) ? `<br><small style="color:var(--mute)">${h.counts.map(c => `${c.n}`).join(' · ')} hands</small>` : ''}</td><td class="fx">${effects(h)}</td></tr>`).join('')}
+  ${G.hist.map((h, i) => `<tr><td>${i + 1}</td><td>${h.ask}</td><td>${h.label}${h.counts.some(c => c.n) ? `<br><small style="color:var(--mute)">${h.counts.map(c => `${c.n}`).join(' · ')} votes</small>` : ''}</td><td class="fx">${effects(h)}</td></tr>`).join('')}
   </tbody></table>
   <h3>Did you notice the colours?</h3>
   <div class="legend"><span><i style="background:var(--k)"></i>Kris</span><span><i style="background:var(--l)"></i>Lindy</span><span><i style="background:var(--sl)"></i>Slappy</span><span><i style="background:var(--wd)"></i>Mr. Wood</span><span><i style="background:var(--mo)"></i>the grown-ups</span></div>
@@ -2474,22 +2853,21 @@ function dev() {
 function setSoundLabel() { $('#bSound').textContent = prefs.sound ? 'Sound on' : 'Sound off'; }
 function toggleSound() { prefs.sound = !prefs.sound; store.set(PKEY, prefs); setSoundLabel(); Snd.init(); Snd.refresh(lastScene.time); if (!prefs.sound) Snd.heart(false); else if (node && node.tension) Snd.heart(true); }
 function full() { try { if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {}); else document.exitFullscreen(); } catch (e) {} }
-function closeOv() { document.querySelectorAll('.ov.on').forEach(o => { if (o.id !== 'ovTitle' || G) o.classList.remove('on'); }); }
+function closeOv() { document.querySelectorAll('.ov.on').forEach(o => { if ((o.id !== 'ovTitle' || G) && o.id !== 'ovLobby') o.classList.remove('on'); }); }
 function confirmNew() { $('#confirm').classList.add('on'); }
-function startNew() { shownCh = null; $('#confirm').classList.remove('on'); Snd.init(); Snd.resume(); document.querySelectorAll('.ov.on').forEach(o => o.classList.remove('on')); G = fresh(); lastScene = { chair: [], time: 'night' }; $('#ovTitle').classList.remove('on'); node = null; coldOpen(() => enter('intro')); }
+function startNew() { shownCh = null; $('#confirm').classList.remove('on'); Snd.init(); Snd.resume(); document.querySelectorAll('.ov.on').forEach(o => o.classList.remove('on')); G = fresh(); lastScene = { chair: [], time: 'night' }; $('#ovTitle').classList.remove('on'); node = null; lobby(() => coldOpen(() => enter('intro'))); }
 function begin(resume) {
   Snd.init(); Snd.resume();
-  $('#ovTitle').classList.remove('on');
   shownCh = null;
-  if (resume) { G = store.get(KEY, null); if (!G || !NODES[G.cur]) G = fresh(); enter(G.cur, true); }
-  else { G = fresh(); node = null; coldOpen(() => enter('intro')); }
+  if (resume) { openBook(() => { $('#ovTitle').classList.remove('on'); G = store.get(KEY, null); if (!G || !NODES[G.cur]) G = fresh(); enter(G.cur, true); }); }
+  else { G = fresh(); node = null; lobby(() => openBook(() => { $('#ovTitle').classList.remove('on'); coldOpen(() => enter('intro')); })); }
 }
 
 $('#segTime').querySelectorAll('button').forEach(b => { b.classList.toggle('on', +b.dataset.t === prefs.voteSecs); b.onclick = () => { prefs.voteSecs = +b.dataset.t; store.set(PKEY, prefs); $('#segTime').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); }; });
 $('#segScare').querySelectorAll('button').forEach(b => { b.classList.toggle('on', (b.dataset.s === '1') === !!prefs.scares); b.onclick = () => { prefs.scares = b.dataset.s === '1'; store.set(PKEY, prefs); $('#segScare').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); }; });
 const PHONE_ROOM = new URLSearchParams(location.search).get('vote');
 if (PHONE_ROOM) phoneApp(PHONE_ROOM.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8));
-else { Phones.start(); $('#titleqr').innerHTML = qrBlock(false); Phones.status(); }
+else { Phones.start(); Phones.status(); }
 const saved = store.get(KEY, null);
 if (saved && saved.cur && saved.cur !== 'intro' && NODES[saved.cur]) $('#bResume').hidden = false;
 $('#bBegin').onclick = () => { if (G && G.cur !== 'intro') return confirmNew(); store.del(KEY); begin(false); };
@@ -2506,6 +2884,7 @@ document.addEventListener('keydown', e => {
   const k = e.key;
   if (coldOn) { if (k === 'Escape') coldOpen.skip(); return; }
   if (cineOn) { if (k === 'Escape') cutscene.skip(); return; }
+  if (bookOn) { if (k === 'Escape' || k === ' ' || k === 'Enter') { e.preventDefault(); $('#ovBook').click(); } return; }
   if (k === 'Escape') { closeOv(); $('#confirm').classList.remove('on'); return; }
   if (k === 'f' || k === 'F') return full();
   if ((k === 'j' || k === 'J') && !PHONE_ROOM) return showJoin();
@@ -2523,7 +2902,7 @@ document.addEventListener('keydown', e => {
 });
 setSoundLabel();
 drawScene(lastScene);
-drawScene({ chair: ['slappy', 'wood'], time: 'night', watch: true }, $('#titlepic'));
+titleBook();
 }
 
 </script>
