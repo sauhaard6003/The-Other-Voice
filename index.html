@@ -405,6 +405,37 @@ svg>.dm.limp .eyes,.spr.limp .eyes{opacity:.08;transition:opacity .3s}
 .gl.outL{animation:glIn .3s both,outL .8s calc(var(--d,0s)) ease-in forwards}.gl.outR{animation:glIn .3s both,outR .8s calc(var(--d,0s)) ease-in forwards}
 @keyframes outL{to{opacity:.3;transform:translateX(-50px)}}@keyframes outR{to{opacity:.3;transform:translateX(50px)}}
 .gl.twinL{animation:glIn .4s var(--d,0s) both;transform:translateX(-36px) scale(.6)}.gl.twinR{animation:glIn .4s var(--d,0s) both;transform:translateX(36px) scale(.6)}
+/* ---- phone voting ---- */
+.pc{display:inline-flex;align-items:center;gap:4px;min-width:42px;justify-content:center;padding:2px 8px;border-radius:999px;background:#ffffff14;font-variant-numeric:tabular-nums;font-size:15px}
+.pc:before{content:"";width:9px;height:14px;border:2px solid currentColor;border-radius:3px;opacity:.7}
+.qrbox{display:flex;align-items:center;gap:14px;margin:12px 0 4px}
+.qrbox .qr{width:118px;height:118px;border-radius:6px;flex:none}
+.qrbox .qrtxt{display:flex;flex-direction:column;gap:3px;font-size:14px;opacity:.9}
+.qrbox .qrtxt b{font-size:17px}
+.qrbox.big{justify-content:center;gap:28px}
+.qrbox.big .qr{width:min(56vh,56vw);height:min(56vh,56vw)}
+.qrbox.big .qrtxt{font-size:20px}.qrbox.big .qrtxt b{font-size:28px}
+.qrbox.off{opacity:.7;font-size:13px}
+.pstat{font-size:13px;opacity:.75}.pstat.ok{color:#8ee6a5;opacity:1}
+#ovJoin #joinBody{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;text-align:center}
+#ovJoin h2{font-size:clamp(28px,4vw,48px);margin:0 0 18px}
+.joinurl{opacity:.7;font-size:16px;word-break:break-all}
+#titleqr .qrbox .qr{width:104px;height:104px}
+.phone{position:fixed;inset:0;overflow:auto;background:#0b0e18;color:#e9e6f2;padding:22px 18px 40px;font-family:Georgia,serif;z-index:100;display:flex;flex-direction:column;gap:12px}
+body.phonemode>*:not(#phone):not(script){display:none!important}
+.phone[hidden]{display:none!important}
+.phone .ph-top{font-size:28px;font-weight:bold}.phone .ph-top em{color:var(--sl)}
+.phone .ph-room{font-size:13px;opacity:.6;letter-spacing:.08em}
+.phone .ph-status{font-size:15px;opacity:.85}
+.phone .ph-ask{font-size:22px;line-height:1.3;margin-top:6px}
+.phone .ph-opts{display:flex;flex-direction:column;gap:12px}
+.phone .ph-opt{display:flex;gap:14px;align-items:center;text-align:left;padding:18px 16px;border-radius:14px;border:2px solid #ffffff26;background:#151a2a;color:inherit;font:inherit;font-size:18px;line-height:1.3}
+.phone .ph-opt span{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#ffffff1a;font-weight:bold}
+.phone .ph-opt.on{border-color:var(--sl);background:#1a2a44;box-shadow:0 0 0 3px #4fb8ff33}
+.phone .ph-opt.on span{background:var(--sl);color:#0b0e18}
+.phone .ph-clock{font-size:34px;font-variant-numeric:tabular-nums;text-align:center;margin-top:4px}
+.phone .ph-chosen{font-size:22px;padding:16px;border-radius:14px;background:#1a2a44;border:2px solid var(--sl)}
+.phone .ph-foot{font-size:13px;opacity:.6;margin-top:auto}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -412,6 +443,7 @@ svg>.dm.limp .eyes,.spr.limp .eyes{opacity:.08;transition:opacity .3s}
 <header class="top">
   <div class="brand">The Other Voice</div>
   <div class="chap" id="chapLabel"></div>
+  <button class="ic" id="bJoin" title="Show the voting QR code (J)">Phone votes</button>
   <button class="ic" id="bSound" title="Sound (S)">Sound on</button>
   <button class="ic" id="bMap" title="Story map">Map</button>
   <button class="ic" id="bFull" title="Fullscreen (F)">Full screen</button>
@@ -432,16 +464,18 @@ svg>.dm.limp .eyes,.spr.limp .eyes{opacity:.08;transition:opacity .3s}
     <h1>The Other <em>Voice</em></h1>
     <p>A horror story you play together, based on R.L. Stine’s <i>Night of the Living Dummy</i>.</p>
     <div class="setrow">Talking time before each vote:
-      <span class="seg" id="segTime"><button data-t="90">1:30</button><button data-t="120">2:00</button><button data-t="150">2:30</button><button data-t="180">3:00</button></span>
+      <span class="seg" id="segTime"><button data-t="30">0:30</button><button data-t="45">0:45</button><button data-t="60">1:00</button><button data-t="90">1:30</button></span>
       <span style="margin-left:14px">Jump scares:</span><span class="seg" id="segScare"><button data-s="1">On</button><button data-s="0">Off</button></span>
     </div>
     <div><button class="btn" id="bBegin">Start</button><button class="btn ghost" id="bResume" hidden>Continue</button></div>
+    <div id="titleqr"></div>
     <details class="keys"><summary>Keys</summary>
       <span><kbd>Space</kbd>next line</span>
       <span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd>pick an option</span>
       <span><kbd>Enter</kbd>lock it in</span>
       <span><kbd>P</kbd>pause · <kbd>+</kbd>30 more seconds</span>
       <span><kbd>F</kbd>full screen · <kbd>S</kbd>sound</span>
+      <span><kbd>J</kbd>show the voting QR code</span>
       <span><kbd>M</kbd>secret score panel</span>
     </details>
   </div>
@@ -449,10 +483,12 @@ svg>.dm.limp .eyes,.spr.limp .eyes{opacity:.08;transition:opacity .3s}
 </div></div>
 
 <div class="ov" id="ovCurtain"><button class="ic close" data-close>Close</button><div id="curtainBody"></div></div>
+<div class="ov" id="ovJoin"><button class="ic close" data-close>Close</button><div id="joinBody"></div></div>
 <div class="ov" id="ovMap"><button class="ic close" data-close>Close</button><div id="mapBody"></div></div>
 <div class="confirm" id="confirm"><div><p id="confirmText">Start over? This run will be lost.</p><button class="btn" id="cYes">Start over</button><button class="btn ghost" id="cNo">Cancel</button></div></div>
 <div class="dev" id="dev"></div>
 <div class="coldopen" id="cold"></div>
+<div class="phone" id="phone" hidden></div>
 <div class="cine" id="cine"></div>
 <div class="js" id="js"><div class="flash"></div><div class="face"></div><div class="shade"></div><div class="grain"></div><div class="red"></div><div class="jline"></div></div>
 <div class="card" id="card"><small id="cardSmall"></small><div id="cardTitle"></div></div>
@@ -1496,7 +1532,8 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
   del(k) { try { localStorage.removeItem(k); } catch (e) {} }
 };
-let prefs = Object.assign({ voteSecs: 120, sound: true, scares: true }, store.get(PKEY, {}));
+let prefs = Object.assign({ voteSecs: 45, sound: true, scares: true }, store.get(PKEY, {}));
+if (!prefs.v45) { prefs.voteSecs = 45; prefs.v45 = 1; store.set(PKEY, prefs); }
 let found = store.get(EKEY, []);
 let G = null, node = null, paras = [], shown = 0, voteState = null, lastScene = { chair: [], time: 'night' };
 
@@ -1980,6 +2017,148 @@ function jumpscare(kind, line, done, big) {
 setInterval(() => { if (node && node.tension && !jsOn && Math.random() < 0.4) Snd.creepy(); }, 9000);
 
 
+
+/* ================= QR CODE (self-contained encoder: byte mode, ECC M) ================= */
+const QR = (() => {
+  const mul = (x, y) => { let z = 0; for (let i = 7; i >= 0; i--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((y >>> i) & 1) * x; } return z & 255; };
+  const divisor = deg => { const r = new Array(deg).fill(0); r[deg - 1] = 1; let root = 1; for (let i = 0; i < deg; i++) { for (let j = 0; j < r.length; j++) { r[j] = mul(r[j], root); if (j + 1 < r.length) r[j] ^= r[j + 1]; } root = mul(root, 2); } return r; };
+  const remainder = (data, div) => { const r = div.map(() => 0); for (const b of data) { const f = b ^ r.shift(); r.push(0); div.forEach((c, i) => r[i] ^= mul(c, f)); } return r; };
+  const ECC = [0, 10, 16, 26, 18, 24, 16, 18, 22, 22], BLK = [0, 1, 1, 1, 2, 2, 4, 4, 4, 5];
+  const rawMods = v => { let r = (16 * v + 128) * v + 64; if (v >= 2) { const n = Math.floor(v / 7) + 2; r -= (25 * n - 10) * n - 55; if (v >= 7) r -= 36; } return r; };
+  const align = (v, size) => { if (v === 1) return []; const n = Math.floor(v / 7) + 2, step = Math.ceil((v * 4 + 4) / (n * 2 - 2)) * 2, r = [6]; for (let p = size - 7; r.length < n; p -= step) r.splice(1, 0, p); return r; };
+  function make(text) {
+    const bytes = Array.from(new TextEncoder().encode(text));
+    let v = 1; for (; v <= 9; v++) { const cap = Math.floor(rawMods(v) / 8) - ECC[v] * BLK[v]; if (4 + 8 + bytes.length * 8 <= cap * 8) break; }
+    if (v > 9) throw new Error('QR text too long');
+    const size = v * 4 + 17, cap = Math.floor(rawMods(v) / 8) - ECC[v] * BLK[v];
+    const bits = []; const put = (val, n) => { for (let i = n - 1; i >= 0; i--) bits.push((val >>> i) & 1); };
+    put(4, 4); put(bytes.length, 8); bytes.forEach(b => put(b, 8));
+    put(0, Math.min(4, cap * 8 - bits.length)); while (bits.length % 8) bits.push(0);
+    const data = []; for (let i = 0; i < bits.length; i += 8) data.push(bits.slice(i, i + 8).reduce((a, b) => a * 2 + b, 0));
+    for (let p = 0xEC; data.length < cap; p ^= 0xEC ^ 0x11) data.push(p);
+    const nb = BLK[v], el = ECC[v], raw = Math.floor(rawMods(v) / 8), nShort = nb - raw % nb, shortLen = Math.floor(raw / nb), div = divisor(el), blocks = [];
+    for (let i = 0, k = 0; i < nb; i++) { const d = data.slice(k, k + shortLen - el + (i < nShort ? 0 : 1)); k += d.length; const e = remainder(d, div); if (i < nShort) d.push(0); blocks.push(d.concat(e)); }
+    const cw = []; for (let i = 0; i < blocks[0].length; i++) blocks.forEach((b, j) => { if (i !== shortLen - el || j >= nShort) cw.push(b[i]); });
+    const M = Array.from({ length: size }, () => new Array(size).fill(false)), F = Array.from({ length: size }, () => new Array(size).fill(false));
+    const set = (x, y, d) => { M[y][x] = d; F[y][x] = true; };
+    for (let i = 0; i < size; i++) { set(6, i, i % 2 === 0); set(i, 6, i % 2 === 0); }
+    const finder = (cx, cy) => { for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) { const d = Math.max(Math.abs(dx), Math.abs(dy)), x = cx + dx, y = cy + dy; if (x >= 0 && x < size && y >= 0 && y < size) set(x, y, d !== 2 && d !== 4); } };
+    finder(3, 3); finder(size - 4, 3); finder(3, size - 4);
+    const al = align(v, size); al.forEach((a, i) => al.forEach((b, j) => { if ((i === 0 && j === 0) || (i === 0 && j === al.length - 1) || (i === al.length - 1 && j === 0)) return; for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) set(a + dx, b + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1); }));
+    const format = mask => { const d = (0 << 3) | mask; let r = d; for (let i = 0; i < 10; i++) r = (r << 1) ^ ((r >>> 9) * 0x537); const b = ((d << 10) | r) ^ 0x5412, bit = i => ((b >>> i) & 1) === 1;
+      for (let i = 0; i <= 5; i++) set(8, i, bit(i)); set(8, 7, bit(6)); set(8, 8, bit(7)); set(7, 8, bit(8)); for (let i = 9; i < 15; i++) set(14 - i, 8, bit(i));
+      for (let i = 0; i < 8; i++) set(size - 1 - i, 8, bit(i)); for (let i = 8; i < 15; i++) set(8, size - 15 + i, bit(i)); set(8, size - 8, true); };
+    format(0);
+    let i = 0; for (let right = size - 1; right >= 1; right -= 2) { if (right === 6) right = 5; for (let vert = 0; vert < size; vert++) for (let j = 0; j < 2; j++) { const x = right - j, up = ((right + 1) & 2) === 0, y = up ? size - 1 - vert : vert; if (!F[y][x] && i < cw.length * 8) { M[y][x] = ((cw[i >>> 3] >>> (7 - (i & 7))) & 1) === 1; i++; } } }
+    const maskFn = [(x, y) => (x + y) % 2 === 0, (x, y) => y % 2 === 0, x => x % 3 === 0, (x, y) => (x + y) % 3 === 0, (x, y) => (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0, (x, y) => x * y % 2 + x * y % 3 === 0, (x, y) => (x * y % 2 + x * y % 3) % 2 === 0, (x, y) => ((x + y) % 2 + x * y % 3) % 2 === 0];
+    const apply = m => { for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (!F[y][x] && maskFn[m](x, y)) M[y][x] = !M[y][x]; };
+    const penalty = () => { let p = 0, dark = 0;
+      for (let a = 0; a < size; a++) { let rr = 1, rc = 1; for (let b = 1; b < size; b++) { if (M[a][b] === M[a][b - 1]) rr++; else { if (rr >= 5) p += rr - 2; rr = 1; } if (M[b][a] === M[b - 1][a]) rc++; else { if (rc >= 5) p += rc - 2; rc = 1; } } if (rr >= 5) p += rr - 2; if (rc >= 5) p += rc - 2; }
+      for (let y = 0; y < size - 1; y++) for (let x = 0; x < size - 1; x++) { const c = M[y][x]; if (c === M[y][x + 1] && c === M[y + 1][x] && c === M[y + 1][x + 1]) p += 3; }
+      M.forEach(r => r.forEach(c => dark += c)); return p + Math.floor(Math.abs(dark * 20 - size * size * 10) / (size * size)) * 10; };
+    let best = 0, bestP = Infinity; for (let m = 0; m < 8; m++) { apply(m); format(m); const p = penalty(); if (p < bestP) { bestP = p; best = m; } apply(m); }
+    apply(best); format(best);
+    return M;
+  }
+  function svg(text) {
+    const M = make(text), n = M.length, q = 4; let d = '';
+    M.forEach((row, y) => row.forEach((c, x) => { if (c) d += `M${x + q} ${y + q}h1v1h-1z`; }));
+    return `<svg class="qr" viewBox="0 0 ${n + q * 2} ${n + q * 2}" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+  }
+  return { svg };
+})();
+
+/* ================= PHONE VOTING (MQTT over secure WebSocket, no server of our own) ================= */
+const BROKERS = ['wss://broker.emqx.io:8084/mqtt', 'wss://broker.hivemq.com:8884/mqtt', 'wss://test.mosquitto.org:8081/mqtt'];
+function Mqtt(url, onUp, onMsg, onDown) {
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const len = n => { const b = []; do { let d = n % 128; n = Math.floor(n / 128); if (n > 0) d |= 128; b.push(d); } while (n > 0); return b; };
+  const str = s => { const u = enc.encode(s); return [u.length >> 8, u.length & 255, ...u]; };
+  const pkt = (h, body) => new Uint8Array([h, ...len(body.length), ...body]);
+  let ws = null, alive = false, ping = null, pid = 1, buf = new Uint8Array(0), dead = false;
+  function connect() {
+    try { ws = new WebSocket(url, ['mqtt']); } catch (e) { return retry(); }
+    ws.binaryType = 'arraybuffer';
+    ws.onopen = () => ws.send(pkt(0x10, [...str('MQTT'), 4, 2, 0, 45, ...str('tov' + Math.random().toString(36).slice(2, 12))]));
+    ws.onmessage = e => {
+      const nb = new Uint8Array(e.data), b = new Uint8Array(buf.length + nb.length); b.set(buf); b.set(nb, buf.length); buf = b;
+      for (;;) {
+        if (buf.length < 2) break; let mult = 1, rl = 0, i = 1, byte;
+        do { if (i >= buf.length) return; byte = buf[i++]; rl += (byte & 127) * mult; mult *= 128; } while (byte & 128);
+        if (buf.length < i + rl) break;
+        const type = buf[0] >> 4, qos = (buf[0] >> 1) & 3, body = buf.slice(i, i + rl); buf = buf.slice(i + rl);
+        if (type === 2) { alive = true; clearInterval(ping); ping = setInterval(() => { try { ws.send(new Uint8Array([0xC0, 0])); } catch (e) {} }, 20000); onUp && onUp(); }
+        else if (type === 3) { const tl = (body[0] << 8) | body[1], topic = dec.decode(body.slice(2, 2 + tl)); const p = body.slice(2 + tl + (qos ? 2 : 0)); try { onMsg && onMsg(topic, dec.decode(p)); } catch (e) {} }
+      }
+    };
+    ws.onclose = () => { const was = alive; alive = false; clearInterval(ping); if (was && onDown) onDown(); retry(); };
+    ws.onerror = () => { try { ws.close(); } catch (e) {} };
+  }
+  function retry() { if (!dead) setTimeout(connect, 3000); }
+  connect();
+  return {
+    get alive() { return alive; },
+    sub(t) { if (alive) ws.send(pkt(0x82, [pid >> 8, (pid++) & 255, ...str(t), 0])); },
+    pub(t, m, retain) { if (alive) ws.send(pkt(0x30 | (retain ? 1 : 0), [...str(t), ...enc.encode(m)])); },
+    close() { dead = true; try { ws.close(); } catch (e) {} }
+  };
+}
+const ROOM = (() => { let r = store.get('otherVoice.room', null); if (!r) { const A = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; r = Array.from({ length: 5 }, () => A[Math.floor(Math.random() * A.length)]).join(''); store.set('otherVoice.room', r); } return r; })();
+const TOPIC = r => 'theothervoice/' + r;
+const joinURL = () => location.origin + location.pathname + '?vote=' + ROOM;
+const canPhone = () => /^https?:$/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname) || !!window.OV_TEST;
+const Phones = {
+  conns: [], round: null, votes: {}, listeners: [], lastQ: null,
+  start() {
+    if (this.conns.length || !canPhone()) return;
+    (window.OV_BROKERS || BROKERS).forEach(u => { const c = Mqtt(u, () => { c.sub(TOPIC(ROOM) + '/v'); if (this.lastQ) c.pub(TOPIC(ROOM) + '/q', this.lastQ, true); this.status(); }, (t, m) => this.onVote(m), () => this.status()); this.conns.push(c); });
+    setInterval(() => this.status(), 3000);
+  },
+  get up() { return this.conns.some(c => c.alive); },
+  publish(q) { this.lastQ = JSON.stringify(q); this.conns.forEach(c => c.pub(TOPIC(ROOM) + '/q', this.lastQ, true)); },
+  onVote(m) { const v = JSON.parse(m); if (!this.round || v.r !== this.round.r || !this.round.open) return; if (typeof v.i !== 'number' || v.i < 0 || v.i >= this.round.n) return; this.votes[v.v] = v.i; this.listeners.forEach(f => f()); },
+  counts(n) { const c = new Array(n).fill(0); Object.values(this.votes).forEach(i => { if (i < n) c[i]++; }); return c; },
+  status() { document.querySelectorAll('.pstat').forEach(el => { el.classList.toggle('ok', this.up); el.textContent = !canPhone() ? 'Phone voting works from the online link' : this.up ? 'Phones connected' : 'Connecting phones… (hands still work)'; }); }
+};
+function qrBlock(big) {
+  if (!canPhone()) return `<div class="qrbox off"><span class="pstat"></span></div>`;
+  return `<div class="qrbox${big ? ' big' : ''}">${QR.svg(joinURL())}<div class="qrtxt"><b>Scan to vote</b><span>Room ${ROOM}</span><span class="pstat"></span></div></div>`;
+}
+function showJoin() { $('#joinBody').innerHTML = `<h2>Vote from your phone</h2>${qrBlock(true)}<p class="joinurl">${canPhone() ? joinURL() : ''}</p>`; $('#ovJoin').classList.add('on'); Phones.status(); }
+
+/* the phone page: ?vote=ROOM */
+function phoneApp(room) {
+  document.body.classList.add('phonemode');
+  const me = (() => { let id = store.get('otherVoice.voter', null); if (!id) { id = Math.random().toString(36).slice(2, 12); store.set('otherVoice.voter', id); } return id; })();
+  const el = $('#phone'); el.hidden = false;
+  el.innerHTML = `<div class="ph-top">The Other <em>Voice</em></div><div class="ph-room">Room ${room}</div><div class="ph-status" id="phStatus">Connecting…</div><div class="ph-ask" id="phAsk"></div><div class="ph-opts" id="phOpts"></div><div class="ph-clock" id="phClock"></div><div class="ph-foot" id="phFoot"></div>`;
+  let conn = null, q = null, mine = -1, left = 0, tick = null, bi = 0;
+  const L = 'ABCD', list = window.OV_BROKERS || BROKERS;
+  const draw = () => {
+    if (!q || !q.open) {
+      $('#phAsk').textContent = q && q.chosen ? 'The room chose:' : ''; $('#phOpts').innerHTML = q && q.chosen ? `<div class="ph-chosen">${q.chosen}</div>` : '';
+      $('#phStatus').textContent = conn && conn.alive ? 'Waiting for the next vote…' : 'Connecting…'; $('#phClock').textContent = ''; $('#phFoot').textContent = 'Keep this page open. The next vote will appear here.'; return;
+    }
+    $('#phStatus').textContent = mine < 0 ? 'Vote now' : 'Vote sent. You can change it until time runs out.';
+    $('#phAsk').textContent = q.ask;
+    $('#phOpts').innerHTML = q.opts.map((o, i) => `<button class="ph-opt${i === mine ? ' on' : ''}" data-i="${i}"><span>${L[i]}</span><b>${o}</b></button>`).join('');
+    $('#phOpts').querySelectorAll('button').forEach(b => b.onclick = () => { mine = +b.dataset.i; conn && conn.pub(TOPIC(room) + '/v', JSON.stringify({ r: q.r, v: me, i: mine })); try { navigator.vibrate && navigator.vibrate(30); } catch (e) {} draw(); });
+    $('#phClock').textContent = q.paused ? 'Paused' : `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`; $('#phFoot').textContent = '';
+  };
+  const onMsg = (t, m) => {
+    const nq = JSON.parse(m); if (!q || nq.r !== q.r) { mine = -1; if (nq.open) try { navigator.vibrate && navigator.vibrate([60, 40, 60]); } catch (e) {} }
+    q = nq; left = q.left || 0; clearInterval(tick);
+    if (q.open) { if (mine >= 0) conn.pub(TOPIC(room) + '/v', JSON.stringify({ r: q.r, v: me, i: mine })); tick = setInterval(() => { if (!q.paused && left > 0) { left--; draw(); } }, 1000); }
+    draw();
+  };
+  const tryNext = () => {
+    if (conn) conn.close(); const u = list[bi++ % list.length];
+    conn = Mqtt(u, () => { conn.sub(TOPIC(room) + '/q'); draw(); }, onMsg, () => draw());
+    setTimeout(() => { if (!conn.alive) tryNext(); }, 5000);
+  };
+  tryNext(); draw();
+}
+
 /* ================= CUTSCENES (original "episode" moments) ================= */
 let cineOn = false, cineTimers = [];
 const GIRL = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-46 0c4-90 14-150 46-150s42 60 46 150z" fill="#241a33"/><path d="M-30-150c-10-18-8-62 30-64s40 46 30 64l-6 40h-48z" fill="#120c18"/><ellipse cx="0" cy="-178" rx="22" ry="27" fill="#2c2238"/><path d="M-26-176c0-40 52-40 52 0l6 60c-14-20-22-56-32-58-10 2-18 38-32 58z" fill="#0d0912"/><path d="M46 0c-4-90-14-150-46-150M26-176c0-40-52-40-52 0" stroke="#b9c8ff" stroke-width="4" fill="none" opacity=".75"/><path d="M-46 0c4-90 14-150 46-150" stroke="var(--k)" stroke-width="3" fill="none" opacity=".7"/></g>`;
@@ -2178,11 +2357,17 @@ function openVote() {
   const L = 'ABCD';
   $('#actions').innerHTML = `<div class="vote" id="vote"><div class="vhead">Your call</div><div class="vask">${ask}</div>
     <div class="opts">${opts.map((o, i) => `<div class="opt" role="button" tabindex="0" data-i="${i}"><span class="letter">${L[i]}</span><span class="olabel">${o.label}</span><span class="osub">${o.sub}</span>
-      <span class="tally" title="Optional: count hands"><button data-m="${i}" aria-label="One fewer hand">−</button><output id="t${i}">0</output><button data-p="${i}" aria-label="One more hand">+</button></span></div>`).join('')}</div>
+      <span class="pc" id="pc${i}" title="Phone votes">0</span><span class="tally" title="Optional: count hands"><button data-m="${i}" aria-label="One fewer hand">−</button><output id="t${i}">0</output><button data-p="${i}" aria-label="One more hand">+</button></span></div>`).join('')}</div>
+    ${qrBlock(false)}
     <div class="vbar"><span class="clock" id="clock"></span><span class="track"><b id="trk"></b></span>
       <button class="btn ghost" id="bPause">Pause</button><button class="btn ghost" id="bMore">+30s</button><button class="btn" id="bLock" disabled>Lock in</button>
-      <span class="vnote" id="vnote">Talk it out, then hands up.</span></div></div>`;
-  let sel = -1, left = prefs.voteSecs, total = prefs.voteSecs, paused = false, done = false;
+      <span class="vnote" id="vnote">Talk it out, then vote on your phones.</span></div></div>`;
+  let sel = -1, left = prefs.voteSecs, total = prefs.voteSecs, paused = false, done = false, extended = false;
+  const r = Date.now().toString(36);
+  Phones.round = { r, n: opts.length, open: true }; Phones.votes = {};
+  const pub = (extra = {}) => Phones.publish(Object.assign({ r, ask, opts: opts.map(o => o.label), open: !done, left, paused }, extra));
+  const phoneN = () => Phones.counts(opts.length);
+  const totals = () => { const p = phoneN(); return opts.map((o, i) => o.n + p[i]); };
   const draw = () => {
     $('#clock').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
     $('#trk').style.width = `${Math.max(0, left / total * 100)}%`;
@@ -2190,7 +2375,16 @@ function openVote() {
     $('#bLock').disabled = sel < 0; $('#bPause').textContent = paused ? 'Resume' : 'Pause';
   };
   const pick = i => { if (i >= 0 && i < opts.length) { sel = i; draw(); } };
-  const autoPick = () => { const m = Math.max(...opts.map(o => o.n)); const tops = opts.map((o, i) => o.n === m ? i : -1).filter(i => i >= 0); if (m > 0 && tops.length === 1) pick(tops[0]); };
+  const autoPick = () => { const t = totals(), m = Math.max(...t); const tops = t.map((n, i) => n === m ? i : -1).filter(i => i >= 0); if (m > 0 && tops.length === 1) pick(tops[0]); };
+  const showPhones = () => { const p = phoneN(); p.forEach((n, i) => { const e = $('#pc' + i); if (e) e.textContent = n; }); const sum = p.reduce((a, b) => a + b, 0); if (!done && left > 0 && !extended) $('#vnote').textContent = sum ? `${sum} phone vote${sum === 1 ? '' : 's'} in` : 'Talk it out, then vote on your phones.'; autoPick(); };
+  Phones.listeners = [showPhones];
+  const resolve = () => {
+    const t = totals(), m = Math.max(...t), tops = t.map((n, i) => n === m ? i : -1).filter(i => i >= 0);
+    if (m === 0) { $('#vnote').textContent = 'Time’s up. No votes yet: hands up, or pick one.'; return; }
+    if (tops.length === 1) { pick(tops[0]); $('#vnote').textContent = `Time’s up. Most votes: ${'ABCD'[tops[0]]}.`; setTimeout(lock, 1600); return; }
+    if (!extended) { extended = true; left = 15; total = 15; $('#vnote').textContent = 'It’s a tie! 15 more seconds.'; Snd.sfx('pop'); pub(); draw(); return; }
+    const w = tops[Math.floor(Math.random() * tops.length)]; pick(w); $('#vnote').textContent = 'Still tied. The dummy decides.'; Snd.giggle(); setTimeout(lock, 1900);
+  };
   document.querySelectorAll('.opt').forEach(el => {
     el.addEventListener('click', e => { if (e.target.closest('.tally')) return; pick(+el.dataset.i); });
     el.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); pick(+el.dataset.i); } });
@@ -2200,11 +2394,11 @@ function openVote() {
   }));
   const timer = setInterval(() => {
     if (paused || done) return;
-    if (left > 0) { left--; if (left <= 15 && left > 0) Snd.tick(); if (left === 0) { Snd.chime(); $('#vnote').textContent = 'Time’s up. Hands up!'; } draw(); }
+    if (left > 0) { left--; if (left <= 10 && left > 0) Snd.tick(); if (left === 0) { Snd.chime(); resolve(); } draw(); }
   }, 1000);
   const lock = () => {
     if (sel < 0 || done) return;
-    done = true; clearInterval(timer);
+    done = true; clearInterval(timer); Phones.round.r = r + '-done';
     const o = opts[sel], c = o.c, before = JSON.parse(JSON.stringify(s));
     const fx = c.fxFn ? c.fxFn(s) : (c.fx || {});
     applyFx(s, fx); if (c.set) c.set(s);
@@ -2215,15 +2409,17 @@ function openVote() {
     const dest = val(c.go, s);
     $('#actions').innerHTML = `<div class="chosen">You chose: ${o.label}</div>`;
     voteState = null; save(); dev();
+    Phones.round.open = false; Phones.listeners = []; pub({ open: false, chosen: o.label });
     const wrong = c.scare !== undefined ? !!val(c.scare, s) : ((fx.voice || 0) > 0 || (fx.bond || 0) < 0 || (fx.trust || 0) <= -2);
     playAct(G.cur, c.key);
     const hasAct = !!ACT_MAP[G.cur + '.' + c.key];
     if (wrong) { setTimeout(() => Snd.riser(0.55), hasAct ? 1650 : 0); setTimeout(() => jumpscare(c.scareFace, null, () => enter(dest)), hasAct ? 2000 : 380); }
     else { if (!hasAct) Snd.chime(); setTimeout(() => enter(dest), hasAct ? 2700 : 1300); }
   };
-  $('#bLock').onclick = lock; $('#bPause').onclick = () => { paused = !paused; draw(); }; $('#bMore').onclick = () => { left += 30; total = Math.max(total, left); draw(); };
-  voteState = { pick, lock, pause: () => { paused = !paused; draw(); }, more: () => { left += 30; total = Math.max(total, left); draw(); }, stop: () => clearInterval(timer) };
-  draw();
+  const pauseT = () => { paused = !paused; draw(); pub(); }, moreT = () => { left += 30; total = Math.max(total, left); draw(); pub(); };
+  $('#bLock').onclick = lock; $('#bPause').onclick = pauseT; $('#bMore').onclick = moreT;
+  voteState = { pick, lock, pause: pauseT, more: moreT, stop: () => { clearInterval(timer); if (Phones.round && Phones.round.r === r) { Phones.round.open = false; pub({ open: false }); } } };
+  draw(); pub(); Phones.status(); showPhones();
   $('#vote').scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 
@@ -2291,11 +2487,14 @@ function begin(resume) {
 
 $('#segTime').querySelectorAll('button').forEach(b => { b.classList.toggle('on', +b.dataset.t === prefs.voteSecs); b.onclick = () => { prefs.voteSecs = +b.dataset.t; store.set(PKEY, prefs); $('#segTime').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); }; });
 $('#segScare').querySelectorAll('button').forEach(b => { b.classList.toggle('on', (b.dataset.s === '1') === !!prefs.scares); b.onclick = () => { prefs.scares = b.dataset.s === '1'; store.set(PKEY, prefs); $('#segScare').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); }; });
+const PHONE_ROOM = new URLSearchParams(location.search).get('vote');
+if (PHONE_ROOM) phoneApp(PHONE_ROOM.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8));
+else { Phones.start(); $('#titleqr').innerHTML = qrBlock(false); Phones.status(); }
 const saved = store.get(KEY, null);
 if (saved && saved.cur && saved.cur !== 'intro' && NODES[saved.cur]) $('#bResume').hidden = false;
 $('#bBegin').onclick = () => { if (G && G.cur !== 'intro') return confirmNew(); store.del(KEY); begin(false); };
 $('#bResume').onclick = () => begin(true);
-$('#bSound').onclick = toggleSound; $('#bFull').onclick = full; $('#bMap').onclick = () => { if (G) showMap(); };
+$('#bJoin').onclick = showJoin; $('#bSound').onclick = toggleSound; $('#bFull').onclick = full; $('#bMap').onclick = () => { if (G) showMap(); };
 $('#bMenu').onclick = () => { if (G) { $('#bResume').hidden = false; } $('#ovTitle').classList.add('on'); };
 document.querySelectorAll('[data-close]').forEach(b => b.onclick = closeOv);
 $('#cYes').onclick = () => { store.del(KEY); startNew(); }; $('#cNo').onclick = () => $('#confirm').classList.remove('on');
@@ -2309,6 +2508,7 @@ document.addEventListener('keydown', e => {
   if (cineOn) { if (k === 'Escape') cutscene.skip(); return; }
   if (k === 'Escape') { closeOv(); $('#confirm').classList.remove('on'); return; }
   if (k === 'f' || k === 'F') return full();
+  if ((k === 'j' || k === 'J') && !PHONE_ROOM) return showJoin();
   if (k === 's' || k === 'S') return toggleSound();
   if (k === 'm' || k === 'M') return $('#dev').classList.toggle('on');
   if (!G || document.querySelector('.ov.on')) return;
